@@ -1,10 +1,13 @@
 package com.iths.grupp1.leveransapp.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by christiankarlsson on 14/11/16.
  */
 
-public class Order {
+public class Order implements Parcelable {
     private int orderNumber;
     private int orderSum;
     private Customer customer;
@@ -39,4 +42,36 @@ public class Order {
         deliveryLatitude = 0;
         deliveryLongitude = 0;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(orderNumber);
+    }
+
+    private Order(Parcel in) {
+        orderNumber = in.readInt();
+    }
+
+    public int getOrderNumber() {
+        return orderNumber;
+    }
+
+    //Creator for the recyclerview.
+    public static final Creator<Order> CREATOR = new Creator<Order>() {
+
+        @Override
+        public Order createFromParcel(Parcel source) {
+            return new Order(source);
+        }
+
+        @Override
+        public Order[] newArray(int size) {
+            return new Order[size];
+        }
+    };
 }
