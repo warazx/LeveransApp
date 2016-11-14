@@ -5,4 +5,7 @@ package com.iths.grupp1.leveransapp.database;
  */
 
 public class OrderSQLiteOpenHelper {
+
+    // Finished!
+
 }
