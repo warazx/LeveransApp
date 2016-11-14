@@ -5,4 +5,5 @@ package com.iths.grupp1.leveransapp.model;
  */
 
 public class Order {
+
 }
