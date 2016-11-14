@@ -3,18 +3,11 @@ package com.iths.grupp1.leveransapp;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
+public class OrderListActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_order_list);
     }
-
-    //djur i bur
-    //TEST
-    //Fabian
-    //Test från PC
-    //Test
-
 }
