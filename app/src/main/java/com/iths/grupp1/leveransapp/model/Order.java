@@ -27,4 +27,16 @@ public class Order {
         this.deliveryLatitude = 0;
         this.deliveryLongitude = 0;
     }
+
+    public void deliver() {
+        //TODO: Get the current time from the helper class.
+        deliveryDate = 0; //Placeholder
+        setDeliveryLocation();
+    }
+
+    private void setDeliveryLocation() {
+        //TODO: Get location for the delivered position.
+        deliveryLatitude = 0;
+        deliveryLongitude = 0;
+    }
 }
