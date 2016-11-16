@@ -20,7 +20,7 @@ public class OrderListActivity extends AppCompatActivity {
 
     public static final String LISTED_ORDERS = "LISTED_ORDERS";
 
-    private Order[] orders = new Order[2];
+    private Order[] orders = new Order[20];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +33,10 @@ public class OrderListActivity extends AppCompatActivity {
         Parcelable[] parcelables = intent.getParcelableArrayExtra(LISTED_ORDERS);
         orders = Arrays.copyOf(parcelables, parcelables.length, Order[].class);*/
         //TEMP while intent is not finished.
-        orders[0] = new Order(new Customer(43243, "083-142455433", "Storgatan 10"));
-        orders[1] = new Order(new Customer(23574, "070-333667899", "Rosstigen 7"));
+        Customer customer = new Customer(32554, "070-453443256", "Storgatan 19");
+        for(int i = 0; i < orders.length; i++) {
+            orders[i] = new Order(customer);
+        }
         //-------END TEMP
 
         OrderAdapter adapter = new OrderAdapter(orders);
