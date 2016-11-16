@@ -9,7 +9,7 @@ import com.iths.grupp1.leveransapp.model.Order;
 
 public final class GenerateOrders {
 
-    public Order[] get(int amount) {
+    public static Order[] get(int amount) {
         Order[] orders = new Order[amount];
 
         for(int i = 0; i < orders.length; i++) {
