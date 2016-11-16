@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">LeveransApp</string>
+    <string name="order_list_item_orderID_label">Order:</string>
+    <string name="order_list_item_target_label">Till:</string>
 </resources>

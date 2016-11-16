@@ -46,7 +46,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         public OrderViewHolder(View view) {
             super(view);
 
-            textView = (TextView) itemView.findViewById(R.id.order_item_text);
+            textView = (TextView) itemView.findViewById(R.id.order_item_orderID_value);
         }
 
         public void bindOrder(Order order) {
