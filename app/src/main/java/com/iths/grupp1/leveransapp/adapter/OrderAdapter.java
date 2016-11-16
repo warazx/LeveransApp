@@ -41,16 +41,19 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
     public class OrderViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView textView;
+        public TextView orderIdText;
+        public TextView orderTargetText;
 
         public OrderViewHolder(View view) {
             super(view);
 
-            textView = (TextView) itemView.findViewById(R.id.order_item_orderID_value);
+            orderIdText = (TextView) itemView.findViewById(R.id.order_item_orderID_value);
+            orderTargetText = (TextView) itemView.findViewById(R.id.order_item_target_value);
         }
 
         public void bindOrder(Order order) {
-            textView.setText(order.getOrderNumber() + "");
+            orderIdText.setText(order.getOrderNumber() + "");
+            orderTargetText.setText(order.getCustomer().getAddress());
         }
     }
 }
