@@ -11,6 +11,7 @@ import com.iths.grupp1.leveransapp.R;
 import com.iths.grupp1.leveransapp.adapter.OrderAdapter;
 import com.iths.grupp1.leveransapp.model.Customer;
 import com.iths.grupp1.leveransapp.model.Order;
+import com.iths.grupp1.leveransapp.util.GenerateOrders;
 
 import java.util.Arrays;
 
@@ -20,7 +21,7 @@ public class OrderListActivity extends AppCompatActivity {
 
     public static final String LISTED_ORDERS = "LISTED_ORDERS";
 
-    private Order[] orders = new Order[20];
+    private Order[] orders;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +34,7 @@ public class OrderListActivity extends AppCompatActivity {
         Parcelable[] parcelables = intent.getParcelableArrayExtra(LISTED_ORDERS);
         orders = Arrays.copyOf(parcelables, parcelables.length, Order[].class);*/
         //TEMP while intent is not finished.
-        Customer customer = new Customer(32554, "070-453443256", "Storgatan 19");
-        for(int i = 0; i < orders.length; i++) {
-            orders[i] = new Order(customer);
-        }
+        orders = GenerateOrders.get(15);
         //-------END TEMP
 
         OrderAdapter adapter = new OrderAdapter(orders);
