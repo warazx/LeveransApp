@@ -2,6 +2,7 @@ package com.iths.grupp1.leveransapp.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.os.SystemClock;
 
 /**
  * Created by christiankarlsson on 14/11/16.
@@ -24,16 +25,14 @@ public class Order implements Parcelable {
         orderID++;
         this.customer = customer;
         this.isDelivered = false;
-        //TODO: Get the current time from the helper class.
-        this.orderPlacementDate = 1000; //Placeholder.
+        this.orderPlacementDate = System.currentTimeMillis();
         this.deliveryDate = 0;
         this.deliveryLatitude = 0;
         this.deliveryLongitude = 0;
     }
 
     public void deliver() {
-        //TODO: Get the current time from the helper class.
-        deliveryDate = 0; //Placeholder
+        deliveryDate = System.currentTimeMillis();
         setDeliveryLocation();
     }
 
@@ -41,6 +40,66 @@ public class Order implements Parcelable {
         //TODO: Get location for the delivered position.
         deliveryLatitude = 0;
         deliveryLongitude = 0;
+    }
+
+    public void setOrderNumber(int orderNumber) {
+        this.orderNumber = orderNumber;
+    }
+
+    public int getOrderSum() {
+        return orderSum;
+    }
+
+    public void setOrderSum(int orderSum) {
+        this.orderSum = orderSum;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public boolean isDelivered() {
+        return isDelivered;
+    }
+
+    public void setDelivered(boolean delivered) {
+        isDelivered = delivered;
+    }
+
+    public long getOrderPlacementDate() {
+        return orderPlacementDate;
+    }
+
+    public void setOrderPlacementDate(long orderPlacementDate) {
+        this.orderPlacementDate = orderPlacementDate;
+    }
+
+    public long getDeliveryDate() {
+        return deliveryDate;
+    }
+
+    public void setDeliveryDate(long deliveryDate) {
+        this.deliveryDate = deliveryDate;
+    }
+
+    public long getDeliveryLatitude() {
+        return deliveryLatitude;
+    }
+
+    public void setDeliveryLatitude(long deliveryLatitude) {
+        this.deliveryLatitude = deliveryLatitude;
+    }
+
+    public long getDeliveryLongitude() {
+        return deliveryLongitude;
+    }
+
+    public void setDeliveryLongitude(long deliveryLongitude) {
+        this.deliveryLongitude = deliveryLongitude;
     }
 
     @Override
