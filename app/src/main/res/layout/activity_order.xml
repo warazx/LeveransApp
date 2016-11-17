@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -112,11 +113,58 @@
 
     </LinearLayout>
 
-    <Button
-        android:text="@string/order_activity_btn_label"
+    <LinearLayout
+        android:id="@+id/ll_not_delivered"
+        android:visibility="gone"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/order_activity_delivery_btn"
-        android:onClick="deliverOrder"/>
+        android:layout_height="wrap_content">
+
+        <Button
+            android:text="@string/order_activity_btn_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/order_activity_delivery_btn"
+            android:onClick="deliverOrder"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_delivered"
+        android:visibility="gone"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/ll_delivered_date"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="@string/order_activity_delivered_date_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/order_activity_delivered_date_label"
+                android:layout_weight="1" />
+
+            <TextView
+                tools:text="2016-11-16 14:22"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/order_activity_delivered_date_value"
+                android:layout_weight="0.5" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="?attr/colorControlHighlight"
+            android:id="@+id/order_activity_delivered_image" />
+
+    </LinearLayout>
 
 </LinearLayout>
