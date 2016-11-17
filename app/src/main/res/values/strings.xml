@@ -6,4 +6,9 @@
     <string name="error_message"></string>
     <string name="username">Username</string>
     <string name="password">Password</string>
+    <string name="order_activity_customer_label">Kund:</string>
+    <string name="order_activity_delivery_label">Till:</string>
+    <string name="order_activity_phone_label">Telefon:</string>
+    <string name="order_activity_placed_label">Lagd:</string>
+    <string name="order_activity_btn_label">LEVERERA</string>
 </resources>

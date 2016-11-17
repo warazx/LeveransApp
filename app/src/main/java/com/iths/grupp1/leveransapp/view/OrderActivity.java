@@ -2,6 +2,7 @@ package com.iths.grupp1.leveransapp.view;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
 import com.iths.grupp1.leveransapp.R;
 
@@ -11,5 +12,8 @@ public class OrderActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
+    }
+
+    public void deliverOrder(View view) {
     }
 }
