@@ -18,6 +18,8 @@ import com.iths.grupp1.leveransapp.view.OrderActivity;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHolder> {
 
+    public static final String ORDER_ID = "ORDER_ID";
+
     private Context context;
     private Order[] orders;
 
@@ -67,6 +69,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(context, OrderActivity.class);
+            intent.putExtra(ORDER_ID, orderIdText.getText());
             context.startActivity(intent);
         }
     }
