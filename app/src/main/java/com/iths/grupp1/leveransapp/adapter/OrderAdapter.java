@@ -1,5 +1,7 @@
 package com.iths.grupp1.leveransapp.adapter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +10,7 @@ import android.widget.TextView;
 
 import com.iths.grupp1.leveransapp.R;
 import com.iths.grupp1.leveransapp.model.Order;
+import com.iths.grupp1.leveransapp.view.OrderActivity;
 
 /**
  * Created by christiankarlsson on 14/11/16.
@@ -15,6 +18,7 @@ import com.iths.grupp1.leveransapp.model.Order;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHolder> {
 
+    private Context context;
     private Order[] orders;
 
     public OrderAdapter(Order[] orders) {
@@ -39,7 +43,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         return orders.length;
     }
 
-    public class OrderViewHolder extends RecyclerView.ViewHolder {
+    public class OrderViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public TextView orderIdText;
         public TextView orderTargetText;
@@ -47,13 +51,23 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         public OrderViewHolder(View view) {
             super(view);
 
+            context = itemView.getContext();
             orderIdText = (TextView) itemView.findViewById(R.id.order_item_orderID_value);
             orderTargetText = (TextView) itemView.findViewById(R.id.order_item_target_value);
+
+            itemView.setOnClickListener(this);
         }
 
         public void bindOrder(Order order) {
             orderIdText.setText(order.getOrderNumber() + "");
             orderTargetText.setText(order.getCustomer().getAddress());
+        }
+
+
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(context, OrderActivity.class);
+            context.startActivity(intent);
         }
     }
 }

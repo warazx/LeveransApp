@@ -21,9 +21,6 @@ public class LoginActivity extends AppCompatActivity {
     //Testbutton for Orders.
     private Button loginBtn;
 
-    //Testbranch
-    //vad händer nu
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
