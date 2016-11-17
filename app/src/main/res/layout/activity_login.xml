@@ -11,10 +11,41 @@
     tools:context="com.iths.grupp1.leveransapp.view.LoginActivity">
 
     <TextView
+        android:id="@+id/loggin"
+        android:textSize="30dp"
+        android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:text="@string/log_in" />
 
+    <TextView
+        android:id="@+id/error_message"
+        android:layout_below="@+id/loggin"
+        android:layout_centerHorizontal="true"
+        android:text="@string/error_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/username"
+        android:layout_centerHorizontal="true"
+        android:textSize="20dp"
+        android:layout_margin="40dp"
+        android:layout_below="@+id/loggin"
+        android:hint="@string/username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_centerHorizontal="true"
+        android:textSize="20dp"
+        android:hint="@string/password"
+        android:layout_margin="40dp"
+        android:layout_below="@+id/username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword" />
     <Button
         tools:text="TEST BUTTON"
         android:layout_width="50dp"
