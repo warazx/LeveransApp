@@ -13,7 +13,9 @@ import com.iths.grupp1.leveransapp.R;
 public class LoginActivity extends AppCompatActivity {
     private static String correctUsername = "user";
     private static String correctPassword = "pass";
-    private TextView textView;
+    private TextView textViewUsernameMessage;
+    private TextView textViewPasswordMessage;
+    private TextView textViewErrorMessage;
     private EditText username;
     private EditText password;
     private static String enteredPassword;
@@ -25,7 +27,9 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        textView = (TextView)findViewById(R.id.error_message);
+        textViewUsernameMessage = (TextView)findViewById(R.id.error_username);
+        textViewPasswordMessage = (TextView)findViewById(R.id.error_password);
+        textViewErrorMessage = (TextView)findViewById(R.id.error);
         username = (EditText)findViewById(R.id.username);
         password = (EditText)findViewById(R.id.password);
         //Testbutton for Orders.
@@ -37,13 +41,27 @@ public class LoginActivity extends AppCompatActivity {
         enteredUsername = username.getText().toString();
         enteredPassword = password.getText().toString();
 
+        evaluateLogInData();
+    }
+
+    private void evaluateLogInData(){
         if(correctUsername.equals(enteredUsername) && correctPassword.equals(enteredPassword)){
-            //btn.setEnabled(true);
             Intent intent = new Intent(this, OrderListActivity.class);
             startActivity(intent);
-        }else{
-            textView.setText("Inloggningen misslyckades");
         }
 
+        if(enteredUsername.isEmpty()){
+            textViewUsernameMessage.setText("Enter username");
+        }
+        else if(!enteredUsername.equals(correctUsername)){
+            textViewUsernameMessage.setText("Not valid username");
+        }
+
+        if(enteredPassword.isEmpty()){
+            textViewPasswordMessage.setText("Enter password");
+        }
+        else if(!enteredPassword.equals(correctPassword)){
+            textViewPasswordMessage.setText("Not valid password");
+        }
     }
 }
