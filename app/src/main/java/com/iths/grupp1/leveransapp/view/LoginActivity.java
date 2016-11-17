@@ -22,6 +22,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button loginBtn;
 
     //Testbranch
+    //vad händer nu
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
