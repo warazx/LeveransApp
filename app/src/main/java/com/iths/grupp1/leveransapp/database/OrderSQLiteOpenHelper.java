@@ -115,30 +115,100 @@ public class OrderSQLiteOpenHelper extends SQLiteOpenHelper implements IOrderSQL
     }
 
     @Override
-    public ArrayList<Order> getUndeliveredOrders() {
-        return null;
+    public ArrayList<Order> getDeliveredOrders() {
+        return getOrders(true,0,0);
     }
 
     @Override
-    public ArrayList<Order> getDeliveredOrders() {
-        return null;
+    public ArrayList<Order> getUndeliveredOrders() {
+        return getOrders(false,0,0);
+    }
+
+    public ArrayList<Order> getUndeliveredOrders(int fromID, int orderCount) {
+        return getOrders(false, fromID, orderCount);
+    }
+
+    public ArrayList<Order> getOrders(boolean delivered, int fromID, int orderCount) {
+
+        String command = "SELECT" + " * " + "FROM" + " " + TABLE_ORDERS
+                       + " WHERE " + ORDER_DELIVERED + " = " + (delivered ? 1 : 0); // (Omvandlar boolean till int)
+        if (fromID > 0) {
+               command += " AND " + ORDER_ID + " >= " + fromID;
+        }
+        if (orderCount > 0) {
+               command += " AND " + ORDER_ID + " <= " + (fromID + orderCount);
+        }
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(command,null);
+        ArrayList<Order> orderList = new ArrayList<>();
+
+        if (cursor.moveToFirst()) {
+            do {
+                int retrievedId = cursor.getInt(0);
+                int retrievedCustomer = cursor.getInt(1);
+                int retrievedSum = cursor.getInt(2);
+                boolean retrievedDelivered = !(cursor.getInt(3) == 0);  // Omvandlar int till boolean true / false
+                String retrievedPlaceDate = cursor.getString(4);
+                String retrievedDeliveryDate = cursor.getString(5);
+                double retrievedLongitude = cursor.getDouble(6);
+                double retrievedLatitude = cursor.getDouble(7);
+
+                Customer customer = getCustomer(retrievedCustomer);     // Kan i nuläget potentiellt orsaka crash, kanske...
+                Order order = new Order(customer);
+                order.setOrderNumber(retrievedId);
+                order.setOrderSum(retrievedSum);
+                order.setDelivered(retrievedDelivered);
+                // order.setOrderPlacementDate(retrievedPlaceDate);     // Behövs omvandlas tillbaka till long ???
+                // order.setOrderDeliveryDate(retrievedDeliveryDate);   // -||- + saknas setter?
+                // order.setDeliveryLongitude(retrievedLongitude);      // Fråga: borde inte long- & lat- variablerna vara double?
+                // order.setDeliveryLatitude(retrievedLatitude)         // -||-
+                orderList.add(order);
+
+            } while (cursor.moveToNext());
+        } else {
+            orderList = null;
+        }
+
+        return orderList;
     }
 
     @Override
     public Customer getCustomer(int id) {
-        return null;
+
+        String command = "SELECT" + " * " + "FROM" + " " + TABLE_CUSTOMERS
+                       + " WHERE " + CUSTOMER_ID + " = " + id;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(command,null);
+        Customer customer;
+
+        if (cursor.moveToFirst()) {
+            Log.d(LOG,"Found Customer with ID:  " + id);
+            int retrievedId = cursor.getInt(0);
+            String retrievedAddress = cursor.getString(1);
+            String retrievedPhone = cursor.getString(2);
+            // long retrievedDate = cursor.get ???;
+            customer = new Customer(retrievedId, retrievedPhone, retrievedAddress);
+        } else {
+            Log.d(LOG,"No Customer with ID: " + id + " found.");
+            customer = null;
+        }
+
+        cursor.close();
+        return customer;
+
     }
 
     @Override
     public User getUser(String username, String password) {
 
         String command = "SELECT" + " * " + "FROM" + " " + TABLE_USERS
-                        + " WHERE " + USER_USERNAME + " = " + "'" + username + "'"
-                        + " AND " + USER_PASSWORD + " = " + "'" + password + "'";
+                       + " WHERE " + USER_USERNAME + " = " + "'" + username + "'"
+                       + " AND " + USER_PASSWORD + " = " + "'" + password + "'";
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(command,null);
-
         User user;
 
         if (cursor.moveToFirst()) {
@@ -152,7 +222,6 @@ public class OrderSQLiteOpenHelper extends SQLiteOpenHelper implements IOrderSQL
         }
 
         cursor.close();
-
         return user;
 
     }
