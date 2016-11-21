@@ -2,4 +2,14 @@
     <string name="app_name">LeveransApp</string>
     <string name="order_list_item_orderID_label">Order:</string>
     <string name="order_list_item_target_label">Till:</string>
+    <string name="log_in">Log in</string>
+    <string name="error_message"></string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="order_activity_customer_label">Kund:</string>
+    <string name="order_activity_delivery_label">Till:</string>
+    <string name="order_activity_phone_label">Telefon:</string>
+    <string name="order_activity_placed_label">Lagd:</string>
+    <string name="order_activity_btn_label">LEVERERA</string>
+    <string name="order_activity_delivered_date_label">Levererad:</string>
 </resources>

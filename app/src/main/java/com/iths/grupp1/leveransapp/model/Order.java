@@ -71,6 +71,7 @@ public class Order {
     }
 
     public long getOrderPlacementDate() {
+        //TODO: Use the helper to convert the long to a String.
         return orderPlacementDate;
     }
 
