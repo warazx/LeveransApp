@@ -2,6 +2,7 @@ package com.iths.grupp1.leveransapp.database;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -48,7 +49,7 @@ public class OrderSQLiteOpenHelper extends SQLiteOpenHelper implements IOrderSQL
     @Override
     public void onCreate(SQLiteDatabase db) {
         String command;
-        Log.d(LOG,"New Database created.");
+        Log.d(LOG,"Trying to create new database.");
 
         command = "CREATE TABLE" + " " + TABLE_ORDERS
                 + "(" + ORDER_ID + " " + "INTEGER PRIMARY KEY AUTOINCREMENT"
@@ -74,7 +75,12 @@ public class OrderSQLiteOpenHelper extends SQLiteOpenHelper implements IOrderSQL
                 + "," + USER_PASSWORD + " " + "TEXT" + ")";
         db.execSQL(command);
 
-        generateCustomers(this.getWritableDatabase());
+        Log.d(LOG,"Created new tables.");
+
+        generateCustomers(db);
+        generateUsers(db);
+
+        Log.d(LOG,"Finished creating new database.");
 
     }
 
@@ -84,6 +90,17 @@ public class OrderSQLiteOpenHelper extends SQLiteOpenHelper implements IOrderSQL
         db.execSQL("DROP TABLE IF EXISTS" + " " + TABLE_ORDERS);
         db.execSQL("DROP TABLE IF EXISTS" + " " + TABLE_CUSTOMERS);
         db.execSQL("DROP TABLE IF EXISTS" + " " + TABLE_USERS);
+        Log.d(LOG,"Database version upgrade. Removing old content.");
+        onCreate(db);
+    }
+
+    // If Database version has changed it will re-create the database
+    @Override
+    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("DROP TABLE IF EXISTS" + " " + TABLE_ORDERS);
+        db.execSQL("DROP TABLE IF EXISTS" + " " + TABLE_CUSTOMERS);
+        db.execSQL("DROP TABLE IF EXISTS" + " " + TABLE_USERS);
+        Log.d(LOG,"Database version downgrade. Removing old content.");
         onCreate(db);
     }
 
@@ -114,12 +131,34 @@ public class OrderSQLiteOpenHelper extends SQLiteOpenHelper implements IOrderSQL
 
     @Override
     public User getUser(String username, String password) {
-        return null;
+
+        String command = "SELECT" + " * " + "FROM" + " " + TABLE_USERS
+                        + " WHERE " + USER_USERNAME + " = " + "'" + username + "'"
+                        + " AND " + USER_PASSWORD + " = " + "'" + password + "'";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(command,null);
+
+        User user;
+
+        if (cursor.moveToFirst()) {
+            Log.d(LOG,"Found User matching " + username + " / " + password);
+            String retrievedUsername = cursor.getString(1);
+            String retrievedPassword = cursor.getString(2);
+            user = new User(retrievedUsername,retrievedPassword);
+        } else {
+            Log.d(LOG,"No matching user found.");
+            user = null;
+        }
+
+        cursor.close();
+
+        return user;
+
     }
 
+    /* Adds generated new customers to the database */
     private void generateCustomers(SQLiteDatabase db) {
-
-        Log.d(LOG,"Generating new customers.");
 
         ContentValues values;
 
@@ -133,8 +172,60 @@ public class OrderSQLiteOpenHelper extends SQLiteOpenHelper implements IOrderSQL
         values.put(CUSTOMER_CREATION_DATE, creationDate);
 
         db.insert(TABLE_CUSTOMERS, null, values);
-        db.close();
+
+        Log.d(LOG,"Generated new customers.");
 
     }
+
+    /* Adds generated new users to the database. */
+    private void generateUsers(SQLiteDatabase db) {
+
+        ContentValues values;
+
+        String username = "erikalinde";
+        String password = "123";
+
+        values = new ContentValues();
+        values.put(USER_USERNAME, username);
+        values.put(USER_PASSWORD, password);
+        db.insert(TABLE_USERS, null, values);
+
+        username = "fabianmikaelsson";
+        password = "321";
+
+        values = new ContentValues();
+        values.put(USER_USERNAME, username);
+        values.put(USER_PASSWORD, password);
+        db.insert(TABLE_USERS, null, values);
+
+        username = "christiankarlsson";
+        password = "456";
+
+        values = new ContentValues();
+        values.put(USER_USERNAME, username);
+        values.put(USER_PASSWORD, password);
+        db.insert(TABLE_USERS, null, values);
+
+        username = "christianblomqvist";
+        password = "urk";
+
+        values = new ContentValues();
+        values.put(USER_USERNAME, username);
+        values.put(USER_PASSWORD, password);
+        db.insert(TABLE_USERS, null, values);
+
+        username = "kivancözmen";
+        password = "963";
+
+        values = new ContentValues();
+        values.put(USER_USERNAME, username);
+        values.put(USER_PASSWORD, password);
+        db.insert(TABLE_USERS, null, values);
+
+        Log.d(LOG,"Generated new users.");
+
+    }
+
+
 
 }
