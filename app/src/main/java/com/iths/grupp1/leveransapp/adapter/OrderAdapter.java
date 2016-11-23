@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.iths.grupp1.leveransapp.R;
+import com.iths.grupp1.leveransapp.model.Customer;
 import com.iths.grupp1.leveransapp.model.Order;
 import com.iths.grupp1.leveransapp.view.OrderActivity;
 
@@ -18,7 +19,8 @@ import com.iths.grupp1.leveransapp.view.OrderActivity;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHolder> {
 
-    public static final String ORDER_ID = "ORDER_ID";
+    public static final String SINGLE_ORDER = "ORDER_ID";
+    public static final String SINGLE_CUSTOMER = "SINGLE_CUSTOMER";
 
     private Context context;
     private Order[] orders;
@@ -45,12 +47,14 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         return orders.length;
     }
 
-    public class OrderViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    protected class OrderViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public TextView orderIdText;
-        public TextView orderTargetText;
+        private TextView orderIdText;
+        private TextView orderTargetText;
+        private Order order;
+        private Customer customer;
 
-        public OrderViewHolder(View view) {
+        private OrderViewHolder(View view) {
             super(view);
 
             context = itemView.getContext();
@@ -60,16 +64,18 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             itemView.setOnClickListener(this);
         }
 
-        public void bindOrder(Order order) {
+        private void bindOrder(Order order) {
             orderIdText.setText(order.getOrderNumber() + "");
             orderTargetText.setText(order.getCustomer().getAddress());
+            this.order = order;
+            customer = order.getCustomer();
         }
-
 
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(context, OrderActivity.class);
-            intent.putExtra(ORDER_ID, orderIdText.getText());
+            intent.putExtra(SINGLE_ORDER, order);
+            intent.putExtra(SINGLE_CUSTOMER, customer);
             context.startActivity(intent);
         }
     }
