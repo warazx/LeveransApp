@@ -18,8 +18,10 @@ import java.util.Arrays;
 public class OrderListActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
+    private RecyclerView.Adapter adapter;
+    private RecyclerView.LayoutManager layoutManager;
 
-    public static final String LISTED_ORDERS = "LISTED_ORDERS";
+    public static final String ORDER_STATUS = "ORDER_STATUS";
 
     private Order[] orders;
 
@@ -29,21 +31,17 @@ public class OrderListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_order_list);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
-        /*
-        Intent intent = getIntent();
-        Parcelable[] parcelables = intent.getParcelableArrayExtra(LISTED_ORDERS);
-        orders = Arrays.copyOf(parcelables, parcelables.length, Order[].class);*/
-        //TEMP while intent is not finished.
-        orders = GenerateOrders.get(15);
-        //-------END TEMP
-
-        OrderAdapter adapter = new OrderAdapter(orders);
-        recyclerView.setAdapter(adapter);
-
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
+        //Used for testing, supposed to get all the orders from the database.
+        orders = new Order[1];
+        orders[0] = new Order(new Customer(0, "070-12312312", "Storgatan 10"));
+        //-------------------------------------------------------------------
 
         recyclerView.setHasFixedSize(true);
 
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+
+        adapter = new OrderAdapter(orders);
+        recyclerView.setAdapter(adapter);
     }
 }
