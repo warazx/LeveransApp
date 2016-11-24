@@ -18,4 +18,7 @@
     <string name="phone_number_description">Ändra telefonnummer som får leveransbesked</string>
     <string name="change_phonenr_btn">Ändra telefonnummer</string>
     <string name="order_activity_name_label">Namn:</string>
+    <string name="activity_order_list_load_btn_text">Ladda nya</string>
+    <string name="activity_order_list_update_btn_text">Undelivered</string>
+    <string name="activity_order_list_history_btn_text">Historik</string>
 </resources>
