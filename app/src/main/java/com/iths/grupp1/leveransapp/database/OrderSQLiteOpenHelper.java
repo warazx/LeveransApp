@@ -18,7 +18,7 @@ public class OrderSQLiteOpenHelper extends SQLiteOpenHelper {
 
     public static final String LOG = "sqlDB";
 
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
     private static final String DATABASE_NAME = "deliveryDB.db";
 
     private static final String TABLE_ORDERS = "orders";
@@ -297,24 +297,47 @@ public class OrderSQLiteOpenHelper extends SQLiteOpenHelper {
 
     }
 
+    /* Adds a new customer to the database */
+    private void addCustomer(SQLiteDatabase db, Customer customer) {
+        ContentValues values = new ContentValues();
+        values.put(CUSTOMER_NAME, customer.getName());
+        values.put(CUSTOMER_ADDRESS, customer.getAddress());
+        values.put(CUSTOMER_PHONE, customer.getPhoneNumber());
+        values.put(CUSTOMER_CREATION_DATE, customer.getCreatedDate());
+        db.insert(TABLE_CUSTOMERS, null, values);
+    }
+
     /* Adds generated new customers to the database */
     private void generateCustomers(SQLiteDatabase db) {
 
-        ContentValues values;
-
         String name, address, phoneNumber;
-        long creationDate = System.currentTimeMillis();
 
         name = "IT-Högskolan";
         address = "Ebbe Lieberathsgatan 18C, 412 65 Göteborg";
         phoneNumber = "0705169513";
+        addCustomer(db, new Customer(name, phoneNumber, address));
 
-        values = new ContentValues();
-        values.put(CUSTOMER_NAME, name);
-        values.put(CUSTOMER_ADDRESS, address);
-        values.put(CUSTOMER_PHONE, phoneNumber);
-        values.put(CUSTOMER_CREATION_DATE, creationDate);
-        db.insert(TABLE_CUSTOMERS, null, values);
+        name = "Truckstop Alaska";
+        address = "Karlavagnsgatan 13, 417 56 Göteborg";
+        phoneNumber = "0737879499";
+        addCustomer(db, new Customer(name, phoneNumber, address));
+
+        name = "Liseberg";
+        address = "Örgrytevägen 5, 402 22 Göteborg";
+        phoneNumber = "031400100";
+        addCustomer(db, new Customer(name, phoneNumber, address));
+
+        name = "Legoland";
+        address = "Nordmarksvej 9, 7190 Billund";
+        phoneNumber = "+4575331333";
+        addCustomer(db, new Customer(name, phoneNumber, address));
+
+        name = "Skumrask AB";
+        address = "Anders Carlssons Gata 30, 417 55 Göteborg";
+        phoneNumber = "123456789";
+        addCustomer(db, new Customer(name, phoneNumber, address));
+
+        // TODO: Add more customers!
 
         Log.d(LOG,"Generated new customers.");
 
