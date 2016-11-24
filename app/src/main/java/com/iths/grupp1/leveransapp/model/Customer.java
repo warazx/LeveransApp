@@ -14,6 +14,7 @@ public class Customer implements Parcelable {
     private String address;
     private long created;
 
+
     public Customer(String name, String phoneNumber, String address) {
         this.costumerNumber = 0;
         this.name = name;
@@ -52,6 +53,14 @@ public class Customer implements Parcelable {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public long getCreatedDate() {
+        return created;
+    }
+
+    public void setCreatedDate(long created) {
+        this.created = created;
     }
 
     @Override
