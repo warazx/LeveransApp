@@ -17,4 +17,5 @@
     <string name="phonenumber">TELEFONNUMMER</string>
     <string name="phone_number_description">Ändra telefonnummer som får leveransbesked</string>
     <string name="change_phonenr_btn">Ändra telefonnummer</string>
+    <string name="order_activity_name_label">Namn:</string>
 </resources>
