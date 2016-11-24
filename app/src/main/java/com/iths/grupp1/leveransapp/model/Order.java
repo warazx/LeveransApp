@@ -9,18 +9,18 @@ import android.os.SystemClock;
  */
 
 public class Order implements Parcelable {
-    private int orderNumber;
+    private int orderNumber; // PRIMARY KEY
     private int orderSum;
-    private Customer customer;
+    private int customerNumber; // FOREIGN KEY
     private boolean isDelivered;
     private long orderPlacementDate;
     private long deliveryDate;
     private double deliveryLatitude;
     private double deliveryLongitude;
 
-    public Order(Customer customer) {
+    public Order(int customer) {
         this.orderNumber = 0;
-        this.customer = customer;
+        this.customerNumber = customer;
         this.isDelivered = false;
         this.orderPlacementDate = System.currentTimeMillis();
         this.deliveryDate = 0;
@@ -51,12 +51,12 @@ public class Order implements Parcelable {
         this.orderSum = orderSum;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public int getCustomer() {
+        return customerNumber;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setCustomer(int customerNumber) {
+        this.customerNumber = customerNumber;
     }
 
     public boolean isDelivered() {
@@ -109,6 +109,7 @@ public class Order implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(orderNumber);
         dest.writeInt(orderSum);
+        dest.writeInt(customerNumber);
         dest.writeByte((byte) (isDelivered ? 1 : 0));
         dest.writeLong(deliveryDate);
         dest.writeDouble(deliveryLatitude);
@@ -118,6 +119,7 @@ public class Order implements Parcelable {
     private Order(Parcel in) {
         orderNumber = in.readInt();
         orderSum = in.readInt();
+        customerNumber = in.readInt();
         isDelivered = in.readByte() != 0;
         deliveryDate = in.readLong();
         deliveryLatitude = in.readDouble();
