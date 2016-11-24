@@ -1,21 +1,19 @@
 package com.iths.grupp1.leveransapp.util;
 
-import com.iths.grupp1.leveransapp.model.Order;
+import android.app.Activity;
 
-/**
- * Created by christiankarlsson on 16/11/16.
- */
+import com.iths.grupp1.leveransapp.database.OrderSQLiteOpenHelper;
+import com.iths.grupp1.leveransapp.model.Order;
 
 public final class GenerateDatabaseObject {
 
-    public static Order[] addOrders(int amount) {
-        Order[] orders = new Order[amount];
+    public static void addOrders(Activity activity) {
+        OrderSQLiteOpenHelper db = new OrderSQLiteOpenHelper(activity);
+        //TODO: Get the number from settings / sharedprefs.
+        int amount = 10;
 
-        for(int i = 0; i < orders.length; i++) {
-            //TODO: get a random customer.
-            orders[i] = new Order(1);
+        for(int i = 0; i < amount; i++) {
+            db.addOrder(new Order(1));
         }
-
-        return orders;
     }
 }

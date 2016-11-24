@@ -20,6 +20,7 @@ public class Order implements Parcelable {
 
     public Order(int customer) {
         this.orderNumber = 0;
+        this.orderSum = 0;
         this.customerNumber = customer;
         this.isDelivered = false;
         this.orderPlacementDate = System.currentTimeMillis();
@@ -139,7 +140,6 @@ public class Order implements Parcelable {
         deliveryLongitude = in.readDouble();
     }
 
-    //Creator for the recyclerview.
     public static final Creator<Order> CREATOR = new Creator<Order>() {
 
         @Override
