@@ -14,8 +14,8 @@ public class Customer implements Parcelable {
     private String address;
     private long created;
 
-    public Customer(int costumerNumber, String name, String phoneNumber, String address) {
-        this.costumerNumber = costumerNumber;
+    public Customer(String name, String phoneNumber, String address) {
+        this.costumerNumber = 0;
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.address = address;
