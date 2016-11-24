@@ -15,14 +15,11 @@ public class Order implements Parcelable {
     private boolean isDelivered;
     private long orderPlacementDate;
     private long deliveryDate;
-    private long deliveryLatitude;
-    private long deliveryLongitude;
-
-    private static int orderID = 1;
+    private double deliveryLatitude;
+    private double deliveryLongitude;
 
     public Order(Customer customer) {
-        this.orderNumber = orderID;
-        orderID++;
+        this.orderNumber = 0;
         this.customer = customer;
         this.isDelivered = false;
         this.orderPlacementDate = System.currentTimeMillis();
@@ -87,7 +84,7 @@ public class Order implements Parcelable {
         this.deliveryDate = deliveryDate;
     }
 
-    public long getDeliveryLatitude() {
+    public double getDeliveryLatitude() {
         return deliveryLatitude;
     }
 
@@ -95,7 +92,7 @@ public class Order implements Parcelable {
         this.deliveryLatitude = deliveryLatitude;
     }
 
-    public long getDeliveryLongitude() {
+    public double getDeliveryLongitude() {
         return deliveryLongitude;
     }
 
@@ -119,8 +116,8 @@ public class Order implements Parcelable {
         dest.writeInt(orderSum);
         dest.writeByte((byte) (isDelivered ? 1 : 0));
         dest.writeLong(deliveryDate);
-        dest.writeLong(deliveryLatitude);
-        dest.writeLong(deliveryLongitude);
+        dest.writeDouble(deliveryLatitude);
+        dest.writeDouble(deliveryLongitude);
     }
 
     private Order(Parcel in) {
@@ -128,8 +125,8 @@ public class Order implements Parcelable {
         orderSum = in.readInt();
         isDelivered = in.readByte() != 0;
         deliveryDate = in.readLong();
-        deliveryLatitude = in.readLong();
-        deliveryLongitude = in.readLong();
+        deliveryLatitude = in.readDouble();
+        deliveryLongitude = in.readDouble();
     }
 
     //Creator for the recyclerview.
