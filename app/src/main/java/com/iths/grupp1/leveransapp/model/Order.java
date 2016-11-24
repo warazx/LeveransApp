@@ -72,10 +72,6 @@ public class Order implements Parcelable {
         return orderPlacementDate;
     }
 
-    public void setOrderPlacementDate(long orderPlacementDate) {
-        this.orderPlacementDate = orderPlacementDate;
-    }
-
     public long getDeliveryDate() {
         return deliveryDate;
     }
@@ -88,18 +84,17 @@ public class Order implements Parcelable {
         return deliveryLatitude;
     }
 
-    public void setDeliveryLatitude(long deliveryLatitude) {
-        this.deliveryLatitude = deliveryLatitude;
-    }
-
     public double getDeliveryLongitude() {
         return deliveryLongitude;
     }
 
-    public void setDeliveryLongitude(long deliveryLongitude) {
+    public void setDeliveryLongitude(double deliveryLongitude) {
         this.deliveryLongitude = deliveryLongitude;
     }
 
+    public void setDeliveryLatitude(double deliveryLatitude) {
+        this.deliveryLatitude = deliveryLatitude;
+    }
 
     public int getOrderNumber() {
         return orderNumber;
