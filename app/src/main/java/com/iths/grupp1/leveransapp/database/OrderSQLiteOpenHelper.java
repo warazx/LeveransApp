@@ -207,7 +207,6 @@ public class OrderSQLiteOpenHelper extends SQLiteOpenHelper {
                                         retrievedDelivered, retrievedPlaceDate, retrievedDeliveryDate,
                                         retrievedLongitude, retrievedLatitude);
                 orderList.add(order);
-
             } while (cursor.moveToNext());
         } else {
             orderList = null;
@@ -252,7 +251,7 @@ public class OrderSQLiteOpenHelper extends SQLiteOpenHelper {
                 long retrievedDate = cursor.getLong(4);
                 Customer customer = new Customer(retrievedName, retrievedPhone, retrievedAddress);
                 customer.setCostumerNumber(retrievedId);
-                //customer.setCreationDate(retrievedDate);
+                customer.setCreatedDate(retrievedDate);
                 customers.add(customer);
             } while (cursor.moveToNext());
             Log.d(LOG,"Found " + customers.size() + " customers in database.");
