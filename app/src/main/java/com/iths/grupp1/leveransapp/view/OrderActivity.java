@@ -35,7 +35,6 @@ public class OrderActivity extends AppCompatActivity {
         Intent intent = getIntent();
         order = intent.getExtras().getParcelable(OrderAdapter.SINGLE_ORDER);
         customer = intent.getExtras().getParcelable(OrderAdapter.SINGLE_CUSTOMER);
-        order.setCustomer(customer);
 
         orderIdText = (TextView) findViewById(R.id.order_activity_orderid_value);
         placedDateText = (TextView) findViewById(R.id.order_activity_orderid_value);
@@ -51,8 +50,8 @@ public class OrderActivity extends AppCompatActivity {
         orderIdText.setText(order.getOrderNumber() + "");
         placedDateText.setText(order.getOrderPlacementDate() + "");
         customerNameText.setText(customer.getName());
-        deliveryAddressText.setText(order.getCustomer().getAddress());
-        phoneNumberText.setText(order.getCustomer().getPhoneNumber());
+        deliveryAddressText.setText(customer.getAddress());
+        phoneNumberText.setText(customer.getPhoneNumber());
         deliveredDateText.setText(order.getDeliveryDate() + "");
     }
 
