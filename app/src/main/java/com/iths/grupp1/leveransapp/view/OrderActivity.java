@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.iths.grupp1.leveransapp.R;
 import com.iths.grupp1.leveransapp.adapter.OrderAdapter;
+import com.iths.grupp1.leveransapp.database.OrderSQLiteOpenHelper;
 import com.iths.grupp1.leveransapp.model.Customer;
 import com.iths.grupp1.leveransapp.model.Order;
 
@@ -37,7 +38,7 @@ public class OrderActivity extends AppCompatActivity {
         customer = intent.getExtras().getParcelable(OrderAdapter.SINGLE_CUSTOMER);
 
         orderIdText = (TextView) findViewById(R.id.order_activity_orderid_value);
-        placedDateText = (TextView) findViewById(R.id.order_activity_orderid_value);
+        placedDateText = (TextView) findViewById(R.id.order_activity_placed_value);
         customerNameText = (TextView) findViewById(R.id.order_activity_name_value);
         deliveryAddressText = (TextView) findViewById(R.id.order_activity_delivery_value);
         phoneNumberText = (TextView) findViewById(R.id.order_activity_phone_value);
@@ -75,5 +76,8 @@ public class OrderActivity extends AppCompatActivity {
         //TODO: Change to get the formatted date.
         deliveredDateText.setText(order.getDeliveryDate() + "");
         toggleLayout();
+
+        OrderSQLiteOpenHelper db = new OrderSQLiteOpenHelper(this);
+        db.updateOrder(order);
     }
 }

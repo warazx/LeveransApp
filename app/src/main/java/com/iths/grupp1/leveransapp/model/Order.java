@@ -125,6 +125,7 @@ public class Order implements Parcelable {
         dest.writeInt(orderSum);
         dest.writeInt(customerNumber);
         dest.writeByte((byte) (isDelivered ? 1 : 0));
+        dest.writeLong(orderPlacementDate);
         dest.writeLong(deliveryDate);
         dest.writeDouble(deliveryLatitude);
         dest.writeDouble(deliveryLongitude);
@@ -135,6 +136,7 @@ public class Order implements Parcelable {
         orderSum = in.readInt();
         customerNumber = in.readInt();
         isDelivered = in.readByte() != 0;
+        orderPlacementDate = in.readLong();
         deliveryDate = in.readLong();
         deliveryLatitude = in.readDouble();
         deliveryLongitude = in.readDouble();
