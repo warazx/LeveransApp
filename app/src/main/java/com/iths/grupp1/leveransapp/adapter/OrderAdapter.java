@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.iths.grupp1.leveransapp.R;
+import com.iths.grupp1.leveransapp.database.OrderSQLiteOpenHelper;
 import com.iths.grupp1.leveransapp.model.Customer;
 import com.iths.grupp1.leveransapp.model.Order;
 import com.iths.grupp1.leveransapp.view.OrderActivity;
@@ -65,9 +66,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         }
 
         private void bindOrder(Order order) {
-            /*  TODO: Get the customer from the database.
-            customer = getCustomerFromDatabase(order.getCustomer());*/
+            OrderSQLiteOpenHelper db = new OrderSQLiteOpenHelper(context);
             this.order = order;
+            customer = db.getCustomer(order.getCustomer());
             orderIdText.setText(order.getOrderNumber() + "");
             orderTargetText.setText(customer.getAddress());
         }
