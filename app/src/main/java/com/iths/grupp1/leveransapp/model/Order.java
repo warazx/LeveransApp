@@ -28,6 +28,19 @@ public class Order implements Parcelable {
         this.deliveryLongitude = 0;
     }
 
+    public Order(int orderNumber, int orderSum, int customerNumber, boolean isDelivered,
+                 long orderPlacementDate, long deliveryDate, double deliveryLatitude,
+                 double deliveryLongitude) {
+        this.orderNumber = orderNumber;
+        this.orderSum = orderSum;
+        this.customerNumber = customerNumber;
+        this.isDelivered = isDelivered;
+        this.orderPlacementDate = orderPlacementDate;
+        this.deliveryDate = deliveryDate;
+        this.deliveryLatitude = deliveryLatitude;
+        this.deliveryLongitude = deliveryLongitude;
+    }
+
     public void deliver() {
         deliveryDate = System.currentTimeMillis();
         setDeliveryLocation();
