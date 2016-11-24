@@ -47,7 +47,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
     @Override
     public int getItemCount() {
-        return orders.size();
+        if(orders == null) {
+            return 0;
+        } else return orders.size();
     }
 
     protected class OrderViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
