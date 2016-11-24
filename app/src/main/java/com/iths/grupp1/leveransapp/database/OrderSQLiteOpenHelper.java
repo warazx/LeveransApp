@@ -203,15 +203,9 @@ public class OrderSQLiteOpenHelper extends SQLiteOpenHelper {
                 double retrievedLongitude = cursor.getDouble(6);
                 double retrievedLatitude = cursor.getDouble(7);
 
-                Customer customer = getCustomer(retrievedCustomer);     // Kan i nuläget potentiellt orsaka crash, kanske...
-                Order order = new Order(customer);
-                order.setOrderNumber(retrievedId);
-                order.setOrderSum(retrievedSum);
-                order.setDelivered(retrievedDelivered);
-                // order.setPlacementDate(retrievedPlaceDate);
-                order.setDeliveryDate(retrievedDeliveryDate);
-                order.setDeliveryLongitude(retrievedLongitude);
-                order.setDeliveryLatitude(retrievedLatitude);
+                Order order = new Order(retrievedId, retrievedSum, retrievedCustomer,
+                                        retrievedDelivered, retrievedPlaceDate, retrievedDeliveryDate,
+                                        retrievedLongitude, retrievedLatitude);
                 orderList.add(order);
 
             } while (cursor.moveToNext());
