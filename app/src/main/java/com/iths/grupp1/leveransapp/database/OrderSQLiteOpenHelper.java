@@ -16,9 +16,9 @@ import android.util.Log;
 
 public class OrderSQLiteOpenHelper extends SQLiteOpenHelper {
 
-    public static final String LOG = "sqlDB";
+    private static final String LOG = "sqlDB";
 
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 5;
     private static final String DATABASE_NAME = "deliveryDB.db";
 
     private static final String TABLE_ORDERS = "orders";
@@ -177,7 +177,8 @@ public class OrderSQLiteOpenHelper extends SQLiteOpenHelper {
         return getOrders(false, fromID, orderCount);
     }
 
-    public ArrayList<Order> getOrders(boolean delivered, int fromID, int orderCount) {
+    /* Parent function for retrieving Orders from database. */
+    private ArrayList<Order> getOrders(boolean delivered, int fromID, int orderCount) {
 
         String command = "SELECT" + " * " + "FROM" + " " + TABLE_ORDERS
                        + " WHERE " + ORDER_DELIVERED + " = " + (delivered ? 1 : 0); // (Omvandlar boolean till int)
@@ -185,7 +186,7 @@ public class OrderSQLiteOpenHelper extends SQLiteOpenHelper {
                command += " AND " + ORDER_ID + " >= " + fromID;
         }
         if (orderCount > 0) {
-               command += " AND " + ORDER_ID + " <= " + (fromID + orderCount);
+               command += " LIMIT " + orderCount;
         }
 
         SQLiteDatabase db = this.getReadableDatabase();
@@ -212,9 +213,15 @@ public class OrderSQLiteOpenHelper extends SQLiteOpenHelper {
             orderList = null;
         }
 
+        cursor.close();
         return orderList;
     }
 
+    /**
+     * Retrieves a Customer object from the Customers database.
+     * @param id the id of the Customer to retrieve.
+     * @return a Customer object.
+     */
     public Customer getCustomer(int id) {
         ArrayList<Customer> customer = getCustomers(id);
 
@@ -227,9 +234,9 @@ public class OrderSQLiteOpenHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * Retrieves an ArrayList of Customer object from the Customers database.
+     * Retrieves an ArrayList of Customer objects from the Customers database.
      * @param id the id of the Customer to retrieve. If zero retrieves all Customers in database.
-     * @return a Customer object.
+     * @return an ArrayList of Customer objects.
      */
     public ArrayList<Customer> getCustomers(int id) {
 
@@ -330,6 +337,31 @@ public class OrderSQLiteOpenHelper extends SQLiteOpenHelper {
         name = "Legoland";
         address = "Nordmarksvej 9, 7190 Billund";
         phoneNumber = "+4575331333";
+        addCustomer(db, new Customer(name, phoneNumber, address));
+
+        name = "Bengans Skivbutik";
+        address = "Stigbergstorget 1, 414 63 Göteborg";
+        phoneNumber = "031143300";
+        addCustomer(db, new Customer(name, phoneNumber, address));
+
+        name = "ICA Supermarket Lindome";
+        address = "Almåsgången 1, 437 30 Lindome";
+        phoneNumber = "031997170";
+        addCustomer(db, new Customer(name, phoneNumber, address));
+
+        name = "Kråkans Krog";
+        address = "Götaforsliden 1, 431 34 Mölndal";
+        phoneNumber = "031270458";
+        addCustomer(db, new Customer(name, phoneNumber, address));
+
+        name = "Coop Konsum Mölnlycke";
+        address = "Biblioteksgatan 7, 435 30 Mölnlycke";
+        phoneNumber = "0107415340";
+        addCustomer(db, new Customer(name, phoneNumber, address));
+
+        name = "Kafé Höga Nord";
+        address = "Kyrkogatan 13, 411 15 Göteborg";
+        phoneNumber = "123456789";
         addCustomer(db, new Customer(name, phoneNumber, address));
 
         name = "Skumrask AB";
