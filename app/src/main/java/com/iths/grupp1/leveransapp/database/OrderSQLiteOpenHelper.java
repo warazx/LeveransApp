@@ -273,24 +273,23 @@ public class OrderSQLiteOpenHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * Checks the Users database for an entry matching a given username and password and returns
+     * Checks the Users database for an entry matching a given username and returns
      * a User object if successful.
      * @param username the username to look for.
-     * @param password the password to look for.
      * @return a User object if the a match was found, and null if not.
      */
-    public User getUser(String username, String password) {
+    public User getUser(String username) {
 
         String command = "SELECT" + " * " + "FROM" + " " + TABLE_USERS
-                       + " WHERE " + USER_USERNAME + " = " + "'" + username + "'"
-                       + " AND " + USER_PASSWORD + " = " + "'" + password + "'";
+                       + " WHERE " + USER_USERNAME + " = " + "'" + username + "'";
+                       //+ " AND " + USER_PASSWORD + " = " + "'" + password + "'";
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(command,null);
         User user;
 
         if (cursor.moveToFirst()) {
-            Log.d(LOG,"Found User matching " + username + " / " + password);
+            Log.d(LOG,"Found User matching " + username);
             String retrievedUsername = cursor.getString(1);
             String retrievedPassword = cursor.getString(2);
             user = new User(retrievedUsername,retrievedPassword);
