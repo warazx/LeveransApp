@@ -56,16 +56,12 @@
         android:layout_height="wrap_content"
         android:inputType="textPassword" />
 
-    <TextView
-        android:id="@+id/error"
-        android:text="@string/error_message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
     <Button
-        tools:text="TEST BUTTON"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        tools:text="@string/test_button"
+        android:text="@string/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:id="@+id/login_btn"
         android:onClick="goToOrders"
         android:layout_alignParentBottom="true"/>

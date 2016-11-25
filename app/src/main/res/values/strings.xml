@@ -6,6 +6,8 @@
     <string name="error_message"></string>
     <string name="username">Username</string>
     <string name="password">Password</string>
+    <string name="button">GO TO ORDERS</string>
+    <string name="test_button">TEST BUTTON</string>
     <string name="order_activity_customer_label">Kund:</string>
     <string name="order_activity_delivery_label">Till:</string>
     <string name="order_activity_phone_label">Telefon:</string>
