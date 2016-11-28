@@ -70,6 +70,11 @@ public class OrderActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Changes the order to delivered. Updates the database with the location and changes
+     * the display to match an delivered order.
+     * @param view Button.
+     */
     public void deliverOrder(View view) {
         order.setDelivered(true);
         long time = System.currentTimeMillis();

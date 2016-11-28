@@ -47,6 +47,11 @@ public class OrderListActivity extends AppCompatActivity {
     }
 
     //TODO: Move this to the toolbar.
+    /**
+     * Adds x orders to the database and updates the list. Number of orders is determined
+     * by the the ordersPerPage setting in the SettingsActivity.
+     * @param view
+     */
     public void addOrders(View view) {
         String str = sharedPref.getString("ordersPerPage", "10");
         int amount = Integer.parseInt(str);
@@ -55,6 +60,10 @@ public class OrderListActivity extends AppCompatActivity {
     }
 
     //  TODO: Move this to the toolbar.
+    /**
+     * Gets all undelivered orders from the database and updates the list with them.
+     * @param view
+     */
     public void updateOrders(View view) {
         OrderSQLiteOpenHelper db = new OrderSQLiteOpenHelper(this);
         orders = db.getUndeliveredOrders();
@@ -62,10 +71,24 @@ public class OrderListActivity extends AppCompatActivity {
     }
 
     //  TODO: Move this to the toolbar.
+    /**
+     * Gets all delivered orders from the database and updates the list with them.
+     * @param view
+     */
     public void historyOrders(View view) {
         OrderSQLiteOpenHelper db = new OrderSQLiteOpenHelper(this);
         orders = db.getDeliveredOrders();
         swapOrders();
+    }
+
+    //  TODO: Move this to the toolbar.
+    /**
+     * Sends the user to the SettingsActivity.
+     * @param view
+     */
+    public void goToSettings(View view) {
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
     }
 
     private void swapOrders() {
@@ -75,9 +98,4 @@ public class OrderListActivity extends AppCompatActivity {
         }
     }
 
-    //  TODO: Move this to the toolbar.
-    public void goToSettings(View view) {
-        Intent intent = new Intent(this, SettingsActivity.class);
-        startActivity(intent);
-    }
 }

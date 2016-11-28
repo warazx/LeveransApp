@@ -14,7 +14,12 @@ public class Customer implements Parcelable {
     private String address;
     private long created;
 
-
+    /**
+     * Default constructor for the customer class.
+     * @param name the name of the customer.
+     * @param phoneNumber a number the customer can be reached at.
+     * @param address where the order shall be delivered.
+     */
     public Customer(String name, String phoneNumber, String address) {
         this.costumerNumber = 0;
         this.name = name;

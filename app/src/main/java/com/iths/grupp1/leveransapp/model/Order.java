@@ -18,6 +18,10 @@ public class Order implements Parcelable {
     private double deliveryLatitude;
     private double deliveryLongitude;
 
+    /**
+     * Default constructor for creating a new order.
+     * @param customer The ID of the customer.
+     */
     public Order(int customer) {
         this.orderNumber = 0;
         this.orderSum = 0;
@@ -29,6 +33,9 @@ public class Order implements Parcelable {
         this.deliveryLongitude = 0;
     }
 
+    /**
+     * Constructor for the database. Requires a value for every variable.
+     */
     public Order(int orderNumber, int orderSum, int customerNumber, boolean isDelivered,
                  long orderPlacementDate, long deliveryDate, double deliveryLatitude,
                  double deliveryLongitude) {
@@ -40,11 +47,6 @@ public class Order implements Parcelable {
         this.deliveryDate = deliveryDate;
         this.deliveryLatitude = deliveryLatitude;
         this.deliveryLongitude = deliveryLongitude;
-    }
-
-    public void deliver() {
-        deliveryDate = System.currentTimeMillis();
-        setDeliveryLocation();
     }
 
     private void setDeliveryLocation() {
