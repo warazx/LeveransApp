@@ -13,7 +13,7 @@ import android.widget.Toast;
  * Edited by Kivanc 28/11/16
  */
 
-class TimeConverter extends AppCompatActivity {
+public class TimeConverter extends AppCompatActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
