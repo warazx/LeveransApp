@@ -43,10 +43,12 @@ public class SettingsActivity extends AppCompatActivity {
                 else {
                     phoneNumber = changePhonenumber.getText().toString();
                     saveInfo(view);
-                    changePhoneNumberBtn.setEnabled(true);
+
+
+                    //changePhoneNumberBtn.setEnabled(true);
 
                     //changePhonenumber.clearFocus();
-                    changePhoneNumberBtn.requestFocus();
+                    //changePhoneNumberBtn.requestFocus();
                 }
 
 
@@ -130,8 +132,8 @@ public class SettingsActivity extends AppCompatActivity {
     public void displayData(View view) {
         SharedPreferences sharedPref = getSharedPreferences("userSettings", Context.MODE_PRIVATE);
 
-        String orders = sharedPref.getString("ordersPerPage", "");
-        String number = sharedPref.getString("phoneNumber", "");
+        String orders = sharedPref.getString("ordersPerPage", "10");
+        String number = sharedPref.getString("phoneNumber", " ");
     }
 
 }

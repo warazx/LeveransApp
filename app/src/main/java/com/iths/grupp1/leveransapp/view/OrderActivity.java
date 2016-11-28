@@ -1,8 +1,12 @@
 package com.iths.grupp1.leveransapp.view;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -84,5 +88,20 @@ public class OrderActivity extends AppCompatActivity {
 
         OrderSQLiteOpenHelper db = new OrderSQLiteOpenHelper(this);
         db.updateOrder(order);
+
+        sendSms();
+    }
+
+    /**
+     * Sends sms to user when an order is delivered.
+     */
+    private void sendSms() {
+        SharedPreferences sharedPref;
+        sharedPref = getSharedPreferences("userSettings", Context.MODE_PRIVATE);
+        String phoneNumber = sharedPref.getString("phoneNumber", "10");
+        String message = "Order nr" + orderIdText + " has been delivered.";
+        SmsManager manager = SmsManager.getDefault();
+        manager.sendTextMessage(phoneNumber, null, message, null, null);
+
     }
 }
