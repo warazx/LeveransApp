@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.iths.grupp1.leveransapp.R;
 import com.iths.grupp1.leveransapp.adapter.OrderAdapter;
@@ -101,7 +102,11 @@ public class OrderActivity extends AppCompatActivity {
         String phoneNumber = sharedPref.getString("phoneNumber", "10");
         String message = "Order nr" + orderIdText + " has been delivered.";
         SmsManager manager = SmsManager.getDefault();
-        manager.sendTextMessage(phoneNumber, null, message, null, null);
+        try {
+            manager.sendTextMessage(phoneNumber, null, message, null, null);
+        } catch (Exception e) {
+            Toast.makeText(this, "SMS not delivered. " + phoneNumber + " is not a valid phonenumber", Toast.LENGTH_LONG).show();
+        }
 
     }
 }
