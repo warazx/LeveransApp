@@ -5,23 +5,23 @@ package com.iths.grupp1.leveransapp.model;
  */
 
 public class User {
-    private static String username;
-    private static String password;
+    private String username;
+    private String password;
 
     /**
-     * Default
-     * @param username
-     * @param password
+     * Default constructor for the a user.
+     * @param username name of the account.
+     * @param password password to the account.
      */
     public User(String username, String password) {
         this.username = username;
         this.password = password;
     }
 
-    public static String getUsername(){
+    public String getUsername(){
         return username;
     }
-    public static String getPassword(){
+    public String getPassword(){
         return password;
     }
 }
