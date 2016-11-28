@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="updateOrders"
-        android:layout_toRightOf="@id/add_orders_btn"/>
+        android:layout_toEndOf="@id/add_orders_btn"/>
 
     <Button
         android:text="@string/activity_order_list_history_btn_text"
@@ -31,7 +31,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="historyOrders"
-        android:layout_toRightOf="@id/update_orders_btn"/>
+        android:layout_toEndOf="@id/update_orders_btn"/>
+
+    <Button
+        android:text="Settings"
+        android:id="@+id/settings_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="goToSettings"
+        android:layout_toEndOf="@id/history_orders_btn"/>
     
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
