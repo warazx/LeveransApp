@@ -63,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
         else if(!enteredPassword.equals(correctPassword)){
             textViewPasswordMessage.setText("Not valid password");
         }
-        Intent intent = new Intent(this, OrderListActivity.class);
+        Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
     }
 }
