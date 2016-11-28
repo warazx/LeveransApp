@@ -119,9 +119,14 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
         <Button
-            android:text="@string/order_activity_btn_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/order_activity_nav_btn_label"
+            android:id="@+id/order_activity_nav_btn"
+            android:onClick="startNavigation" />
+        <Button
+            android:text="@string/order_activity_deliver_btn_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/order_activity_delivery_btn"

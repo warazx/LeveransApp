@@ -3,6 +3,7 @@ package com.iths.grupp1.leveransapp.view;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -106,6 +107,22 @@ public class OrderActivity extends AppCompatActivity {
             manager.sendTextMessage(phoneNumber, null, message, null, null);
         } catch (Exception e) {
             Toast.makeText(this, "SMS not delivered. " + phoneNumber + " is not a valid phonenumber", Toast.LENGTH_LONG).show();
+        }
+
+    }
+
+    /**
+     * Starts Google Maps Navigation from the user's current location to the current order customer address."
+     * @param view Button.
+     */
+    public void startNavigation(View view) {
+
+        String address = customer.getAddress();
+        Uri uri = Uri.parse("google.navigation:q=" + address + "&mode=d");
+        Intent intent = new Intent(Intent.ACTION_VIEW,uri);
+        intent.setPackage("com.google.android.apps.maps");
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
         }
 
     }
