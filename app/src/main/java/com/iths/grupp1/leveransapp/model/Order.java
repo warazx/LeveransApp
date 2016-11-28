@@ -8,7 +8,7 @@ import android.os.SystemClock;
  * Created by christiankarlsson on 14/11/16.
  */
 
-public class Order {
+public class Order implements Parcelable {
     private int orderNumber;
     private int orderSum;
     private Customer customer;
@@ -104,15 +104,10 @@ public class Order {
     }
 
 
-    private Order(Parcel in) {
-        orderNumber = in.readInt();
-    }
-
     public int getOrderNumber() {
         return orderNumber;
     }
 
-    /* ------ IMPLEMENT PARCE
     @Override
     public int describeContents() {
         return 0;
@@ -121,6 +116,20 @@ public class Order {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(orderNumber);
+        dest.writeInt(orderSum);
+        dest.writeByte((byte) (isDelivered ? 1 : 0));
+        dest.writeLong(deliveryDate);
+        dest.writeLong(deliveryLatitude);
+        dest.writeLong(deliveryLongitude);
+    }
+
+    private Order(Parcel in) {
+        orderNumber = in.readInt();
+        orderSum = in.readInt();
+        isDelivered = in.readByte() != 0;
+        deliveryDate = in.readLong();
+        deliveryLatitude = in.readLong();
+        deliveryLongitude = in.readLong();
     }
 
     //Creator for the recyclerview.
@@ -136,5 +145,4 @@ public class Order {
             return new Order[size];
         }
     };
-    */
 }

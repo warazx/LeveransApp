@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context="com.iths.grupp1.leveransapp.view.OrderActivity"
-    android:background="#ddd">
+    android:background="#ddd"
+    android:layout_marginBottom="10dp">
 
     <LinearLayout
         android:orientation="horizontal"
@@ -58,14 +59,6 @@
             </LinearLayout>
 
         </LinearLayout>
-
-        <Button
-            tools:text="DELIVER"
-            android:text="Button"
-            android:id="@+id/button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"/>
 
     </LinearLayout>
 

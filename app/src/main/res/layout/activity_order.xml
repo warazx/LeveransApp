@@ -50,27 +50,6 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/ll_customer"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:text="@string/order_activity_customer_label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/order_activity_customer_label"
-            android:layout_weight="1" />
-
-        <TextView
-            tools:text="Anders Svensson"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/order_activity_customer_value"
-            android:layout_weight="0.5" />
-    </LinearLayout>
-
-    <LinearLayout
         android:id="@+id/ll_delivery"
         android:orientation="horizontal"
         android:layout_width="match_parent"

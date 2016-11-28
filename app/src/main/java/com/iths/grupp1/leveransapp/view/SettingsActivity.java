@@ -60,7 +60,7 @@ public class SettingsActivity extends AppCompatActivity {
                         ordersPerPage.setText(String.valueOf(progressValue));
 
                     }
-                    
+
                     @Override
                     public void onStartTrackingTouch(SeekBar seekBar) {
 
