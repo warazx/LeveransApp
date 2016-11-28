@@ -9,26 +9,37 @@ import android.os.SystemClock;
  */
 
 public class Order implements Parcelable {
-    private int orderNumber;
+    private int orderNumber; // PRIMARY KEY
     private int orderSum;
-    private Customer customer;
+    private int customerNumber; // FOREIGN KEY
     private boolean isDelivered;
     private long orderPlacementDate;
     private long deliveryDate;
-    private long deliveryLatitude;
-    private long deliveryLongitude;
+    private double deliveryLatitude;
+    private double deliveryLongitude;
 
-    private static int orderID = 1;
-
-    public Order(Customer customer) {
-        this.orderNumber = orderID;
-        orderID++;
-        this.customer = customer;
+    public Order(int customer) {
+        this.orderNumber = 0;
+        this.orderSum = 0;
+        this.customerNumber = customer;
         this.isDelivered = false;
         this.orderPlacementDate = System.currentTimeMillis();
         this.deliveryDate = 0;
         this.deliveryLatitude = 0;
         this.deliveryLongitude = 0;
+    }
+
+    public Order(int orderNumber, int orderSum, int customerNumber, boolean isDelivered,
+                 long orderPlacementDate, long deliveryDate, double deliveryLatitude,
+                 double deliveryLongitude) {
+        this.orderNumber = orderNumber;
+        this.orderSum = orderSum;
+        this.customerNumber = customerNumber;
+        this.isDelivered = isDelivered;
+        this.orderPlacementDate = orderPlacementDate;
+        this.deliveryDate = deliveryDate;
+        this.deliveryLatitude = deliveryLatitude;
+        this.deliveryLongitude = deliveryLongitude;
     }
 
     public void deliver() {
@@ -54,12 +65,12 @@ public class Order implements Parcelable {
         this.orderSum = orderSum;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public int getCustomer() {
+        return customerNumber;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setCustomer(int customerNumber) {
+        this.customerNumber = customerNumber;
     }
 
     public boolean isDelivered() {
@@ -75,10 +86,6 @@ public class Order implements Parcelable {
         return orderPlacementDate;
     }
 
-    public void setOrderPlacementDate(long orderPlacementDate) {
-        this.orderPlacementDate = orderPlacementDate;
-    }
-
     public long getDeliveryDate() {
         return deliveryDate;
     }
@@ -87,22 +94,21 @@ public class Order implements Parcelable {
         this.deliveryDate = deliveryDate;
     }
 
-    public long getDeliveryLatitude() {
+    public double getDeliveryLatitude() {
         return deliveryLatitude;
     }
 
-    public void setDeliveryLatitude(long deliveryLatitude) {
-        this.deliveryLatitude = deliveryLatitude;
-    }
-
-    public long getDeliveryLongitude() {
+    public double getDeliveryLongitude() {
         return deliveryLongitude;
     }
 
-    public void setDeliveryLongitude(long deliveryLongitude) {
+    public void setDeliveryLongitude(double deliveryLongitude) {
         this.deliveryLongitude = deliveryLongitude;
     }
 
+    public void setDeliveryLatitude(double deliveryLatitude) {
+        this.deliveryLatitude = deliveryLatitude;
+    }
 
     public int getOrderNumber() {
         return orderNumber;
@@ -117,22 +123,25 @@ public class Order implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(orderNumber);
         dest.writeInt(orderSum);
+        dest.writeInt(customerNumber);
         dest.writeByte((byte) (isDelivered ? 1 : 0));
+        dest.writeLong(orderPlacementDate);
         dest.writeLong(deliveryDate);
-        dest.writeLong(deliveryLatitude);
-        dest.writeLong(deliveryLongitude);
+        dest.writeDouble(deliveryLatitude);
+        dest.writeDouble(deliveryLongitude);
     }
 
     private Order(Parcel in) {
         orderNumber = in.readInt();
         orderSum = in.readInt();
+        customerNumber = in.readInt();
         isDelivered = in.readByte() != 0;
+        orderPlacementDate = in.readLong();
         deliveryDate = in.readLong();
-        deliveryLatitude = in.readLong();
-        deliveryLongitude = in.readLong();
+        deliveryLatitude = in.readDouble();
+        deliveryLongitude = in.readDouble();
     }
 
-    //Creator for the recyclerview.
     public static final Creator<Order> CREATOR = new Creator<Order>() {
 
         @Override

@@ -14,11 +14,11 @@ import java.util.ArrayList;
 import android.util.Log;
 
 
-public class OrderSQLiteOpenHelper extends SQLiteOpenHelper implements IOrderSQLiteOpenHelper {
+public class OrderSQLiteOpenHelper extends SQLiteOpenHelper {
 
-    public static final String LOG = "sqlDB";
+    private static final String LOG = "sqlDB";
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 5;
     private static final String DATABASE_NAME = "deliveryDB.db";
 
     private static final String TABLE_ORDERS = "orders";
@@ -33,6 +33,7 @@ public class OrderSQLiteOpenHelper extends SQLiteOpenHelper implements IOrderSQL
 
     private static final String TABLE_CUSTOMERS = "customers";
     private static final String CUSTOMER_ID = "_id";
+    private static final String CUSTOMER_NAME = "name";
     private static final String CUSTOMER_ADDRESS = "address";
     private static final String CUSTOMER_PHONE = "phoneNumber";
     private static final String CUSTOMER_CREATION_DATE = "creationDate";
@@ -56,17 +57,18 @@ public class OrderSQLiteOpenHelper extends SQLiteOpenHelper implements IOrderSQL
                 + "," + ORDER_CUSTOMER + " " + "INTEGER"
                 + "," + ORDER_SUM + " " + "INTEGER"
                 + "," + ORDER_DELIVERED + " " + "TINYINT"
-                + "," + ORDER_PLACEMENT_DATE + " " + "TEXT"
-                + "," + ORDER_DELIVERY_DATE + " " + "TEXT"
+                + "," + ORDER_PLACEMENT_DATE + " " + "INTEGER"
+                + "," + ORDER_DELIVERY_DATE + " " + "INTEGER"
                 + "," + ORDER_DELIVERY_LONG + " " + "DOUBLE"
                 + "," + ORDER_DELIVERY_LAT + " " + "DOUBLE" + ")";
         db.execSQL(command);
 
         command = "CREATE TABLE" + " " + TABLE_CUSTOMERS
                 + "(" + CUSTOMER_ID + " " + "INTEGER PRIMARY KEY AUTOINCREMENT"
+                + "," + CUSTOMER_NAME + " " + "TEXT"
                 + "," + CUSTOMER_ADDRESS + " " + "TEXT"
                 + "," + CUSTOMER_PHONE + " " + "TEXT"
-                + "," + CUSTOMER_CREATION_DATE + " " + "TEXT" + ")";
+                + "," + CUSTOMER_CREATION_DATE + " " + "INTEGER" + ")";
         db.execSQL(command);
 
         command = "CREATE TABLE" + " " + TABLE_USERS
@@ -104,31 +106,79 @@ public class OrderSQLiteOpenHelper extends SQLiteOpenHelper implements IOrderSQL
         onCreate(db);
     }
 
-    @Override
-    public boolean addOrder(Order order) {
-        return false;
+    /**
+     * Adds a new order to the Orders database. Intended for generating random new orders.
+     * @param order the object containing the order information to add.
+     */
+    public void addOrder(Order order) {
+
+        ContentValues values = new ContentValues();
+        values.put(ORDER_CUSTOMER, order.getCustomer());
+        values.put(ORDER_SUM, order.getOrderSum());
+        values.put(ORDER_PLACEMENT_DATE, order.getOrderPlacementDate());
+        values.put(ORDER_DELIVERED, 0);
+        values.put(ORDER_DELIVERY_DATE,0);
+        values.put(ORDER_DELIVERY_LONG,0);
+        values.put(ORDER_DELIVERY_LAT,0);
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.insert(TABLE_ORDERS, null, values);
+        db.close();
+
+        Log.d(LOG,"Added new order to database.");
+
     }
 
-    @Override
-    public boolean updateOrder(Order order) {
-        return false;
+    /**
+     * Updates an existing order's information in the database. Intended for
+     * updating delivery status, time of delivery and longitude/latitude.
+     * @param order the object containing the information to update.
+     */
+    public void updateOrder(Order order) {
+
+        ContentValues values = new ContentValues();
+        values.put(ORDER_DELIVERED,1);
+        values.put(ORDER_DELIVERY_DATE,order.getDeliveryDate());
+        values.put(ORDER_DELIVERY_LONG,order.getDeliveryLongitude());
+        values.put(ORDER_DELIVERY_LAT,order.getDeliveryLatitude());
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.update(TABLE_ORDERS,values,ORDER_ID + " = " + order.getOrderNumber(), null);
+        db.close();
+
+        Log.d(LOG,"Updated order #" + order.getOrderNumber());
+
     }
 
-    @Override
+    /**
+     * Retrieves an ArrayList of delivered orders from the Orders database.
+     * @return an ArrayList of Order objects.
+     */
     public ArrayList<Order> getDeliveredOrders() {
         return getOrders(true,0,0);
     }
 
-    @Override
+    /**
+     * Retrieves an ArrayList of all undelivered orders from the Orders database.
+     * @return an ArrayList of Order objects.
+     */
     public ArrayList<Order> getUndeliveredOrders() {
         return getOrders(false,0,0);
     }
 
+    /**
+     * Retrieves an ArrayList of undelivered orders within a given range of order numbers.
+     * @param fromID number of the first order to retrieve. If zero will start from the first order in the database.
+     * @param orderCount the amount of orders to retrieve.
+     * @return an ArrayList of Order objects.
+     */
     public ArrayList<Order> getUndeliveredOrders(int fromID, int orderCount) {
         return getOrders(false, fromID, orderCount);
     }
 
-    public ArrayList<Order> getOrders(boolean delivered, int fromID, int orderCount) {
+    /* Parent function for retrieving Orders from database. */
+    private ArrayList<Order> getOrders(boolean delivered, int fromID, int orderCount) {
 
         String command = "SELECT" + " * " + "FROM" + " " + TABLE_ORDERS
                        + " WHERE " + ORDER_DELIVERED + " = " + (delivered ? 1 : 0); // (Omvandlar boolean till int)
@@ -136,7 +186,7 @@ public class OrderSQLiteOpenHelper extends SQLiteOpenHelper implements IOrderSQL
                command += " AND " + ORDER_ID + " >= " + fromID;
         }
         if (orderCount > 0) {
-               command += " AND " + ORDER_ID + " <= " + (fromID + orderCount);
+               command += " LIMIT " + orderCount;
         }
 
         SQLiteDatabase db = this.getReadableDatabase();
@@ -149,70 +199,97 @@ public class OrderSQLiteOpenHelper extends SQLiteOpenHelper implements IOrderSQL
                 int retrievedCustomer = cursor.getInt(1);
                 int retrievedSum = cursor.getInt(2);
                 boolean retrievedDelivered = !(cursor.getInt(3) == 0);  // Omvandlar int till boolean true / false
-                String retrievedPlaceDate = cursor.getString(4);
-                String retrievedDeliveryDate = cursor.getString(5);
+                long retrievedPlaceDate = cursor.getLong(4);
+                long retrievedDeliveryDate = cursor.getLong(5);
                 double retrievedLongitude = cursor.getDouble(6);
                 double retrievedLatitude = cursor.getDouble(7);
 
-                Customer customer = getCustomer(retrievedCustomer);     // Kan i nuläget potentiellt orsaka crash, kanske...
-                Order order = new Order(customer);
-                order.setOrderNumber(retrievedId);
-                order.setOrderSum(retrievedSum);
-                order.setDelivered(retrievedDelivered);
-                // order.setOrderPlacementDate(retrievedPlaceDate);     // Behövs omvandlas tillbaka till long ???
-                // order.setOrderDeliveryDate(retrievedDeliveryDate);   // -||- + saknas setter?
-                // order.setDeliveryLongitude(retrievedLongitude);      // Fråga: borde inte long- & lat- variablerna vara double?
-                // order.setDeliveryLatitude(retrievedLatitude)         // -||-
+                Order order = new Order(retrievedId, retrievedSum, retrievedCustomer,
+                                        retrievedDelivered, retrievedPlaceDate, retrievedDeliveryDate,
+                                        retrievedLongitude, retrievedLatitude);
                 orderList.add(order);
-
             } while (cursor.moveToNext());
         } else {
             orderList = null;
         }
 
+        cursor.close();
         return orderList;
     }
 
-    @Override
+    /**
+     * Retrieves a Customer object from the Customers database.
+     * @param id the id of the Customer to retrieve.
+     * @return a Customer object.
+     */
     public Customer getCustomer(int id) {
+        ArrayList<Customer> customer = getCustomers(id);
 
-        String command = "SELECT" + " * " + "FROM" + " " + TABLE_CUSTOMERS
-                       + " WHERE " + CUSTOMER_ID + " = " + id;
+        if (! (customer == null)) {
+            Log.d(LOG,"Found Customer with ID: " + id);
+            return customer.get(0);
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Retrieves an ArrayList of Customer objects from the Customers database.
+     * @param id the id of the Customer to retrieve. If zero retrieves all Customers in database.
+     * @return an ArrayList of Customer objects.
+     */
+    public ArrayList<Customer> getCustomers(int id) {
+
+        String command = "SELECT" + " * " + "FROM" + " " + TABLE_CUSTOMERS;
+        if (id > 0) {
+            command += " WHERE " + CUSTOMER_ID + " = " + id;
+        }
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(command,null);
-        Customer customer;
+        ArrayList<Customer> customers = new ArrayList<>();
 
         if (cursor.moveToFirst()) {
-            Log.d(LOG,"Found Customer with ID:  " + id);
-            int retrievedId = cursor.getInt(0);
-            String retrievedAddress = cursor.getString(1);
-            String retrievedPhone = cursor.getString(2);
-            // long retrievedDate = cursor.get ???;
-            customer = new Customer(retrievedId, retrievedPhone, retrievedAddress);
+            do {
+                int retrievedId = cursor.getInt(0);
+                String retrievedName = cursor.getString(1);
+                String retrievedAddress = cursor.getString(2);
+                String retrievedPhone = cursor.getString(3);
+                long retrievedDate = cursor.getLong(4);
+                Customer customer = new Customer(retrievedName, retrievedPhone, retrievedAddress);
+                customer.setCostumerNumber(retrievedId);
+                customer.setCreatedDate(retrievedDate);
+                customers.add(customer);
+            } while (cursor.moveToNext());
+            Log.d(LOG,"Found " + customers.size() + " customers in database.");
         } else {
-            Log.d(LOG,"No Customer with ID: " + id + " found.");
-            customer = null;
+            Log.d(LOG,"No customers found in database.");
+            customers = null;
         }
 
         cursor.close();
-        return customer;
+        return customers;
 
     }
 
-    @Override
-    public User getUser(String username, String password) {
+    /**
+     * Checks the Users database for an entry matching a given username and returns
+     * a User object if successful.
+     * @param username the username to look for.
+     * @return a User object if the a match was found, and null if not.
+     */
+    public User getUser(String username) {
 
         String command = "SELECT" + " * " + "FROM" + " " + TABLE_USERS
-                       + " WHERE " + USER_USERNAME + " = " + "'" + username + "'"
-                       + " AND " + USER_PASSWORD + " = " + "'" + password + "'";
+                       + " WHERE " + USER_USERNAME + " = " + "'" + username + "'";
+                       //+ " AND " + USER_PASSWORD + " = " + "'" + password + "'";
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(command,null);
         User user;
 
         if (cursor.moveToFirst()) {
-            Log.d(LOG,"Found User matching " + username + " / " + password);
+            Log.d(LOG,"Found User matching " + username);
             String retrievedUsername = cursor.getString(1);
             String retrievedPassword = cursor.getString(2);
             user = new User(retrievedUsername,retrievedPassword);
@@ -226,21 +303,72 @@ public class OrderSQLiteOpenHelper extends SQLiteOpenHelper implements IOrderSQL
 
     }
 
+    /* Adds a new customer to the database */
+    private void addCustomer(SQLiteDatabase db, Customer customer) {
+        ContentValues values = new ContentValues();
+        values.put(CUSTOMER_NAME, customer.getName());
+        values.put(CUSTOMER_ADDRESS, customer.getAddress());
+        values.put(CUSTOMER_PHONE, customer.getPhoneNumber());
+        values.put(CUSTOMER_CREATION_DATE, customer.getCreatedDate());
+        db.insert(TABLE_CUSTOMERS, null, values);
+    }
+
     /* Adds generated new customers to the database */
     private void generateCustomers(SQLiteDatabase db) {
 
-        ContentValues values;
+        String name, address, phoneNumber;
 
-        String address = "Ebbe Lieberathsgatan 18C, 412 65 Göteborg";
-        String phoneNumber = "0705169513";
-        String creationDate = "1234567890";
+        name = "IT-Högskolan";
+        address = "Ebbe Lieberathsgatan 18C, 412 65 Göteborg";
+        phoneNumber = "0705169513";
+        addCustomer(db, new Customer(name, phoneNumber, address));
 
-        values = new ContentValues();
-        values.put(CUSTOMER_ADDRESS, address);
-        values.put(CUSTOMER_PHONE, phoneNumber);
-        values.put(CUSTOMER_CREATION_DATE, creationDate);
+        name = "Truckstop Alaska";
+        address = "Karlavagnsgatan 13, 417 56 Göteborg";
+        phoneNumber = "0737879499";
+        addCustomer(db, new Customer(name, phoneNumber, address));
 
-        db.insert(TABLE_CUSTOMERS, null, values);
+        name = "Liseberg";
+        address = "Örgrytevägen 5, 402 22 Göteborg";
+        phoneNumber = "031400100";
+        addCustomer(db, new Customer(name, phoneNumber, address));
+
+        name = "Legoland";
+        address = "Nordmarksvej 9, 7190 Billund";
+        phoneNumber = "+4575331333";
+        addCustomer(db, new Customer(name, phoneNumber, address));
+
+        name = "Bengans Skivbutik";
+        address = "Stigbergstorget 1, 414 63 Göteborg";
+        phoneNumber = "031143300";
+        addCustomer(db, new Customer(name, phoneNumber, address));
+
+        name = "ICA Supermarket Lindome";
+        address = "Almåsgången 1, 437 30 Lindome";
+        phoneNumber = "031997170";
+        addCustomer(db, new Customer(name, phoneNumber, address));
+
+        name = "Kråkans Krog";
+        address = "Götaforsliden 1, 431 34 Mölndal";
+        phoneNumber = "031270458";
+        addCustomer(db, new Customer(name, phoneNumber, address));
+
+        name = "Coop Konsum Mölnlycke";
+        address = "Biblioteksgatan 7, 435 30 Mölnlycke";
+        phoneNumber = "0107415340";
+        addCustomer(db, new Customer(name, phoneNumber, address));
+
+        name = "Kafé Höga Nord";
+        address = "Kyrkogatan 13, 411 15 Göteborg";
+        phoneNumber = "123456789";
+        addCustomer(db, new Customer(name, phoneNumber, address));
+
+        name = "Skumrask AB";
+        address = "Anders Carlssons Gata 30, 417 55 Göteborg";
+        phoneNumber = "123456789";
+        addCustomer(db, new Customer(name, phoneNumber, address));
+
+        // TODO: Add more customers!
 
         Log.d(LOG,"Generated new customers.");
 
@@ -294,7 +422,5 @@ public class OrderSQLiteOpenHelper extends SQLiteOpenHelper implements IOrderSQL
         Log.d(LOG,"Generated new users.");
 
     }
-
-
 
 }
