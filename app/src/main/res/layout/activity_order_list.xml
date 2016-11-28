@@ -11,14 +11,14 @@
     tools:context="com.iths.grupp1.leveransapp.view.OrderListActivity">
 
     <Button
-        android:text="@string/activity_order_list_load_btn_text"
+        android:text="ADD"
         android:id="@+id/add_orders_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="addOrders"/>
 
     <Button
-        android:text="@string/activity_order_list_update_btn_text"
+        android:text="TODO"
         android:id="@+id/update_orders_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -26,7 +26,7 @@
         android:layout_toEndOf="@id/add_orders_btn"/>
 
     <Button
-        android:text="@string/activity_order_list_history_btn_text"
+        android:text="DONE"
         android:id="@+id/history_orders_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
         android:layout_toEndOf="@id/update_orders_btn"/>
 
     <Button
-        android:text="Settings"
+        android:text="SETT"
         android:id="@+id/settings_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

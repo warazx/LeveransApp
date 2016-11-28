@@ -1,6 +1,8 @@
 package com.iths.grupp1.leveransapp.view;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,6 +23,8 @@ public class OrderListActivity extends AppCompatActivity {
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
 
+    private SharedPreferences sharedPref;
+
     private ArrayList<Order> orders;
 
     @Override
@@ -31,6 +35,7 @@ public class OrderListActivity extends AppCompatActivity {
 
         OrderSQLiteOpenHelper db = new OrderSQLiteOpenHelper(this);
         orders = db.getUndeliveredOrders();
+        sharedPref = getSharedPreferences("userSettings", Context.MODE_PRIVATE);
 
         recyclerView.setHasFixedSize(true);
 
@@ -43,7 +48,9 @@ public class OrderListActivity extends AppCompatActivity {
 
     //TODO: Move this to the toolbar.
     public void addOrders(View view) {
-        GenerateDatabaseObject.addOrders(this);
+        String str = sharedPref.getString("ordersPerPage", "10");
+        int amount = Integer.parseInt(str);
+        GenerateDatabaseObject.addOrders(this, amount);
         updateOrders(view);
     }
 
@@ -68,6 +75,7 @@ public class OrderListActivity extends AppCompatActivity {
         }
     }
 
+    //  TODO: Move this to the toolbar.
     public void goToSettings(View view) {
         Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);

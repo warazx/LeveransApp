@@ -1,6 +1,9 @@
 package com.iths.grupp1.leveransapp.util;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import java.util.Random;
 
 import com.iths.grupp1.leveransapp.database.OrderSQLiteOpenHelper;
@@ -13,10 +16,8 @@ public final class GenerateDatabaseObject {
 
     private static Random rnd = new Random();
 
-    public static void addOrders(Activity activity) {
+    public static void addOrders(Activity activity, int amount) {
         OrderSQLiteOpenHelper db = new OrderSQLiteOpenHelper(activity);
-        //TODO: Get the number from settings / sharedprefs.
-        int amount = 10;
 
         ArrayList<Customer> customers = db.getCustomers(0);
         for(int i = 0; i < amount; i++) {
