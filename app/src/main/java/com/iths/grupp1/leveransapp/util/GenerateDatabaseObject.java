@@ -16,6 +16,11 @@ public final class GenerateDatabaseObject {
 
     private static Random rnd = new Random();
 
+    /**
+     * Adds amount of orders to the database.
+     * @param activity context.
+     * @param amount number of orders to be generated.
+     */
     public static void addOrders(Activity activity, int amount) {
         OrderSQLiteOpenHelper db = new OrderSQLiteOpenHelper(activity);
 
