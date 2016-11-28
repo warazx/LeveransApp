@@ -10,15 +10,6 @@
                 android:paddingTop="@dimen/activity_vertical_margin"
                 tools:context="com.iths.grupp1.leveransapp.view.SettingsActivity">
 
-    <TextView
-        android:id="@+id/ordersValue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/numOfOrders"
-        android:layout_centerHorizontal="true"
-        android:text="@string/orders_per_page"
-        android:textSize="20sp"
-        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/ordersValue"
@@ -43,13 +34,13 @@
 
     <TextView
         android:id="@+id/numOfOrders"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/numOfOrdersSeekBar"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="10dp"
         android:text="@string/number_of_orders"
-        android:textSize="20sp"/>
+        android:textSize="20sp"
+        android:layout_width="25dp"/>
 
     <View
         android:id="@+id/horizontalLine1"
@@ -89,7 +80,6 @@
         android:layout_below="@+id/phoneNumberDesc"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
-        android:hint="000000000"
         android:inputType="phone"
         android:ems="10"/>
 

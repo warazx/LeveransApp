@@ -12,7 +12,7 @@
     <string name="order_activity_placed_label">Lagd:</string>
     <string name="order_activity_btn_label">LEVERERA</string>
     <string name="order_activity_delivered_date_label">Levererad:</string>
-    <string name="number_of_orders"> </string>
+    <string name="number_of_orders">10</string>
     <string name="orders_per_page">ORDRAR PER SIDA</string>
     <string name="phonenumber">TELEFONNUMMER</string>
     <string name="phone_number_description">Ändra telefonnummer som får leveransbesked</string>
