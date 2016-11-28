@@ -8,6 +8,11 @@ public class User {
     private static String username;
     private static String password;
 
+    /**
+     * Default
+     * @param username
+     * @param password
+     */
     public User(String username, String password) {
         this.username = username;
         this.password = password;
