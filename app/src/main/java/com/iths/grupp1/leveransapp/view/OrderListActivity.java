@@ -10,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
@@ -88,11 +87,9 @@ public class OrderListActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    //TODO: Move this to the toolbar.
     /**
      * Adds x orders to the database and updates the list. Number of orders is determined
      * by the the ordersPerPage setting in the SettingsActivity.
-     * @param view
      */
     public void addOrders() {
         String str = sharedPref.getString("ordersPerPage", "10");
@@ -101,10 +98,8 @@ public class OrderListActivity extends AppCompatActivity {
         updateOrders();
     }
 
-    //  TODO: Move this to the toolbar.
     /**
      * Gets all undelivered orders from the database and updates the list with them.
-     * @param view
      */
     public void updateOrders() {
         OrderSQLiteOpenHelper db = new OrderSQLiteOpenHelper(this);
@@ -112,10 +107,8 @@ public class OrderListActivity extends AppCompatActivity {
         swapOrders();
     }
 
-    //  TODO: Move this to the toolbar.
     /**
      * Gets all delivered orders from the database and updates the list with them.
-     * @param view
      */
     public void historyOrders() {
         OrderSQLiteOpenHelper db = new OrderSQLiteOpenHelper(this);
@@ -123,10 +116,8 @@ public class OrderListActivity extends AppCompatActivity {
         swapOrders();
     }
 
-    //  TODO: Move this to the toolbar.
     /**
      * Sends the user to the SettingsActivity.
-     * @param view
      */
     public void goToSettings() {
         Intent intent = new Intent(this, SettingsActivity.class);
