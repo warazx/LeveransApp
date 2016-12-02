@@ -3,16 +3,16 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/settings"
-        android:title="Settings" />
+        android:id="@+id/actionbar_settings_item"
+        android:title="@string/actionbar_settings_option_title" />
     <item
-        android:id="@+id/mySwitch"
+        android:id="@+id/actionbar_switch_item"
         android:title=""
         app:showAsAction="always"
         app:actionLayout="@layout/use_switch"/>
     <item
-        android:id="@+id/addOrders"
-        android:title="Lägg till ordrar"
+        android:id="@+id/actionbar_add_orders_item"
+        android:title="@string/actionbar_add_orders_option_title"
         android:icon="@mipmap/ic_new_order2"
         app:showAsAction="always"/>
 </menu>

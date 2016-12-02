@@ -12,12 +12,15 @@ import com.iths.grupp1.leveransapp.model.Order;
 
 import java.util.ArrayList;
 
+/**
+ * Helper class to help generate objects for the database.
+ */
 public final class GenerateDatabaseObject {
 
     private static Random rnd = new Random();
 
     /**
-     * Adds amount of orders to the database.
+     * Adds amount of orders to the database. Gives all orders an random Customer linked to them.
      * @param activity context.
      * @param amount number of orders to be generated.
      */

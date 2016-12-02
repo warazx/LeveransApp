@@ -1,9 +1,8 @@
 package com.iths.grupp1.leveransapp.model;
 
 /**
- * Created by christiankarlsson on 16/11/16.
+ * Handles the data of an User.
  */
-
 public class User {
     private String username;
     private String password;

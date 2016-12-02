@@ -39,7 +39,7 @@ public class OrderListActivity extends AppCompatActivity {
 
         OrderSQLiteOpenHelper db = new OrderSQLiteOpenHelper(this);
         orders = db.getUndeliveredOrders();
-        sharedPref = getSharedPreferences("userSettings", Context.MODE_PRIVATE);
+        sharedPref = getSharedPreferences(SettingsActivity.STATUS_USER_SETTINGS, Context.MODE_PRIVATE);
 
         recyclerView.setHasFixedSize(true);
 
@@ -53,9 +53,9 @@ public class OrderListActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.activity_order_list_menu, menu);
 
-        MenuItem itemSwitch = menu.findItem(R.id.mySwitch);
+        MenuItem itemSwitch = menu.findItem(R.id.actionbar_switch_item);
         itemSwitch.setActionView(R.layout.use_switch);
-        final Switch sw = (Switch) menu.findItem(R.id.mySwitch).getActionView().findViewById(R.id.switch1);
+        final Switch sw = (Switch) menu.findItem(R.id.actionbar_switch_item).getActionView().findViewById(R.id.switch1);
         sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -74,12 +74,12 @@ public class OrderListActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         switch (id){
-            case R.id.settings:
+            case R.id.actionbar_settings_item:
                 goToSettings();
                 //Intent intent = new Intent(this, SettingsActivity.class);
                 //startActivity(intent);
                 break;
-            case R.id.addOrders:
+            case R.id.actionbar_add_orders_item:
                 addOrders();
                 Log.d("TAG","Lägger till ordrar");
                 break;

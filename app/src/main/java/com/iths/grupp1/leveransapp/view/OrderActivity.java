@@ -4,16 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,22 +34,26 @@ public class OrderActivity extends AppCompatActivity {
     private Order order;
     private Customer customer;
 
+    private SharedPreferences sharedPref;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
 
         Intent intent = getIntent();
-        order = intent.getExtras().getParcelable(OrderAdapter.SINGLE_ORDER);
-        customer = intent.getExtras().getParcelable(OrderAdapter.SINGLE_CUSTOMER);
+        order = intent.getExtras().getParcelable(OrderAdapter.EXTRA_ORDER);
+        customer = intent.getExtras().getParcelable(OrderAdapter.EXTRA_CUSTOMER);
 
         orderIdText = (TextView) findViewById(R.id.order_activity_orderid_value);
         placedDateText = (TextView) findViewById(R.id.order_activity_placed_value);
         customerNameText = (TextView) findViewById(R.id.order_activity_name_value);
         deliveryAddressText = (TextView) findViewById(R.id.order_activity_delivery_value);
         phoneNumberText = (TextView) findViewById(R.id.order_activity_phone_value);
-        deliveredDateText = (TextView) findViewById(R.id.order_activity_delivered_date_value);
+        deliveredDateText = (TextView) findViewById(R.id.activity_order_delivered_date_value);
         deliveryBtn = (Button) findViewById(R.id.order_activity_delivery_btn);
+
+        sharedPref = getSharedPreferences(SettingsActivity.STATUS_USER_SETTINGS, Context.MODE_PRIVATE);
 
         toggleLayout();
 
@@ -73,7 +75,7 @@ public class OrderActivity extends AppCompatActivity {
 
         int id = item.getItemId();
         switch (id){
-            case R.id.settings:
+            case R.id.actionbar_settings_item:
                 Intent intent = new Intent(this, SettingsActivity.class);
                 startActivity(intent);
                 break;
@@ -120,15 +122,17 @@ public class OrderActivity extends AppCompatActivity {
      * Sends sms to user when an order is delivered.
      */
     private void sendSms() {
-        SharedPreferences sharedPref;
-        sharedPref = getSharedPreferences("userSettings", Context.MODE_PRIVATE);
-        String phoneNumber = sharedPref.getString("phoneNumber", "10");
-        String message = "Order nr" + orderIdText + " has been delivered.";
+
+
+        String phoneNumber = sharedPref.getString(SettingsActivity.PHONE_NUMBER_TO_ADD, String.valueOf(R.string.empty_string));
+        String message = "Order " + orderIdText + " har levererats!";
+
         SmsManager manager = SmsManager.getDefault();
         try {
             manager.sendTextMessage(phoneNumber, null, message, null, null);
         } catch (Exception e) {
-            Toast.makeText(this, "SMS not delivered. " + phoneNumber + " is not a valid phonenumber", Toast.LENGTH_LONG).show();
+            String errorMessage = "SMS not delivered. " + phoneNumber + " is not a valid phone number";
+            Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show();
         }
 
     }
@@ -142,7 +146,7 @@ public class OrderActivity extends AppCompatActivity {
         String address = customer.getAddress();
         Uri uri = Uri.parse("google.navigation:q=" + address + "&mode=d");
         Intent intent = new Intent(Intent.ACTION_VIEW,uri);
-        intent.setPackage("com.google.android.apps.maps");
+        intent.setPackage(getString(R.string.activity_order_google_maps_package));
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
         }

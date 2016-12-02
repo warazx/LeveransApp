@@ -3,9 +3,7 @@ package com.iths.grupp1.leveransapp.view;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -23,22 +21,17 @@ public class LoginActivity extends AppCompatActivity {
     private OrderSQLiteOpenHelper users;
     public static String retrievedUsername;
     public static String retrievedPassword;
-    //Testbutton for Orders.
-    private Button loginBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        textViewUsernameMessage = (TextView)findViewById(R.id.error_username);
-        textViewPasswordMessage = (TextView)findViewById(R.id.error_password);
-        username = (EditText)findViewById(R.id.username);
-        password = (EditText)findViewById(R.id.password);
+        textViewUsernameMessage = (TextView)findViewById(R.id.activity_login_username_message);
+        textViewPasswordMessage = (TextView)findViewById(R.id.activity_login_password_message);
+        username = (EditText)findViewById(R.id.activity_login_username_value);
+        password = (EditText)findViewById(R.id.activity_login_password_value);
 
-        //Testbutton for Orders.
         users = new OrderSQLiteOpenHelper(this);
-        loginBtn = (Button) findViewById(R.id.login_btn);
-
     }
 
 
@@ -60,8 +53,8 @@ public class LoginActivity extends AppCompatActivity {
         User user = users.getUser(enteredUsername);
 
         if(user == null){
-            retrievedUsername = "not found";
-            retrievedPassword = "not found";
+            retrievedUsername = getString(R.string.activity_login_evaluate_login_data_error_text);
+            retrievedPassword = getString(R.string.activity_login_evaluate_login_data_error_text);
         }else{
             retrievedUsername = user.getUsername();
             retrievedPassword = user.getPassword();
@@ -70,8 +63,6 @@ public class LoginActivity extends AppCompatActivity {
         evaluateUsername();
         evaluatePassword();
 
-        //Intent intent = new Intent(this, OrderListActivity.class);
-        //startActivity(intent);
     }
 
     public void evaluateUsername(){
@@ -81,29 +72,29 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         if(enteredUsername.isEmpty()){
-            textViewUsernameMessage.setText("Enter username");
+            textViewUsernameMessage.setText(R.string.activity_login_username_message_text);
         }
         else if(!enteredUsername.equals(retrievedUsername)){
-            textViewUsernameMessage.setText("Not valid username");
-            textViewPasswordMessage.setText(" ");
+            textViewUsernameMessage.setText(R.string.activity_login_username_message_error_text);
+            textViewPasswordMessage.setText(R.string.empty_string);
         }
     }
 
     public void evaluatePassword(){
         if(enteredPassword.isEmpty()){
-            textViewPasswordMessage.setText("Enter password");
+            textViewPasswordMessage.setText(R.string.activity_login_password_message_text);
         }
-        else if(retrievedPassword.equals("not found")){
-            textViewPasswordMessage.setText(" ");
+        else if(retrievedPassword.equals(getString(R.string.activity_login_evaluate_login_data_error_text))){
+            textViewPasswordMessage.setText(R.string.empty_string);
         }
         else if(!enteredPassword.equals(retrievedPassword)){
-            textViewPasswordMessage.setText("Not valid password");
+            textViewPasswordMessage.setText(R.string.activity_login_password_message_error_text);
         }
     }
 
     public void deleteMessage(){
-        textViewUsernameMessage.setText(" ");
-        textViewPasswordMessage.setText(" ");
+        textViewUsernameMessage.setText(R.string.empty_string);
+        textViewPasswordMessage.setText(R.string.empty_string);
     }
 
 }

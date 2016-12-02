@@ -17,21 +17,27 @@ import com.iths.grupp1.leveransapp.view.OrderActivity;
 import java.util.ArrayList;
 
 /**
- * Created by christiankarlsson on 14/11/16.
+ * Custom Adapter for the OrderListActivity.
  */
-
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHolder> {
 
-    public static final String SINGLE_ORDER = "ORDER_ID";
-    public static final String SINGLE_CUSTOMER = "SINGLE_CUSTOMER";
+    public static final String EXTRA_ORDER = "EXTRA_ORDER";
+    public static final String EXTRA_CUSTOMER = "EXTRA_CUSTOMER";
 
     private Context context;
     private ArrayList<Order> orders;
 
+    /**
+     * Default constructor for the adapter.
+     * @param orders ArrayList of Order objects.
+     */
     public OrderAdapter(ArrayList<Order> orders) {
         this.orders = orders;
     }
 
+    /*
+    Inflates the viewHolder on creation. Uses the order_list_item.xml file and inflates it into the view.
+     */
     @Override
     public OrderViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
@@ -52,36 +58,49 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         } else return orders.size();
     }
 
+    /*
+    The ViewHolder for an item in the Order list view. Changes to the layout of an item is done in
+    the order_list_item.xml and you bind the variables with the resources here.
+     */
     protected class OrderViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView orderIdText;
-        private TextView orderTargetText;
+        private TextView deliveryAddressText;
         private Order order;
         private Customer customer;
 
+        /*
+        Constructor for the item. Bind IDs with variables here.
+         */
         private OrderViewHolder(View view) {
             super(view);
 
             context = itemView.getContext();
             orderIdText = (TextView) itemView.findViewById(R.id.order_item_orderID_value);
-            orderTargetText = (TextView) itemView.findViewById(R.id.order_item_target_value);
+            deliveryAddressText = (TextView) itemView.findViewById(R.id.order_item_delivery_address_value);
 
             itemView.setOnClickListener(this);
         }
 
+        /*
+        Set the values for an item here.
+         */
         private void bindOrder(Order order) {
             OrderSQLiteOpenHelper db = new OrderSQLiteOpenHelper(context);
             this.order = order;
             customer = db.getCustomer(order.getCustomer());
             orderIdText.setText(order.getOrderNumber() + "");
-            orderTargetText.setText(customer.getAddress());
+            deliveryAddressText.setText(customer.getAddress());
         }
 
+        /*
+        This happens if you click on the item.
+         */
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(context, OrderActivity.class);
-            intent.putExtra(SINGLE_ORDER, order);
-            intent.putExtra(SINGLE_CUSTOMER, customer);
+            intent.putExtra(EXTRA_ORDER, order);
+            intent.putExtra(EXTRA_CUSTOMER, customer);
             context.startActivity(intent);
         }
     }

@@ -5,9 +5,8 @@ import android.os.Parcelable;
 import android.os.SystemClock;
 
 /**
- * Created by christiankarlsson on 14/11/16.
+ * Handles the data of an Order.
  */
-
 public class Order implements Parcelable {
     private int orderNumber; // PRIMARY KEY
     private int orderSum;
@@ -116,11 +115,11 @@ public class Order implements Parcelable {
         return orderNumber;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
+    /* **********************************************************************************
+    Makes the class Parcelable. You can send it as Extras in intents.
 
+    Package the object into readable types of data. NEEDS to be in the same order as the unpacking.
+     */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(orderNumber);
@@ -133,6 +132,9 @@ public class Order implements Parcelable {
         dest.writeDouble(deliveryLongitude);
     }
 
+    /*
+    Unpacks the data, and reassembles the object. NEEDS to be in the same order as the packaging.
+     */
     private Order(Parcel in) {
         orderNumber = in.readInt();
         orderSum = in.readInt();
@@ -142,6 +144,14 @@ public class Order implements Parcelable {
         deliveryDate = in.readLong();
         deliveryLatitude = in.readDouble();
         deliveryLongitude = in.readDouble();
+    }
+
+    /*
+     * Creator for the Order to make it Parcelable.
+     */
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public static final Creator<Order> CREATOR = new Creator<Order>() {

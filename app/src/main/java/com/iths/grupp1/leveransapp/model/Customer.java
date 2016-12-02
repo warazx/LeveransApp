@@ -4,9 +4,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- * Created by christiankarlsson on 14/11/16.
+ * Handles the data of an Customer.
  */
-
 public class Customer implements Parcelable {
     private int costumerNumber;
     private String name;
@@ -68,11 +67,11 @@ public class Customer implements Parcelable {
         this.created = created;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
+    /* **********************************************************************************
+    Makes the class Parcelable. You can send it as Extras in intents.
 
+    Package the object into readable types of data. NEEDS to be in the same order as the unpacking.
+     */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(costumerNumber);
@@ -82,6 +81,9 @@ public class Customer implements Parcelable {
         dest.writeLong(created);
     }
 
+    /*
+    Unpacks the data, and reassembles the object. NEEDS to be in the same order as the packaging.
+     */
     private Customer(Parcel in) {
         costumerNumber = in.readInt();
         name = in.readString();
@@ -90,6 +92,14 @@ public class Customer implements Parcelable {
         created = in.readLong();
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    /*
+     * Creator for the Customer to make it Parcelable.
+     */
     public static final Creator<Customer> CREATOR = new Creator<Customer>() {
 
         @Override

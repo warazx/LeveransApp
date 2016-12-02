@@ -39,7 +39,7 @@
 
         <activity
             android:name=".util.MapsActivity"
-            android:label="@string/title_activity_maps"></activity>
+            android:label="@string/activity_maps_title"></activity>
     </application>
 
 </manifest>

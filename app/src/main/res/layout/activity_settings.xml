@@ -12,33 +12,33 @@
 
 
     <TextView
-        android:id="@+id/ordersValue"
+        android:id="@+id/activity_settings_orders_setting_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/numOfOrders"
+        android:layout_above="@+id/activity_settings_orders_setting_text_value"
         android:layout_centerHorizontal="true"
-        android:text="@string/orders_per_page"
+        android:text="@string/activity_settings_orders_setting_label"
         android:textSize="20sp"
         android:textStyle="bold"/>
 
     <SeekBar
-        android:id="@+id/numOfOrdersSeekBar"
+        android:id="@+id/activity_settings_seekbar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="40dp"
-        android:layout_toStartOf="@+id/numOfOrders"
+        android:layout_toStartOf="@+id/activity_settings_orders_setting_text_value"
         android:progress="10"
         android:max="29"/>
 
     <TextView
-        android:id="@+id/numOfOrders"
+        android:id="@+id/activity_settings_orders_setting_text_value"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/numOfOrdersSeekBar"
+        android:layout_alignBottom="@id/activity_settings_seekbar"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="10dp"
-        android:text="@string/number_of_orders"
+        android:text="@string/activity_settings_number_of_orders"
         android:textSize="20sp"
         android:layout_width="25dp"/>
 
@@ -46,38 +46,38 @@
         android:id="@+id/horizontalLine1"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_below="@id/numOfOrders"
+        android:layout_below="@id/activity_settings_orders_setting_text_value"
         android:layout_marginTop="40dp"
         android:background="@android:color/darker_gray"/>
 
     <TextView
-        android:id="@+id/phoneNumberTitle"
+        android:id="@+id/activity_settings_phone_number_setting_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/horizontalLine1"
         android:layout_centerVertical="true"
-        android:layout_alignStart="@+id/ordersValue"
+        android:layout_alignStart="@+id/activity_settings_orders_setting_label"
         android:layout_marginBottom="20dp"
         android:layout_marginTop="40dp"
-        android:text="@string/phonenumber"
+        android:text="@string/activity_settings_phone_number_setting_label"
         android:textSize="20sp"
         android:textStyle="bold"/>
 
     <TextView
-        android:id="@+id/phoneNumberDesc"
+        android:id="@+id/activity_settings_phone_number_setting_desc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/phoneNumberTitle"
+        android:layout_below="@+id/activity_settings_phone_number_setting_label"
         android:layout_alignParentStart="true"
         android:layout_marginBottom="20dp"
-        android:text="@string/phone_number_description"
+        android:text="@string/activity_settings_phone_number_setting_desc"
         android:textSize="17sp"/>
 
     <EditText
-        android:id="@+id/phoneNumber"
+        android:id="@+id/activity_settings_phone_number_setting_value"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/phoneNumberDesc"
+        android:layout_below="@+id/activity_settings_phone_number_setting_desc"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
         android:inputType="phone"
@@ -87,9 +87,9 @@
         android:id="@+id/changeNumberBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/phoneNumber"
+        android:layout_below="@+id/activity_settings_phone_number_setting_value"
         android:layout_centerHorizontal="true"
-        android:text="@string/change_phonenr_btn"/>
+        android:text="@string/activity_settings_phone_number_setting_btn_label"/>
 
     <View
         android:id="@+id/horizontalLine2"
