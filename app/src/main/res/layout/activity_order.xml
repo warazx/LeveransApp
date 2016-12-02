@@ -163,13 +163,6 @@
 
         </LinearLayout>
 
-        <ImageView
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="?attr/colorControlHighlight"
-            android:id="@+id/order_activity_delivered_image" />
-
     </LinearLayout>
 
 </LinearLayout>
