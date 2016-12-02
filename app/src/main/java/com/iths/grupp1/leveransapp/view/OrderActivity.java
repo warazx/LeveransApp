@@ -31,7 +31,6 @@ public class OrderActivity extends AppCompatActivity {
     private TextView deliveryAddressText;
     private TextView phoneNumberText;
     private TextView deliveredDateText;
-    private ImageView deliveredImage;
     private Button deliveryBtn;
 
     private Order order;
@@ -52,7 +51,6 @@ public class OrderActivity extends AppCompatActivity {
         deliveryAddressText = (TextView) findViewById(R.id.order_activity_delivery_value);
         phoneNumberText = (TextView) findViewById(R.id.order_activity_phone_value);
         deliveredDateText = (TextView) findViewById(R.id.order_activity_delivered_date_value);
-        deliveredImage = (ImageView) findViewById(R.id.order_activity_delivered_image);
         deliveryBtn = (Button) findViewById(R.id.order_activity_delivery_btn);
 
         toggleLayout();
