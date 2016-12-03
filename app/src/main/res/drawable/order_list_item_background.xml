@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle" >
+    <corners
+        android:radius="@dimen/order_list_item_radius" />
+    <solid
+        android:color="@color/order_list_item_color" />
+    <padding
+        android:left="@dimen/order_list_item_padding"
+        android:top="@dimen/order_list_item_padding"
+        android:right="@dimen/order_list_item_padding"
+        android:bottom="@dimen/order_list_item_padding" />
+</shape>

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context="com.iths.grupp1.leveransapp.view.OrderActivity"
-    android:background="#ddd"
+    android:background="@drawable/order_list_item_background"
     android:layout_marginBottom="10dp">
 
     <LinearLayout
@@ -29,6 +29,7 @@
                     android:text="@string/order_list_item_orderID_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/order_list_item_text_color"
                     android:textSize="20sp"/>
 
                 <TextView
@@ -36,7 +37,8 @@
                     tools:text="23463"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp" />
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/order_list_item_text_color" />
             </LinearLayout>
 
             <LinearLayout
@@ -48,6 +50,7 @@
                     android:text="@string/order_list_item_delivery_address_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/order_list_item_text_color"
                     android:id="@+id/order_item_target_label" />
 
                 <TextView
@@ -55,6 +58,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
+                    android:textColor="@color/order_list_item_text_color"
                     android:id="@+id/order_item_delivery_address_value" />
             </LinearLayout>
 

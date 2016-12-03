@@ -12,7 +12,7 @@
 
     <TextView
         android:id="@+id/activity_login_login_label"
-        android:textSize="30dp"
+        android:textSize="30sp"
         android:layout_marginBottom="70dp"
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
@@ -31,12 +31,15 @@
     <EditText
         android:id="@+id/activity_login_username_value"
         android:layout_centerHorizontal="true"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:layout_margin="20dp"
         android:layout_below="@+id/activity_login_login_label"
         android:hint="@string/activity_login_username_hint"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:maxLength="15"
+        android:gravity="center"
+        android:inputType="textPersonName"/>
 
     <TextView
         android:id="@+id/activity_login_password_message"
@@ -48,12 +51,14 @@
     <EditText
         android:id="@+id/activity_login_password_value"
         android:layout_centerHorizontal="true"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:hint="@string/activity_login_password_hint"
         android:layout_margin="20dp"
         android:layout_below="@+id/activity_login_username_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:maxLength="15"
+        android:gravity="center"
         android:inputType="textPassword" />
 
     <Button
@@ -63,5 +68,5 @@
         android:layout_centerHorizontal="true"
         android:id="@+id/activity_login_login_btn"
         android:onClick="goToOrders"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true" />
 </RelativeLayout>

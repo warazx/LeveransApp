@@ -2,4 +2,16 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <!-- Default Button Dimensions -->
+    <dimen name="button_default_width">160dp</dimen>
+    <dimen name="button_default_height">36dp</dimen>
+    <dimen name="button_default_radius">4dp</dimen>
+    <dimen name="button_default_padding">0dp</dimen>
+
+    <dimen name="button_default_text_size">14sp</dimen>
+
+    <!-- OrderList Item Dimensions -->
+    <dimen name="order_list_item_padding">4dp</dimen>
+    <dimen name="order_list_item_radius">4dp</dimen>
 </resources>

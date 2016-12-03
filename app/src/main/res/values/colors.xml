@@ -3,4 +3,19 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#40ccff</color>
+
+    <!-- Default Button Colors -->
+    <color name="button_default_color_normal">#3F51B5</color>
+    <color name="button_default_color_pressed">#303F9F</color>
+    <color name="button_default_color_focus">#5E6FD4</color>
+    <color name="button_default_color_disabled">#646464</color>
+    <!-- Default Button Text Colors -->
+    <color name="button_default_color_text_normal">#FFF</color>
+    <color name="button_default_color_text_pressed">#000</color>
+    <color name="button_default_color_text_focus">#FFF</color>
+    <color name="button_default_color_text_disabled">#000</color>
+
+    <!-- OrderList Item Colors -->
+    <color name="order_list_item_color">#3F51B5</color>
+    <color name="order_list_item_text_color">#FFF</color>
 </resources>
