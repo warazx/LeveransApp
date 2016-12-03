@@ -13,12 +13,14 @@ import com.iths.grupp1.leveransapp.model.User;
 import java.util.ArrayList;
 import android.util.Log;
 
-
+/**
+ * Application SQLite database helper class.
+ */
 public class OrderSQLiteOpenHelper extends SQLiteOpenHelper {
 
     private static final String LOG = "sqlDB";
 
-    private static final int DATABASE_VERSION = 5;
+    private static final int DATABASE_VERSION = 6;
     private static final String DATABASE_NAME = "deliveryDB.db";
 
     private static final String TABLE_ORDERS = "orders";
@@ -43,6 +45,10 @@ public class OrderSQLiteOpenHelper extends SQLiteOpenHelper {
     private static final String USER_USERNAME = "username";
     private static final String USER_PASSWORD = "password";
 
+    /**
+     * Class constructor.
+     * @param context context.
+     */
     public OrderSQLiteOpenHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -107,26 +113,30 @@ public class OrderSQLiteOpenHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * Adds a new order to the Orders database. Intended for generating random new orders.
-     * @param order the object containing the order information to add.
+     * Adds the order data of an ArrayList to the orders database. Intended for generating random new orders.
+     * @param orders the ArrayList containing Order objects for adding to the database.
      */
-    public void addOrder(Order order) {
+    public void addOrders(ArrayList<Order>orders) {
 
-        ContentValues values = new ContentValues();
-        values.put(ORDER_CUSTOMER, order.getCustomer());
-        values.put(ORDER_SUM, order.getOrderSum());
-        values.put(ORDER_PLACEMENT_DATE, order.getOrderPlacementDate());
-        values.put(ORDER_DELIVERED, 0);
-        values.put(ORDER_DELIVERY_DATE,0);
-        values.put(ORDER_DELIVERY_LONG,0);
-        values.put(ORDER_DELIVERY_LAT,0);
+        if (!(orders == null || orders.isEmpty())) {
+            SQLiteDatabase db = this.getWritableDatabase();
+            for (int i = 0; i < orders.size(); i++) {
+                ContentValues values = new ContentValues();
+                values.put(ORDER_CUSTOMER, orders.get(i).getCustomer());
+                values.put(ORDER_SUM, orders.get(i).getOrderSum());
+                values.put(ORDER_PLACEMENT_DATE, orders.get(i).getOrderPlacementDate());
+                values.put(ORDER_DELIVERED, 0);
+                values.put(ORDER_DELIVERY_DATE, 0);
+                values.put(ORDER_DELIVERY_LONG, 0);
+                values.put(ORDER_DELIVERY_LAT, 0);
 
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        db.insert(TABLE_ORDERS, null, values);
-        db.close();
-
-        Log.d(LOG,"Added new order to database.");
+                db.insert(TABLE_ORDERS, null, values);
+            }
+            db.close();
+            Log.d(LOG,"Added " + orders.size() + " new orders.");
+        } else {
+            Log.d(LOG,"No orders to add.");
+        }
 
     }
 
@@ -214,6 +224,7 @@ public class OrderSQLiteOpenHelper extends SQLiteOpenHelper {
         }
 
         cursor.close();
+        db.close();
         return orderList;
     }
 
@@ -261,13 +272,13 @@ public class OrderSQLiteOpenHelper extends SQLiteOpenHelper {
                 customer.setCreatedDate(retrievedDate);
                 customers.add(customer);
             } while (cursor.moveToNext());
-            Log.d(LOG,"Found " + customers.size() + " customers in database.");
         } else {
             Log.d(LOG,"No customers found in database.");
             customers = null;
         }
 
         cursor.close();
+        db.close();
         return customers;
 
     }
@@ -299,6 +310,7 @@ public class OrderSQLiteOpenHelper extends SQLiteOpenHelper {
         }
 
         cursor.close();
+        db.close();
         return user;
 
     }
@@ -379,7 +391,7 @@ public class OrderSQLiteOpenHelper extends SQLiteOpenHelper {
 
         ContentValues values;
 
-        String username = "erikalinde";
+        String username = "erilin";
         String password = "123";
 
         values = new ContentValues();
@@ -387,7 +399,7 @@ public class OrderSQLiteOpenHelper extends SQLiteOpenHelper {
         values.put(USER_PASSWORD, password);
         db.insert(TABLE_USERS, null, values);
 
-        username = "fabianmikaelsson";
+        username = "fabmik";
         password = "321";
 
         values = new ContentValues();
@@ -395,7 +407,7 @@ public class OrderSQLiteOpenHelper extends SQLiteOpenHelper {
         values.put(USER_PASSWORD, password);
         db.insert(TABLE_USERS, null, values);
 
-        username = "christiankarlsson";
+        username = "chrkar";
         password = "456";
 
         values = new ContentValues();
@@ -403,7 +415,7 @@ public class OrderSQLiteOpenHelper extends SQLiteOpenHelper {
         values.put(USER_PASSWORD, password);
         db.insert(TABLE_USERS, null, values);
 
-        username = "christianblomqvist";
+        username = "chrblo";
         password = "urk";
 
         values = new ContentValues();
@@ -411,7 +423,7 @@ public class OrderSQLiteOpenHelper extends SQLiteOpenHelper {
         values.put(USER_PASSWORD, password);
         db.insert(TABLE_USERS, null, values);
 
-        username = "kivancözmen";
+        username = "kivözm";
         password = "963";
 
         values = new ContentValues();

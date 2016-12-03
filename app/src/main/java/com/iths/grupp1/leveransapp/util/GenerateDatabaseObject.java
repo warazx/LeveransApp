@@ -28,13 +28,14 @@ public final class GenerateDatabaseObject {
         OrderSQLiteOpenHelper db = new OrderSQLiteOpenHelper(activity);
 
         ArrayList<Customer> customers = db.getCustomers(0);
+        ArrayList<Order> orders = new ArrayList<>();
         for(int i = 0; i < amount; i++) {
             int customerID = customers.get(rnd.nextInt(customers.size())).getCostumerNumber();
             int orderSum = 500 * (rnd.nextInt(100) + 1);
             Order order = new Order(customerID);
             order.setOrderSum(orderSum);
-
-            db.addOrder(order);
+            orders.add(order);
         }
+        db.addOrders(orders);
     }
 }
