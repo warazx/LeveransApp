@@ -43,7 +43,7 @@
         android:layout_width="25dp"/>
 
     <View
-        android:id="@+id/horizontalLine1"
+        android:id="@+id/activity_settings_horizontal_line_1"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@id/activity_settings_orders_setting_text_value"
@@ -54,7 +54,7 @@
         android:id="@+id/activity_settings_phone_number_setting_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/horizontalLine1"
+        android:layout_below="@id/activity_settings_horizontal_line_1"
         android:layout_centerVertical="true"
         android:layout_alignStart="@+id/activity_settings_orders_setting_label"
         android:layout_marginBottom="20dp"
@@ -81,10 +81,11 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
         android:inputType="phone"
-        android:ems="10"/>
+        android:ems="10"
+        android:maxLength="15"/>
 
     <Button
-        android:id="@+id/changeNumberBtn"
+        android:id="@+id/activity_settings_change_number_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/activity_settings_phone_number_setting_value"
@@ -92,10 +93,10 @@
         android:text="@string/activity_settings_phone_number_setting_btn_label"/>
 
     <View
-        android:id="@+id/horizontalLine2"
+        android:id="@+id/activity_settings_horizontal_line_2"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_below="@id/changeNumberBtn"
+        android:layout_below="@id/activity_settings_change_number_btn"
         android:layout_marginTop="40dp"
         android:background="@android:color/darker_gray"/>
 

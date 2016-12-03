@@ -21,12 +21,9 @@ public class SettingsActivity extends AppCompatActivity {
     public static final String PHONE_NUMBER_TO_ADD = "PHONE_NUMBER_TO_ADD";
     private static final String DEFAULT_ORDERS = "10";
 
-    private SeekBar seekBar;
     private TextView ordersPerPage;
-    private EditText changePhonenumber;
-    private Button changePhoneNumberBtn;
+    private EditText changePhoneNumber;
     private String phoneNumber = "";
-    //private Intent ordersPerPageIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,46 +31,28 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        changePhonenumber = (EditText) findViewById(R.id.activity_settings_phone_number_setting_value);
-        changePhoneNumberBtn = (Button) findViewById(R.id.changeNumberBtn);
+        changePhoneNumber = (EditText) findViewById(R.id.activity_settings_phone_number_setting_value);
+        Button changePhoneNumberBtn = (Button) findViewById(R.id.activity_settings_change_number_btn);
 
         changePhoneNumberBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                if(phoneNumber.equals(changePhonenumber.getText().toString())||changePhonenumber.getText().equals("")) {
-                    showAlert(this, getString(R.string.activity_settings_add_number_label));
+                if(phoneNumber.equals(changePhoneNumber.getText().toString())) {
+                    showAlert(getString(R.string.activity_settings_add_number_label));
                 }
+
                 else {
-                    phoneNumber = changePhonenumber.getText().toString();
-                    saveInfo(view);
-
-
-                    //changePhoneNumberBtn.setEnabled(true);
-
-                    //changePhonenumber.clearFocus();
-                    //changePhoneNumberBtn.requestFocus();
+                    phoneNumber = changePhoneNumber.getText().toString();
+                    saveInfo();
                 }
-
-
-                /*if(changePhonenumber.getText().length() != 10) {
-                    showAlert(this, "Numret måste innehålla 10 siffror");
-                }
-                else if (changePhonenumber.getText().charAt(0) == '+') {
-                    showAlert(this, "Plus");
-                }
-                else  {
-                    phoneNumber = changePhonenumber.getText().toString();
-                    saveInfo(view);
-                }*/
-
             }
         });
-
         seekBar();
     }
 
-    public void seekBar() {
-        seekBar = (SeekBar) findViewById(R.id.activity_settings_seekbar);
+    /* Handles the seekbar and changes values in ordersPerPage */
+    private void seekBar() {
+        SeekBar seekBar = (SeekBar) findViewById(R.id.activity_settings_seekbar);
         ordersPerPage = (TextView) findViewById(R.id.activity_settings_orders_setting_text_value);
         ordersPerPage.setText(String.valueOf(seekBar.getProgress()));
 
@@ -83,32 +62,24 @@ public class SettingsActivity extends AppCompatActivity {
 
                     @Override
                     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                        if (progress < 1) {
-                            seekBar.setProgress(1);
-                        }
                         progressValue = progress+1;
                         ordersPerPage.setText(String.valueOf(progressValue));
-
                     }
 
                     @Override
                     public void onStartTrackingTouch(SeekBar seekBar) {
-
                     }
 
                     @Override
                     public void onStopTrackingTouch(SeekBar seekBar) {
-                        saveInfo(seekBar);
+                        saveInfo();
                     }
                 }
         );
     }
 
-    public void validatePhoneNumber() {
-
-    }
-
-    public void showAlert(View.OnClickListener v, String errorMessage) {
+    /* Shows an alert with a message got from param */
+    private void showAlert(String errorMessage) {
         AlertDialog.Builder alertNr = new AlertDialog.Builder(this);
         alertNr.setMessage(errorMessage)
                 .setPositiveButton(R.string.activity_settings_alert_btn_label, new DialogInterface.OnClickListener() {
@@ -121,22 +92,15 @@ public class SettingsActivity extends AppCompatActivity {
         alertNr.show();
     }
 
-    public void saveInfo(View v) {
+    /* Saves userinfo as SharedPreference */
+    private void saveInfo() {
         SharedPreferences sharedPref = getSharedPreferences(STATUS_USER_SETTINGS, Context.MODE_PRIVATE);
-
         SharedPreferences.Editor editor = sharedPref.edit();
+
         editor.putString(ORDERS_TO_ADD, ordersPerPage.getText().toString());
-        editor.putString(PHONE_NUMBER_TO_ADD, changePhonenumber.getText().toString());
-
+        editor.putString(PHONE_NUMBER_TO_ADD, changePhoneNumber.getText().toString());
         editor.apply();
-        Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
+
+        Toast.makeText(this, "Sparat", Toast.LENGTH_SHORT).show();
     }
-
-    public void displayData(View view) {
-        SharedPreferences sharedPref = getSharedPreferences(STATUS_USER_SETTINGS, Context.MODE_PRIVATE);
-
-        String orders = sharedPref.getString(ORDERS_TO_ADD, DEFAULT_ORDERS);
-        String number = sharedPref.getString(PHONE_NUMBER_TO_ADD, String.valueOf(R.string.empty_string));
-    }
-
 }
