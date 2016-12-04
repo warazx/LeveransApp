@@ -19,7 +19,7 @@ public class SettingsActivity extends AppCompatActivity {
     public static final String STATUS_USER_SETTINGS = "STATUS_USER_SETTINGS";
     public static final String ORDERS_TO_ADD = "ORDERS_TO_ADD";
     public static final String PHONE_NUMBER_TO_ADD = "PHONE_NUMBER_TO_ADD";
-    private static final String DEFAULT_ORDERS = "10";
+    public static final String DEFAULT_ORDERS = "10";
 
     private TextView ordersPerPage;
     private EditText changePhoneNumber;

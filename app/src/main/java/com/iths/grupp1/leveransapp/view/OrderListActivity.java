@@ -32,15 +32,18 @@ public class OrderListActivity extends AppCompatActivity {
     private ArrayList<Order> orders;
     private MenuItem itemSwitch;
 
+    private boolean beenDeliveredView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_list);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
-        OrderSQLiteOpenHelper db = new OrderSQLiteOpenHelper(this);
-        orders = db.getUndeliveredOrders();
+        loadOrders(false);
         sharedPref = getSharedPreferences(SettingsActivity.STATUS_USER_SETTINGS, Context.MODE_PRIVATE);
+
+        beenDeliveredView = false;
 
         recyclerView.setHasFixedSize(true);
 
@@ -49,6 +52,18 @@ public class OrderListActivity extends AppCompatActivity {
 
         adapter = new OrderAdapter(orders);
         recyclerView.setAdapter(adapter);
+    }
+
+    private void loadOrders(boolean beenDelivered) {
+        OrderSQLiteOpenHelper db = new OrderSQLiteOpenHelper(this);
+        if(beenDelivered) {
+            orders = db.getDeliveredOrders();
+        } else {
+            orders = db.getUndeliveredOrders();
+        }
+
+        //if(itemSwitch != null) aSwitch.setChecked(beenDelivered);
+        swapOrders();
     }
 
     /**
@@ -66,9 +81,9 @@ public class OrderListActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
-                    historyOrders();
+                    loadOrders(true);
                 }else{
-                    updateOrders();
+                    loadOrders(false);
                 }
             }
         });
@@ -95,33 +110,16 @@ public class OrderListActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    //TODO: After you add orders and change to the undelivered view, the switch does not update and is still toggled ON.
     /**
      * Adds x orders to the database and updates the list. Number of orders is determined
      * by the the ordersPerPage setting in the SettingsActivity.
      */
     public void addOrders() {
-        String str = sharedPref.getString("ordersPerPage", "10");
+        String str = sharedPref.getString(SettingsActivity.ORDERS_TO_ADD, SettingsActivity.DEFAULT_ORDERS);
         int amount = Integer.parseInt(str);
         GenerateDatabaseObject.addOrders(this, amount);
-        updateOrders();
-    }
-
-    /**
-     * Gets all undelivered orders from the database and updates the list with them.
-     */
-    public void updateOrders() {
-        OrderSQLiteOpenHelper db = new OrderSQLiteOpenHelper(this);
-        orders = db.getUndeliveredOrders();
-        swapOrders();
-    }
-
-    /**
-     * Gets all delivered orders from the database and updates the list with them.
-     */
-    public void historyOrders() {
-        OrderSQLiteOpenHelper db = new OrderSQLiteOpenHelper(this);
-        orders = db.getDeliveredOrders();
-        swapOrders();
+        loadOrders(false);
     }
 
     /**
@@ -139,4 +137,16 @@ public class OrderListActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onPause() {
+        beenDeliveredView = orders.size() > 0 && orders.get(0).isDelivered();
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        loadOrders(beenDeliveredView);
+        if(itemSwitch != null) itemSwitch.setChecked(beenDeliveredView);
+        super.onResume();
+    }
 }
