@@ -40,11 +40,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
     }
 
-    /**
-     * Runs Log in
-     * @param view
-     */
-    public void goToOrders(View view) {
+
+    protected void goToOrders(View view) {
         enteredUsername = username.getText().toString();
         enteredPassword = password.getText().toString();
 
@@ -69,10 +66,8 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    /**
-     * Compares entered username to username from database
-     */
-    public void evaluateUsername(){
+    //Compares entered username to username from database
+    private void evaluateUsername(){
         if(retrievedUsername.equals(enteredUsername) && retrievedPassword.equals(enteredPassword)){
             Intent intent = new Intent(this, OrderListActivity.class);
             startActivity(intent);
@@ -87,10 +82,8 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * Compares entered password to password from database
-     */
-    public void evaluatePassword(){
+    //Compares entered password to password from database
+    private void evaluatePassword(){
         if(enteredPassword.isEmpty()){
             textViewPasswordMessage.setText(R.string.activity_login_password_message_text);
         }
