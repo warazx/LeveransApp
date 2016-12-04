@@ -31,7 +31,8 @@ public final class GenerateDatabaseObject {
         ArrayList<Order> orders = new ArrayList<>();
         for(int i = 0; i < amount; i++) {
             int customerID = customers.get(rnd.nextInt(customers.size())).getCostumerNumber();
-            int orderSum = 500 * (rnd.nextInt(100) + 1);
+            // Standard fee of 200, + (1-100 * 25)
+            int orderSum = 200 + ((rnd.nextInt(100) + 1) * 25);
             Order order = new Order(customerID);
             order.setOrderSum(orderSum);
             orders.add(order);

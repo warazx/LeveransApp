@@ -40,6 +40,7 @@ public class OrderActivity extends AppCompatActivity {
     private TextView deliveryAddressText;
     private TextView phoneNumberText;
     private TextView deliveredDateText;
+    private TextView orderSumText;
     private Button deliveryBtn;
 
     private SmsManager smsManager;
@@ -53,28 +54,42 @@ public class OrderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
 
+        getIntentFromList();
+        initVarsWithRes();
+        toggleLayout();
+        initVarValues();
+    }
+
+    // Gets the intent from the RecyclerView and gets the information about the objects.
+    private void getIntentFromList() {
         Intent intent = getIntent();
         order = intent.getExtras().getParcelable(OrderAdapter.EXTRA_ORDER);
         customer = intent.getExtras().getParcelable(OrderAdapter.EXTRA_CUSTOMER);
+    }
 
+    // Binds the variables with its resource counterpart.
+    private void initVarsWithRes() {
         orderIdText = (TextView) findViewById(R.id.order_activity_orderid_value);
         placedDateText = (TextView) findViewById(R.id.order_activity_placed_value);
         customerNameText = (TextView) findViewById(R.id.order_activity_name_value);
         deliveryAddressText = (TextView) findViewById(R.id.order_activity_delivery_value);
         phoneNumberText = (TextView) findViewById(R.id.order_activity_phone_value);
         deliveredDateText = (TextView) findViewById(R.id.activity_order_delivered_date_value);
+        orderSumText = (TextView) findViewById(R.id.activity_order_order_sum_value);
         deliveryBtn = (Button) findViewById(R.id.order_activity_delivery_btn);
         smsManager = SmsManager.getDefault();
         sharedPref = getSharedPreferences(SettingsActivity.STATUS_USER_SETTINGS, Context.MODE_PRIVATE);
+    }
 
-        toggleLayout();
-
+    // Sets the initial values for the variables;
+    private void initVarValues() {
         orderIdText.setText(order.getOrderNumber() + "");
         placedDateText.setText(order.getOrderPlacementDate() + "");
         customerNameText.setText(customer.getName());
         deliveryAddressText.setText(customer.getAddress());
         phoneNumberText.setText(customer.getPhoneNumber());
         deliveredDateText.setText(order.getDeliveryDate() + "");
+        orderSumText.setText(order.getOrderSum() + " kr");
     }
 
     /**

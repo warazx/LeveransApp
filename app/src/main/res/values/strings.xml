@@ -34,4 +34,5 @@
     <string name="activity_settings_alert_btn_label">OK</string>
     <string name="activity_order_google_maps_package">com.google.android.apps.maps</string>
     <string name="log_message">item does not exists</string>
+    <string name="activity_order_order_sum_label">Summa:</string>
 </resources>
