@@ -31,6 +31,7 @@ import com.iths.grupp1.leveransapp.model.Order;
  */
 public class OrderActivity extends AppCompatActivity {
 
+    private final String TAG = "TAG";
     private static final int SEND_SMS_PERMISSION = 1;
 
     private TextView orderIdText;
@@ -41,12 +42,11 @@ public class OrderActivity extends AppCompatActivity {
     private TextView deliveredDateText;
     private Button deliveryBtn;
 
-    private Order order;
-    private Customer customer;
-
     private SmsManager smsManager;
     private SharedPreferences sharedPref;
-    private final String TAG = "TAG";
+
+    private Order order;
+    private Customer customer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +65,6 @@ public class OrderActivity extends AppCompatActivity {
         deliveredDateText = (TextView) findViewById(R.id.activity_order_delivered_date_value);
         deliveryBtn = (Button) findViewById(R.id.order_activity_delivery_btn);
         smsManager = SmsManager.getDefault();
-
         sharedPref = getSharedPreferences(SettingsActivity.STATUS_USER_SETTINGS, Context.MODE_PRIVATE);
 
         toggleLayout();
