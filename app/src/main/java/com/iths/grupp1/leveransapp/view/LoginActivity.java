@@ -30,17 +30,20 @@ public class LoginActivity extends AppCompatActivity {
         textViewPasswordMessage = (TextView)findViewById(R.id.activity_login_password_message);
         username = (EditText)findViewById(R.id.activity_login_username_value);
         password = (EditText)findViewById(R.id.activity_login_password_value);
-
         users = new OrderSQLiteOpenHelper(this);
     }
 
-
+    //Tar bort gamla felmmelanden när activityn körs
     @Override
     protected void onStart() {
         deleteMessage();
         super.onStart();
     }
 
+    /**
+     * Runs Log in
+     * @param view
+     */
     public void goToOrders(View view) {
         enteredUsername = username.getText().toString();
         enteredPassword = password.getText().toString();
@@ -48,6 +51,7 @@ public class LoginActivity extends AppCompatActivity {
         evaluateLogInData();
     }
 
+    //Det inmatade lösenordet jämförs mot användarens faktiska lösenord
     private void evaluateLogInData(){
 
         User user = users.getUser(enteredUsername);
@@ -65,6 +69,9 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Compares entered username to username from database
+     */
     public void evaluateUsername(){
         if(retrievedUsername.equals(enteredUsername) && retrievedPassword.equals(enteredPassword)){
             Intent intent = new Intent(this, OrderListActivity.class);
@@ -80,6 +87,9 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Compares entered password to password from database
+     */
     public void evaluatePassword(){
         if(enteredPassword.isEmpty()){
             textViewPasswordMessage.setText(R.string.activity_login_password_message_text);
@@ -92,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    public void deleteMessage(){
+    protected void deleteMessage(){
         textViewUsernameMessage.setText(R.string.empty_string);
         textViewPasswordMessage.setText(R.string.empty_string);
     }

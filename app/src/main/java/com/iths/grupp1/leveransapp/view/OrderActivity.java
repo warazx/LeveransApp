@@ -35,6 +35,7 @@ public class OrderActivity extends AppCompatActivity {
     private Customer customer;
 
     private SharedPreferences sharedPref;
+    private final String TAG = "TAG";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,14 +66,23 @@ public class OrderActivity extends AppCompatActivity {
         deliveredDateText.setText(order.getDeliveryDate() + "");
     }
 
+    /**
+     * Inflates meny for this activity
+     * @param menu
+     * @return
+     */
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_order_menu, menu);
         return true;
     }
 
+    /**
+     * Show Settings when user click on item in actionbar
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
-
         int id = item.getItemId();
         switch (id){
             case R.id.actionbar_settings_item:
@@ -80,7 +90,7 @@ public class OrderActivity extends AppCompatActivity {
                 startActivity(intent);
                 break;
             default:
-                Log.d("TAG","item does not exists");
+                Log.d(TAG,getString(R.string.log_message));
         }
 
         return super.onOptionsItemSelected(item);

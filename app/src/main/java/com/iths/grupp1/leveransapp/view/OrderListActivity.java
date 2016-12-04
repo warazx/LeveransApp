@@ -30,6 +30,7 @@ public class OrderListActivity extends AppCompatActivity {
     private SharedPreferences sharedPref;
 
     private ArrayList<Order> orders;
+    private MenuItem itemSwitch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +51,15 @@ public class OrderListActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
+    /**
+     * Shows the ordershistory or pending orders by users choice of the switch in actionbar
+     * @param menu
+     * @return
+     */
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.activity_order_list_menu, menu);
 
-        MenuItem itemSwitch = menu.findItem(R.id.actionbar_switch_item);
+        itemSwitch = menu.findItem(R.id.actionbar_switch_item);
         itemSwitch.setActionView(R.layout.use_switch);
         final Switch sw = (Switch) menu.findItem(R.id.actionbar_switch_item).getActionView().findViewById(R.id.switch1);
         sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -69,6 +75,11 @@ public class OrderListActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     *  runs activity depending on users choice in actionbar
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         int id = item.getItemId();
@@ -76,12 +87,9 @@ public class OrderListActivity extends AppCompatActivity {
         switch (id){
             case R.id.actionbar_settings_item:
                 goToSettings();
-                //Intent intent = new Intent(this, SettingsActivity.class);
-                //startActivity(intent);
                 break;
             case R.id.actionbar_add_orders_item:
                 addOrders();
-                Log.d("TAG","Lägger till ordrar");
                 break;
         }
         return super.onOptionsItemSelected(item);
