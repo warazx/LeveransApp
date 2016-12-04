@@ -18,6 +18,7 @@
     <string name="activity_order_delivered_date_label">Levererad:</string>
     <string name="activity_order_name_label">Namn:</string>
     <string name="activity_order_list_update_btn_text">Undelivered</string>
+    <string name="activity_order_sms_message">Order %d har blivit levererad.</string>
     <string name="order_list_item_orderID_label">Order:</string>
     <string name="order_list_item_delivery_address_label">Till:</string>
     <string name="activity_settings_number_of_orders">10</string>
