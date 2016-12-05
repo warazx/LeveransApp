@@ -4,6 +4,7 @@ import android.location.Location;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.os.SystemClock;
+import android.util.Log;
 
 import com.iths.grupp1.leveransapp.util.DataConverter;
 import com.iths.grupp1.leveransapp.util.GpsTracker;
@@ -52,10 +53,11 @@ public class Order implements Parcelable {
         this.deliveryLongitude = deliveryLongitude;
     }
 
-    private void setDeliveryLocation() {
+    public void setDeliveryLocation() {
         Location lastLocation = GpsTracker.getLastLocation();
         deliveryLatitude = lastLocation.getLatitude();
         deliveryLongitude = lastLocation.getLongitude();
+        Log.d("Order", String.format("Delivery Location set to: %f, %f", lastLocation.getLatitude(), lastLocation.getLongitude()));
     }
 
     public void setOrderNumber(int orderNumber) {

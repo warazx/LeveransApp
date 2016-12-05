@@ -166,9 +166,7 @@ public class OrderActivity extends AppCompatActivity implements
         long time = System.currentTimeMillis();
         order.setDeliveryDate(time);
         try {
-            Location deliveredLocation = GpsTracker.getLastLocation();
-            order.setDeliveryLatitude(deliveredLocation.getLatitude());
-            order.setDeliveryLongitude(deliveredLocation.getLongitude());
+            order.setDeliveryLocation();
         } catch (Exception e) {
             e.getStackTrace();
             Toast.makeText(this, "No GPS info", Toast.LENGTH_SHORT).show();
