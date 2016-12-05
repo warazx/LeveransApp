@@ -146,8 +146,7 @@ public class OrderActivity extends AppCompatActivity {
         //TODO: Method to get the coordinates from the gps.
         order.setDeliveryLatitude(111);
         order.setDeliveryLongitude(111);
-        //TODO: Change to get the formatted date.
-        deliveredDateText.setText(order.getDeliveryDate() + "");
+        deliveredDateText.setText(order.getFormatedDeliveryDate());
         toggleLayout();
 
         OrderSQLiteOpenHelper db = new OrderSQLiteOpenHelper(this);

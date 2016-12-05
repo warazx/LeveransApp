@@ -4,6 +4,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.os.SystemClock;
 
+import com.iths.grupp1.leveransapp.util.DataConverter;
+
 /**
  * Handles the data of an Order.
  */
@@ -83,12 +85,19 @@ public class Order implements Parcelable {
     }
 
     public long getOrderPlacementDate() {
-        //TODO: Use the helper to convert the long to a String.
         return orderPlacementDate;
+    }
+
+    public String getFormatedPlacementDate() {
+        return DataConverter.longToDateString(orderPlacementDate);
     }
 
     public long getDeliveryDate() {
         return deliveryDate;
+    }
+
+    public String getFormatedDeliveryDate() {
+        return DataConverter.longToDateString(deliveryDate);
     }
 
     public void setDeliveryDate(long deliveryDate) {
