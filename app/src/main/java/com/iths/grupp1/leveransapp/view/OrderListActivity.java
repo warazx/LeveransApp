@@ -59,9 +59,7 @@ public class OrderListActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         if (! Session.isSessionValid(this)) {
-            Intent intent = new Intent(this, LoginActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
+            activityLogOut();
         }
     }
 
@@ -82,6 +80,7 @@ public class OrderListActivity extends AppCompatActivity {
      * @param menu
      * @return
      */
+    @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.activity_order_list_menu, menu);
 
@@ -113,6 +112,9 @@ public class OrderListActivity extends AppCompatActivity {
         switch (id){
             case R.id.actionbar_settings_item:
                 goToSettings();
+                break;
+            case R.id.actionbar_logout_item:
+                activityLogOut();
                 break;
             case R.id.actionbar_add_orders_item:
                 addOrders();
@@ -159,5 +161,12 @@ public class OrderListActivity extends AppCompatActivity {
         loadOrders(beenDeliveredView);
         if(itemSwitch != null) itemSwitch.setChecked(beenDeliveredView);
         super.onResume();
+    }
+
+    private void activityLogOut() {
+        Session.closeSession(this);
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 }

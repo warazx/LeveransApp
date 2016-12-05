@@ -29,6 +29,7 @@
     <string name="activity_maps_title">Karta</string>
     <string name="empty_string" />
     <string name="actionbar_settings_option_title">Inställningar</string>
+    <string name="actionbar_settings_logout_title">Logga ut</string>
     <string name="actionbar_add_orders_option_title">Lägg till ordrar</string>
     <string name="activity_settings_add_number_label">Skriv in ditt nya nummer</string>
     <string name="activity_settings_alert_btn_label">OK</string>

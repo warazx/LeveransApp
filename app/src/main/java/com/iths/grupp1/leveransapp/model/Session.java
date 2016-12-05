@@ -1,9 +1,5 @@
 package com.iths.grupp1.leveransapp.model;
 
-/**
- * Created by gaspop on 2016-12-05.
- */
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
@@ -75,7 +71,6 @@ public abstract class Session {
                 return true;
             } else {
                 Log.d(LOG, "Too much time has passed.");
-                closeSession(context);
                 return false;
             }
         }

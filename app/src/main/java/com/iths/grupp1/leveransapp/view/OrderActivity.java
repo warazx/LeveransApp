@@ -138,6 +138,9 @@ public class OrderActivity extends AppCompatActivity implements
                 Intent intent = new Intent(this, SettingsActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.actionbar_logout_item:
+                activityLogOut();
+                break;
             default:
                 Log.d(TAG, getString(R.string.log_message));
         }
@@ -289,9 +292,7 @@ public class OrderActivity extends AppCompatActivity implements
     @Override
     protected void onStart() {
         if (! Session.isSessionValid(this)) {
-            Intent intent = new Intent(this, LoginActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
+            activityLogOut();
         } else {
             googleApiClient.connect();
         }
@@ -302,5 +303,12 @@ public class OrderActivity extends AppCompatActivity implements
     protected void onStop() {
         googleApiClient.disconnect();
         super.onStop();
+    }
+
+    private void activityLogOut() {
+        Session.closeSession(this);
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 }
