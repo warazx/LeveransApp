@@ -66,7 +66,8 @@ public class SettingsActivity extends AppCompatActivity {
     private void seekBar() {
         SeekBar seekBar = (SeekBar) findViewById(R.id.activity_settings_seekbar);
         ordersPerPage = (TextView) findViewById(R.id.activity_settings_orders_setting_text_value);
-        ordersPerPage.setText(String.valueOf(seekBar.getProgress()));
+        //ordersPerPage.setText(String.valueOf(seekBar.getProgress()));
+        ordersPerPage.setText("10");
 
         seekBar.setOnSeekBarChangeListener(
                 new SeekBar.OnSeekBarChangeListener() {
@@ -74,7 +75,7 @@ public class SettingsActivity extends AppCompatActivity {
 
                     @Override
                     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                        progressValue = progress+1;
+                        progressValue = progress+10;
                         ordersPerPage.setText(String.valueOf(progressValue));
                     }
 
