@@ -88,7 +88,7 @@ public class Order implements Parcelable {
         return orderPlacementDate;
     }
 
-    public String getFormatedPlacementDate() {
+    public String getFormattedPlacementDate() {
         return DataConverter.longToDateString(orderPlacementDate);
     }
 
@@ -96,7 +96,7 @@ public class Order implements Parcelable {
         return deliveryDate;
     }
 
-    public String getFormatedDeliveryDate() {
+    public String getFormattedDeliveryDate() {
         return DataConverter.longToDateString(deliveryDate);
     }
 

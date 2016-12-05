@@ -84,11 +84,11 @@ public class OrderActivity extends AppCompatActivity {
     // Sets the initial values for the variables;
     private void initVarValues() {
         orderIdText.setText(order.getOrderNumber() + "");
-        placedDateText.setText(order.getOrderPlacementDate() + "");
+        placedDateText.setText(order.getFormattedPlacementDate());
         customerNameText.setText(customer.getName());
         deliveryAddressText.setText(customer.getAddress());
         phoneNumberText.setText(customer.getPhoneNumber());
-        deliveredDateText.setText(order.getDeliveryDate() + "");
+        deliveredDateText.setText(order.getFormattedDeliveryDate());
         orderSumText.setText(order.getOrderSum() + " kr");
     }
 
@@ -146,7 +146,7 @@ public class OrderActivity extends AppCompatActivity {
         //TODO: Method to get the coordinates from the gps.
         order.setDeliveryLatitude(111);
         order.setDeliveryLongitude(111);
-        deliveredDateText.setText(order.getFormatedDeliveryDate());
+        deliveredDateText.setText(order.getFormattedDeliveryDate());
         toggleLayout();
 
         OrderSQLiteOpenHelper db = new OrderSQLiteOpenHelper(this);
