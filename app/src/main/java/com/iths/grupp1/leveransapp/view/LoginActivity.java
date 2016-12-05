@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.iths.grupp1.leveransapp.R;
 import com.iths.grupp1.leveransapp.database.OrderSQLiteOpenHelper;
+import com.iths.grupp1.leveransapp.model.Session;
 import com.iths.grupp1.leveransapp.model.User;
 
 public class LoginActivity extends AppCompatActivity {
@@ -18,9 +19,9 @@ public class LoginActivity extends AppCompatActivity {
     private EditText password;
     private static String enteredPassword;
     private static String enteredUsername;
-    private OrderSQLiteOpenHelper users;
     public static String retrievedUsername;
     public static String retrievedPassword;
+    private OrderSQLiteOpenHelper users;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,10 @@ public class LoginActivity extends AppCompatActivity {
         username = (EditText)findViewById(R.id.activity_login_username_value);
         password = (EditText)findViewById(R.id.activity_login_password_value);
         users = new OrderSQLiteOpenHelper(this);
+
+        if (Session.isSessionValid(this)) {
+            goToOrderListActivity();
+        }
     }
 
     //Tar bort gamla felmmelanden när activityn körs
@@ -69,8 +74,8 @@ public class LoginActivity extends AppCompatActivity {
     //Compares entered username to username from database
     private void evaluateUsername(){
         if(retrievedUsername.equals(enteredUsername) && retrievedPassword.equals(enteredPassword)){
-            Intent intent = new Intent(this, OrderListActivity.class);
-            startActivity(intent);
+            Session.newSession(this);
+            goToOrderListActivity();
         }
 
         if(enteredUsername.isEmpty()){
@@ -98,6 +103,12 @@ public class LoginActivity extends AppCompatActivity {
     protected void deleteMessage(){
         textViewUsernameMessage.setText(R.string.empty_string);
         textViewPasswordMessage.setText(R.string.empty_string);
+    }
+
+    private void goToOrderListActivity() {
+        Intent intent = new Intent(this, OrderListActivity.class);
+        startActivity(intent);
+        finish();
     }
 
 }

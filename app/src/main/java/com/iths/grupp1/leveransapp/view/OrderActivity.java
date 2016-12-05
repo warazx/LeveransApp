@@ -30,6 +30,7 @@ import com.iths.grupp1.leveransapp.database.OrderSQLiteOpenHelper;
 import com.iths.grupp1.leveransapp.model.Customer;
 import com.iths.grupp1.leveransapp.model.Order;
 import com.iths.grupp1.leveransapp.util.GpsTracker;
+import com.iths.grupp1.leveransapp.model.Session;
 
 /**
  * Show info about one specific order. Has different views depending on if the order
@@ -287,7 +288,13 @@ public class OrderActivity extends AppCompatActivity implements
 
     @Override
     protected void onStart() {
-        googleApiClient.connect();
+        if (! Session.isSessionValid(this)) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        } else {
+            googleApiClient.connect();
+        }
         super.onStart();
     }
 

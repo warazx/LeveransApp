@@ -3,6 +3,7 @@ package com.iths.grupp1.leveransapp.view;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.iths.grupp1.leveransapp.R;
+import com.iths.grupp1.leveransapp.model.Session;
 
 public class SettingsActivity extends AppCompatActivity {
     public static final String STATUS_USER_SETTINGS = "STATUS_USER_SETTINGS";
@@ -48,6 +50,16 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
         seekBar();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (! Session.isSessionValid(this)) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
     }
 
     /* Handles the seekbar and changes values in ordersPerPage */

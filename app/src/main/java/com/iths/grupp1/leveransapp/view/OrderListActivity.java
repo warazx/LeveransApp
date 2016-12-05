@@ -17,6 +17,7 @@ import com.iths.grupp1.leveransapp.R;
 import com.iths.grupp1.leveransapp.adapter.OrderAdapter;
 import com.iths.grupp1.leveransapp.database.OrderSQLiteOpenHelper;
 import com.iths.grupp1.leveransapp.model.Order;
+import com.iths.grupp1.leveransapp.model.Session;
 import com.iths.grupp1.leveransapp.util.GenerateDatabaseObject;
 
 import java.util.ArrayList;
@@ -52,6 +53,16 @@ public class OrderListActivity extends AppCompatActivity {
 
         adapter = new OrderAdapter(orders);
         recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (! Session.isSessionValid(this)) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
     }
 
     private void loadOrders(boolean beenDelivered) {
