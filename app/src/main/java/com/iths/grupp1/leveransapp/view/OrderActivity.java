@@ -5,9 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.SmsManager;
@@ -19,20 +21,27 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
 import com.iths.grupp1.leveransapp.R;
 import com.iths.grupp1.leveransapp.adapter.OrderAdapter;
 import com.iths.grupp1.leveransapp.database.OrderSQLiteOpenHelper;
 import com.iths.grupp1.leveransapp.model.Customer;
 import com.iths.grupp1.leveransapp.model.Order;
+import com.iths.grupp1.leveransapp.util.GpsTracker;
 
 /**
  * Show info about one specific order. Has different views depending on if the order
  * has been delivered or not.
  */
-public class OrderActivity extends AppCompatActivity {
+public class OrderActivity extends AppCompatActivity implements
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
+    private static final String PERM_CHECK = "PERMISSION_CHECK";
     private final String TAG = "TAG";
     private static final int SEND_SMS_PERMISSION = 1;
+    private static final int ACCESS_FINE_LOCATION = 2;
 
     private TextView orderIdText;
     private TextView placedDateText;
@@ -44,7 +53,9 @@ public class OrderActivity extends AppCompatActivity {
     private Button deliveryBtn;
 
     private SmsManager smsManager;
+    private GoogleApiClient googleApiClient;
     private SharedPreferences sharedPref;
+
 
     private Order order;
     private Customer customer;
@@ -79,6 +90,17 @@ public class OrderActivity extends AppCompatActivity {
         deliveryBtn = (Button) findViewById(R.id.order_activity_delivery_btn);
         smsManager = SmsManager.getDefault();
         sharedPref = getSharedPreferences(SettingsActivity.STATUS_USER_SETTINGS, Context.MODE_PRIVATE);
+        initGoogleApiClient();
+    }
+
+    private void initGoogleApiClient() {
+        if (googleApiClient == null) {
+            googleApiClient = new GoogleApiClient.Builder(this)
+                    .addConnectionCallbacks(this)
+                    .addOnConnectionFailedListener(this)
+                    .addApi(LocationServices.API)
+                    .build();
+        }
     }
 
     // Sets the initial values for the variables;
@@ -108,15 +130,15 @@ public class OrderActivity extends AppCompatActivity {
      * @return
      */
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
+    public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        switch (id){
+        switch (id) {
             case R.id.actionbar_settings_item:
                 Intent intent = new Intent(this, SettingsActivity.class);
                 startActivity(intent);
                 break;
             default:
-                Log.d(TAG,getString(R.string.log_message));
+                Log.d(TAG, getString(R.string.log_message));
         }
 
         return super.onOptionsItemSelected(item);
@@ -126,7 +148,7 @@ public class OrderActivity extends AppCompatActivity {
     Toggles between the views depending on if the order has been delivered or not.
      */
     private void toggleLayout() {
-        if(order.isDelivered()) {
+        if (order.isDelivered()) {
             findViewById(R.id.ll_delivered).setVisibility(View.VISIBLE);
             findViewById(R.id.ll_not_delivered).setVisibility(View.GONE);
         } else {
@@ -143,9 +165,14 @@ public class OrderActivity extends AppCompatActivity {
         order.setDelivered(true);
         long time = System.currentTimeMillis();
         order.setDeliveryDate(time);
-        //TODO: Method to get the coordinates from the gps.
-        order.setDeliveryLatitude(111);
-        order.setDeliveryLongitude(111);
+        try {
+            Location deliveredLocation = GpsTracker.getLastLocation();
+            order.setDeliveryLatitude(deliveredLocation.getLatitude());
+            order.setDeliveryLongitude(deliveredLocation.getLongitude());
+        } catch (Exception e) {
+            e.getStackTrace();
+            Toast.makeText(this, "No GPS info", Toast.LENGTH_SHORT).show();
+        }
         deliveredDateText.setText(order.getFormattedDeliveryDate());
         toggleLayout();
 
@@ -162,9 +189,17 @@ public class OrderActivity extends AppCompatActivity {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
             if (!ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.SEND_SMS)) {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS}, SEND_SMS_PERMISSION);
+                Log.d(PERM_CHECK, String.format("Asking for permission: %s", Manifest.permission.SEND_SMS.toString()));
             }
         } else {
             sendSmsConfirmation();
+        }
+    }
+
+    private void saveCurrentLocation() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            Location currentLocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
+            GpsTracker.setLastLocation(currentLocation);
         }
     }
 
@@ -175,18 +210,25 @@ public class OrderActivity extends AppCompatActivity {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                    sendSmsConfirmation();
                     // permission was granted, yay! Do the
                     // contacts-related task you need to do.
-
+                    sendSmsConfirmation();
                 } else {
-                    Toast.makeText(this, "Need permission to use service", Toast.LENGTH_SHORT).show();
                     // permission denied, boo! Disable the
                     // functionality that depends on this permission.
+                    Toast.makeText(this, "Need permission to use service", Toast.LENGTH_SHORT).show();
                 }
                 return;
             }
+            case ACCESS_FINE_LOCATION: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    saveCurrentLocation();
+                } else {
+                    Toast.makeText(this, "Need permission to use service", Toast.LENGTH_SHORT).show();
+                }
+            }
+
 
             // other 'case' lines to check for other
             // permissions this app might request
@@ -214,11 +256,46 @@ public class OrderActivity extends AppCompatActivity {
     public void startNavigation(View view) {
         String address = customer.getAddress();
         Uri uri = Uri.parse("google.navigation:q=" + address + "&mode=d");
-        Intent intent = new Intent(Intent.ACTION_VIEW,uri);
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         intent.setPackage(getString(R.string.activity_order_google_maps_package));
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
         }
 
+    }
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+        if (ActivityCompat.checkSelfPermission(
+                this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if (!ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
+                Log.d(PERM_CHECK, String.format("Asking for permission: %s", Manifest.permission.ACCESS_FINE_LOCATION.toString()));
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, ACCESS_FINE_LOCATION);
+            }
+        } else {
+            saveCurrentLocation();
+        }
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
+    @Override
+    protected void onStart() {
+        googleApiClient.connect();
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        googleApiClient.disconnect();
+        super.onStop();
     }
 }

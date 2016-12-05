@@ -1,10 +1,12 @@
 package com.iths.grupp1.leveransapp.model;
 
+import android.location.Location;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.os.SystemClock;
 
 import com.iths.grupp1.leveransapp.util.DataConverter;
+import com.iths.grupp1.leveransapp.util.GpsTracker;
 
 /**
  * Handles the data of an Order.
@@ -51,9 +53,9 @@ public class Order implements Parcelable {
     }
 
     private void setDeliveryLocation() {
-        //TODO: Get location for the delivered position.
-        deliveryLatitude = 0;
-        deliveryLongitude = 0;
+        Location lastLocation = GpsTracker.getLastLocation();
+        deliveryLatitude = lastLocation.getLatitude();
+        deliveryLongitude = lastLocation.getLongitude();
     }
 
     public void setOrderNumber(int orderNumber) {
