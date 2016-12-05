@@ -24,6 +24,12 @@ import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.iths.grupp1.leveransapp.R;
 import com.iths.grupp1.leveransapp.adapter.OrderAdapter;
 import com.iths.grupp1.leveransapp.database.OrderSQLiteOpenHelper;
@@ -36,7 +42,7 @@ import com.iths.grupp1.leveransapp.util.GpsTracker;
  * has been delivered or not.
  */
 public class OrderActivity extends AppCompatActivity implements
-        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, OnMapReadyCallback {
 
     private static final String PERM_CHECK = "PERMISSION_CHECK";
     private final String TAG = "TAG";
@@ -55,7 +61,8 @@ public class OrderActivity extends AppCompatActivity implements
     private SmsManager smsManager;
     private GoogleApiClient googleApiClient;
     private SharedPreferences sharedPref;
-
+    private MapFragment mapFragment;
+    private GoogleMap googleMap;
 
     private Order order;
     private Customer customer;
@@ -91,6 +98,9 @@ public class OrderActivity extends AppCompatActivity implements
         smsManager = SmsManager.getDefault();
         sharedPref = getSharedPreferences(SettingsActivity.STATUS_USER_SETTINGS, Context.MODE_PRIVATE);
         initGoogleApiClient();
+        mapFragment = (MapFragment) getFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
     }
 
     private void initGoogleApiClient() {
@@ -149,6 +159,7 @@ public class OrderActivity extends AppCompatActivity implements
      */
     private void toggleLayout() {
         if (order.isDelivered()) {
+            mapFragment.getMapAsync(this);
             findViewById(R.id.ll_delivered).setVisibility(View.VISIBLE);
             findViewById(R.id.ll_not_delivered).setVisibility(View.GONE);
         } else {
@@ -295,5 +306,14 @@ public class OrderActivity extends AppCompatActivity implements
     protected void onStop() {
         googleApiClient.disconnect();
         super.onStop();
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        this.googleMap = googleMap;
+
+        LatLng deliveredPos = new LatLng(order.getDeliveryLatitude(), order.getDeliveryLongitude());
+        googleMap.addMarker(new MarkerOptions().position(deliveredPos).title(order.getFormattedDeliveryDate()));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(deliveredPos, 16));
     }
 }
