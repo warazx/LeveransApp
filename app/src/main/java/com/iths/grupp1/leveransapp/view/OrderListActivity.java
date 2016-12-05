@@ -152,7 +152,7 @@ public class OrderListActivity extends AppCompatActivity {
 
     @Override
     protected void onPause() {
-        beenDeliveredView = orders.size() > 0 && orders.get(0).isDelivered();
+        if(orders != null) beenDeliveredView = orders.size() > 0 && orders.get(0).isDelivered();
         super.onPause();
     }
 
