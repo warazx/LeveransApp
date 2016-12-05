@@ -3,9 +3,13 @@ package com.iths.grupp1.leveransapp.view;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.iths.grupp1.leveransapp.R;
+import com.iths.grupp1.leveransapp.model.Session;
 
 public class SettingsActivity extends AppCompatActivity {
     public static final String STATUS_USER_SETTINGS = "STATUS_USER_SETTINGS";
@@ -50,11 +55,40 @@ public class SettingsActivity extends AppCompatActivity {
         seekBar();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (! Session.isSessionValid(this)) {
+            activityLogOut();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_settings_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.actionbar_logout_item:
+                activityLogOut();
+                break;
+            default:
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
     /* Handles the seekbar and changes values in ordersPerPage */
     private void seekBar() {
         SeekBar seekBar = (SeekBar) findViewById(R.id.activity_settings_seekbar);
         ordersPerPage = (TextView) findViewById(R.id.activity_settings_orders_setting_text_value);
-        ordersPerPage.setText(String.valueOf(seekBar.getProgress()));
+        //ordersPerPage.setText(String.valueOf(seekBar.getProgress()));
+        ordersPerPage.setText("10");
 
         seekBar.setOnSeekBarChangeListener(
                 new SeekBar.OnSeekBarChangeListener() {
@@ -62,7 +96,7 @@ public class SettingsActivity extends AppCompatActivity {
 
                     @Override
                     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                        progressValue = progress+1;
+                        progressValue = progress+10;
                         ordersPerPage.setText(String.valueOf(progressValue));
                     }
 
@@ -102,5 +136,12 @@ public class SettingsActivity extends AppCompatActivity {
         editor.apply();
 
         Toast.makeText(this, "Sparat", Toast.LENGTH_SHORT).show();
+    }
+
+    private void activityLogOut() {
+        Session.closeSession(this);
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 }

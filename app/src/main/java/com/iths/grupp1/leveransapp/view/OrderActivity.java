@@ -24,18 +24,13 @@ import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.iths.grupp1.leveransapp.R;
 import com.iths.grupp1.leveransapp.adapter.OrderAdapter;
 import com.iths.grupp1.leveransapp.database.OrderSQLiteOpenHelper;
 import com.iths.grupp1.leveransapp.model.Customer;
 import com.iths.grupp1.leveransapp.model.Order;
 import com.iths.grupp1.leveransapp.util.GpsTracker;
+import com.iths.grupp1.leveransapp.model.Session;
 
 /**
  * Show info about one specific order. Has different views depending on if the order
@@ -146,6 +141,9 @@ public class OrderActivity extends AppCompatActivity implements
             case R.id.actionbar_settings_item:
                 Intent intent = new Intent(this, SettingsActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.actionbar_logout_item:
+                activityLogOut();
                 break;
             default:
                 Log.d(TAG, getString(R.string.log_message));
@@ -298,7 +296,11 @@ public class OrderActivity extends AppCompatActivity implements
 
     @Override
     protected void onStart() {
-        googleApiClient.connect();
+        if (! Session.isSessionValid(this)) {
+            activityLogOut();
+        } else {
+            googleApiClient.connect();
+        }
         super.onStart();
     }
 
@@ -315,5 +317,12 @@ public class OrderActivity extends AppCompatActivity implements
         LatLng deliveredPos = new LatLng(order.getDeliveryLatitude(), order.getDeliveryLongitude());
         googleMap.addMarker(new MarkerOptions().position(deliveredPos).title(order.getFormattedDeliveryDate()));
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(deliveredPos, 16));
+    }
+
+    private void activityLogOut() {
+        Session.closeSession(this);
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 }
