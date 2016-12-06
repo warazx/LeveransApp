@@ -229,7 +229,7 @@ public class OrderSQLiteOpenHelper extends SQLiteOpenHelper {
 
                 Order order = new Order(retrievedId, retrievedSum, retrievedCustomer,
                                         retrievedDelivered, retrievedPlaceDate, retrievedDeliveryDate,
-                                        retrievedLongitude, retrievedLatitude);
+                                        retrievedLatitude, retrievedLongitude);
                 orderList.add(order);
             } while (cursor.moveToNext());
         } else {
