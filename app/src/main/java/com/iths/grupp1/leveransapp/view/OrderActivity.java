@@ -155,10 +155,10 @@ public class OrderActivity extends AppCompatActivity implements
             case R.id.actionbar_settings_item:
                 Intent intent = new Intent(this, SettingsActivity.class);
                 startActivity(intent);
-                break;
+                return true;
             case R.id.actionbar_logout_item:
                 activityLogOut();
-                break;
+                return true;
             default:
                 Log.d(TAG, getString(R.string.log_message));
         }
@@ -192,7 +192,7 @@ public class OrderActivity extends AppCompatActivity implements
             order.setDeliveryLocation();
         } catch (Exception e) {
             e.getStackTrace();
-            Toast.makeText(this, "No GPS info", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.activity_order_toast_message_gps_error, Toast.LENGTH_SHORT).show();
         }
         deliveredDateText.setText(order.getFormattedDeliveryDate());
         toggleLayout();
