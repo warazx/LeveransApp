@@ -178,6 +178,19 @@ public class OrderSQLiteOpenHelper extends SQLiteOpenHelper {
     }
 
     /**
+     * Retrieves one order from the Orders database.
+     * @param id the OrderID requested.
+     * @return an Order object with requested id.
+     */
+    public Order getOrder(int id) {
+        Order order;
+        ArrayList<Order> orders = getOrders(false, id, 1);
+        if(orders.get(0).getOrderNumber() != id) orders = getOrders(true, id, 1);
+        order = orders.get(0);
+        return order;
+    }
+
+    /**
      * Retrieves an ArrayList of undelivered orders within a given range of order numbers.
      * @param fromID number of the first order to retrieve. If zero will start from the first order in the database.
      * @param orderCount the amount of orders to retrieve.

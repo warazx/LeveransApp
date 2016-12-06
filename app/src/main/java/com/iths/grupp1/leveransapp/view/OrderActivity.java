@@ -82,8 +82,16 @@ public class OrderActivity extends AppCompatActivity implements
     // Gets the intent from the RecyclerView and gets the information about the objects.
     private void getIntentFromList() {
         Intent intent = getIntent();
-        order = intent.getExtras().getParcelable(OrderAdapter.EXTRA_ORDER);
-        customer = intent.getExtras().getParcelable(OrderAdapter.EXTRA_CUSTOMER);
+        if(intent.hasExtra(OrderAdapter.EXTRA_ORDER)) {
+            order = intent.getExtras().getParcelable(OrderAdapter.EXTRA_ORDER);
+            customer = intent.getExtras().getParcelable(OrderAdapter.EXTRA_CUSTOMER);
+        } else {
+            int orderID = intent.getIntExtra(QRScanActivity.ORDER_ID_KEY, -1);
+            OrderSQLiteOpenHelper db = new OrderSQLiteOpenHelper(this);
+            order = db.getOrder(orderID);
+            int customerID = order.getCustomer();
+            customer = db.getCustomer(customerID);
+        }
     }
 
     // Binds the variables with its resource counterpart.

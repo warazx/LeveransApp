@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
@@ -21,6 +22,7 @@
         <activity android:name=".view.OrderActivity" />
         <activity android:name=".view.OrderListActivity" />
         <activity android:name=".view.SettingsActivity" />
+        <activity android:name=".view.QRScanActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

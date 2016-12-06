@@ -8,6 +8,9 @@
         android:id="@+id/actionbar_logout_item"
         android:title="@string/actionbar_settings_logout_title" />
     <item
+        android:id="@+id/actionbar_find_order_QR_item"
+        android:title="@string/actionbar_find_order_QR_title" />
+    <item
         android:id="@+id/actionbar_switch_item"
         android:title=""
         app:showAsAction="always"
