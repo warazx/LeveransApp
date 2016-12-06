@@ -67,6 +67,21 @@ public class Customer implements Parcelable {
         this.created = created;
     }
 
+    /**
+     * Formats customer address string by splitting it into two lines.
+     * @return the customer address as two lines.
+     */
+    public String formatAddress() {
+        int breakPosition = address.indexOf(", ");
+        if (breakPosition > -1) {
+            String addressPartA = address.substring(0, breakPosition);
+            String addressPartB = address.substring(breakPosition +2);
+            return addressPartA + '\n' + addressPartB;
+        } else {
+            return address;
+        }
+    }
+
     /* **********************************************************************************
     Makes the class Parcelable. You can send it as Extras in intents.
 

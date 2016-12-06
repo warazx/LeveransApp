@@ -1,23 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_order"
+    tools:context="com.iths.grupp1.leveransapp.view.OrderActivity"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context="com.iths.grupp1.leveransapp.view.OrderActivity"
+    android:layout_marginBottom="@dimen/order_list_item_margin_bottom"
     android:background="@drawable/order_list_item_background"
-    android:layout_marginBottom="10dp">
+    android:id="@+id/activity_order">
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:baselineAligned="false">
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="match_parent"
+            android:layout_weight="9"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_marginLeft="@dimen/order_list_item_margin_left" >
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -25,20 +28,24 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/order_item_orderID_label"
-                    android:text="@string/order_list_item_orderID_label"
-                    android:layout_width="wrap_content"
+                    android:layout_weight="@integer/order_list_item_label_weight"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:textStyle="bold"
                     android:textColor="@color/order_list_item_text_color"
-                    android:textSize="20sp"/>
+                    android:textSize="@dimen/order_list_item_text_size"
+                    android:text="@string/order_list_item_customer_label"
+                    android:id="@+id/order_item_customer_label" />
 
                 <TextView
-                    android:id="@+id/order_item_orderID_value"
                     tools:text="23463"
-                    android:layout_width="match_parent"
+                    android:layout_weight="@integer/order_list_item_value_weight"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:textColor="@color/order_list_item_text_color" />
+                    android:textColor="@color/order_list_item_text_color"
+                    android:textSize="@dimen/order_list_item_text_size"
+                    android:id="@+id/order_item_customer_value" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -47,21 +54,38 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:text="@string/order_list_item_delivery_address_label"
-                    android:layout_width="wrap_content"
+                    android:layout_weight="@integer/order_list_item_label_weight"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:textStyle="bold"
                     android:textColor="@color/order_list_item_text_color"
+                    android:textSize="@dimen/order_list_item_text_size"
+                    android:text="@string/order_list_item_delivery_address_label"
                     android:id="@+id/order_item_target_label" />
 
                 <TextView
                     tools:text="Storgatan 10"
-                    android:layout_width="match_parent"
+                    android:layout_weight="@integer/order_list_item_value_weight"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
                     android:textColor="@color/order_list_item_text_color"
+                    android:textSize="@dimen/order_list_item_text_size"
                     android:id="@+id/order_item_delivery_address_value" />
             </LinearLayout>
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+            <!-- Knapp till map-navigation -->
+            <Button
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="right"
+                android:id="@+id/order_item_map_button" />
         </LinearLayout>
 
     </LinearLayout>

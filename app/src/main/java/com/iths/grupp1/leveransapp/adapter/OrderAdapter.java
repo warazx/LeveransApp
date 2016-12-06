@@ -64,7 +64,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
      */
     protected class OrderViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private TextView orderIdText;
+        private TextView customerText;
         private TextView deliveryAddressText;
         private Order order;
         private Customer customer;
@@ -76,7 +76,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             super(view);
 
             context = itemView.getContext();
-            orderIdText = (TextView) itemView.findViewById(R.id.order_item_orderID_value);
+            customerText = (TextView) itemView.findViewById(R.id.order_item_customer_value);
             deliveryAddressText = (TextView) itemView.findViewById(R.id.order_item_delivery_address_value);
 
             itemView.setOnClickListener(this);
@@ -89,8 +89,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             OrderSQLiteOpenHelper db = new OrderSQLiteOpenHelper(context);
             this.order = order;
             customer = db.getCustomer(order.getCustomer());
-            orderIdText.setText(order.getOrderNumber() + "");
-            deliveryAddressText.setText(customer.getAddress());
+            customerText.setText(customer.getName());
+            deliveryAddressText.setText(customer.formatAddress());
         }
 
         /*

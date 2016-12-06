@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- OrderList Item Weight Values-->
+    <integer name="order_list_item_label_weight">3</integer>
+    <integer name="order_list_item_value_weight">7</integer>
+
+    <!-- Order Activity Weight Values-->
+    <integer name="activity_order_label_weight">3</integer>
+    <integer name="activity_order_value_weight">7</integer>
+
+</resources>

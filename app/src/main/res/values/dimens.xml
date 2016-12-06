@@ -8,10 +8,19 @@
     <dimen name="button_default_height">36dp</dimen>
     <dimen name="button_default_radius">4dp</dimen>
     <dimen name="button_default_padding">0dp</dimen>
-
     <dimen name="button_default_text_size">14sp</dimen>
 
+    <!-- Order Activity Dimensions -->
+    <dimen name="activity_order_text_size">14sp</dimen>
+
+    <!-- OrderList Activity Dimensions -->
+    <dimen name="activity_order_list_gradient_height">16dp</dimen>
+
     <!-- OrderList Item Dimensions -->
-    <dimen name="order_list_item_padding">4dp</dimen>
+    <dimen name="order_list_item_padding">6dp</dimen>
     <dimen name="order_list_item_radius">4dp</dimen>
+    <dimen name="order_list_item_margin_left">4dp</dimen>
+    <dimen name="order_list_item_margin_bottom">10dp</dimen>
+    <dimen name="order_list_item_text_size">12sp</dimen>
+
 </resources>

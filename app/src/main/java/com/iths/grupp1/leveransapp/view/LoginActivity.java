@@ -46,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    protected void goToOrders(View view) {
+    public void goToOrders(View view) {
         enteredUsername = username.getText().toString();
         enteredPassword = password.getText().toString();
 
