@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,7 +18,6 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.Toast;
 
-import com.iths.grupp1.leveransapp.Manifest;
 import com.iths.grupp1.leveransapp.R;
 import com.iths.grupp1.leveransapp.adapter.OrderAdapter;
 import com.iths.grupp1.leveransapp.database.OrderSQLiteOpenHelper;
@@ -42,6 +40,7 @@ public class OrderListActivity extends AppCompatActivity {
 
     private ArrayList<Order> orders;
     private MenuItem itemSwitch;
+    private Switch sw;
 
     private boolean beenDeliveredView;
 
@@ -80,8 +79,6 @@ public class OrderListActivity extends AppCompatActivity {
         } else {
             orders = db.getUndeliveredOrders();
         }
-
-        //if(itemSwitch != null) aSwitch.setChecked(beenDelivered);
         swapOrders();
     }
 
@@ -96,7 +93,7 @@ public class OrderListActivity extends AppCompatActivity {
 
         itemSwitch = menu.findItem(R.id.actionbar_switch_item);
         itemSwitch.setActionView(R.layout.use_switch);
-        final Switch sw = (Switch) menu.findItem(R.id.actionbar_switch_item).getActionView().findViewById(R.id.switch1);
+        sw = (Switch) menu.findItem(R.id.actionbar_switch_item).getActionView().findViewById(R.id.switch1);
         sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -165,7 +162,7 @@ public class OrderListActivity extends AppCompatActivity {
                 } else {
                     // permission denied, boo! Disable the
                     // functionality that depends on this permission.
-                    Toast.makeText(this, "Need permission to use service", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
                 }
                 return;
             }
@@ -174,7 +171,6 @@ public class OrderListActivity extends AppCompatActivity {
         }
     }
 
-    //TODO: After you add orders and change to the undelivered view, the switch does not update and is still toggled ON.
     /**
      * Adds x orders to the database and updates the list. Number of orders is determined
      * by the the ordersPerPage setting in the SettingsActivity.
@@ -184,6 +180,7 @@ public class OrderListActivity extends AppCompatActivity {
         int amount = Integer.parseInt(str);
         GenerateDatabaseObject.addOrders(this, amount);
         loadOrders(false);
+        sw.setChecked(false);
     }
 
     /**
