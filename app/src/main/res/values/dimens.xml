@@ -12,7 +12,7 @@
 
     <!-- Round Button Dimensions -->
     <dimen name="button_round_size">96dp</dimen>
-    <dimen name="button_round_image_size">16dp</dimen>
+    <dimen name="button_round_image_size">24dp</dimen>
 
     <!-- Order Activity Dimensions -->
     <dimen name="activity_order_text_size">14sp</dimen>

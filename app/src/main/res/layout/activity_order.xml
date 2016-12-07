@@ -202,29 +202,32 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:visibility="gone"
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         android:id="@+id/ll_not_delivered" >
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
             android:onClick="startNavigation"
-            android:text="@string/activity_order_nav_btn_label"
+            android:background="@drawable/activity_order_button_directions"
             android:id="@+id/order_activity_nav_btn" />
+            <!--android:text="@string/activity_order_nav_btn_label"-->
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
             android:onClick="deliverOrder"
-            android:text="@string/activity_order_deliver_btn_label"
+            android:background="@drawable/activity_order_button_deliver"
             android:id="@+id/order_activity_delivery_btn" />
-    </LinearLayout>
+            <!--android:text="@string/activity_order_deliver_btn_label"-->
+    </RelativeLayout>
 
 </RelativeLayout>
 

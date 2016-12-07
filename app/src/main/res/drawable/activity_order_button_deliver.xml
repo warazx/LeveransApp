@@ -17,6 +17,6 @@
         android:bottom="@dimen/button_round_image_size" >
         <bitmap
             android:tint="@color/button_color_image"
-            android:src="@drawable/ic_button_key" />
+            android:src="@drawable/ic_button_deliver" />
     </item>
 </layer-list>

@@ -14,7 +14,7 @@
         android:paddingLeft="@dimen/activity_order_list_horizontal_padding"
         android:paddingRight="@dimen/activity_order_list_horizontal_padding"
         android:id="@+id/recycler_view" />
-
+    <!--
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/activity_order_list_gradient_height"
@@ -25,5 +25,15 @@
         android:layout_height="@dimen/activity_order_list_gradient_height"
         android:layout_alignParentBottom="true"
         android:background="@drawable/activity_order_list_gradient_bottom"/>
+    -->
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginBottom="@dimen/activity_horizontal_margin"
+        android:background="@drawable/activity_order_list_button_scan"
+        android:id="@+id/activity_order_list_scan_btn" />
 
 </RelativeLayout>
