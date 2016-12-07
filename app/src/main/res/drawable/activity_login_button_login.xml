@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <size android:width="@dimen/button_round_size"
+                android:height="@dimen/button_round_size" />
+        </shape>
+    </item>
+    <item
+        android:drawable="@drawable/button_shape_round" />
+    <item
+        android:top="@dimen/button_round_image_size"
+        android:left="@dimen/button_round_image_size"
+        android:right="@dimen/button_round_image_size"
+        android:bottom="@dimen/button_round_image_size"
+        >
+        <bitmap
+            android:gravity="center"
+            android:tint="@color/button_color_image"
+            android:src="@drawable/ic_button_key" />
+    </item>
+</layer-list>

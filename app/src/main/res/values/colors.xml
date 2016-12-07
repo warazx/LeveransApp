@@ -9,16 +9,22 @@
     <color name="activity_background_image_tint">#ddf7ff</color>
 
     <!-- Default Button Colors -->
-    <color name="button_default_color_normal">#3F51B5</color>
-    <color name="button_default_color_pressed">#303F9F</color>
-    <color name="button_default_color_focus">#5E6FD4</color>
-    <color name="button_default_color_disabled">#646464</color>
+    <color name="button_color_normal">#3F51B5</color>
+    <color name="button_color_pressed">#303F9F</color>
+    <color name="button_color_focus">#5E6FD4</color>
+    <color name="button_color_disabled">#646464</color>
+
+    <!-- Default Button Image Colors -->
+    <color name="button_color_image_normal">#FFF</color>
+    <color name="button_color_image_pressed">#000</color>
+    <color name="button_color_image_focus">#FFF</color>
+    <color name="button_color_image_disabled">#000</color>
 
     <!-- Default Button Text Colors -->
-    <color name="button_default_color_text_normal">#FFF</color>
-    <color name="button_default_color_text_pressed">#000</color>
-    <color name="button_default_color_text_focus">#FFF</color>
-    <color name="button_default_color_text_disabled">#000</color>
+    <color name="button_color_text_normal">#FFF</color>
+    <color name="button_color_text_pressed">#000</color>
+    <color name="button_color_text_focus">#FFF</color>
+    <color name="button_color_text_disabled">#000</color>
 
     <!-- OrderList Activity Gradient Colors -->
     <color name="activity_order_list_gradient_top">#FFF</color>

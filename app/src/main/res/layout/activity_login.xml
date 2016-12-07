@@ -69,7 +69,7 @@
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         android:onClick="goToOrders"
-        android:text="@string/activity_login_login_btn_label"
+        android:background="@drawable/activity_login_button_login"
         android:id="@+id/activity_login_login_btn" />
 
 </RelativeLayout>
