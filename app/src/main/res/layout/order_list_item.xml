@@ -5,6 +5,7 @@
     tools:context="com.iths.grupp1.leveransapp.view.OrderActivity"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/order_list_item_margin_top"
     android:layout_marginBottom="@dimen/order_list_item_margin_bottom"
     android:background="@drawable/order_list_item_background"
     android:id="@+id/activity_order">
@@ -85,6 +86,7 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_gravity="right"
+                android:background="#FFF"
                 android:id="@+id/order_item_map_button" />
         </LinearLayout>
 
