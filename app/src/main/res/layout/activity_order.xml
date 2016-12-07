@@ -5,238 +5,226 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackground">
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/activity_background">
 
-    <RelativeLayout
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/activity_background" />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin">
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:orientation="vertical"
+            android:id="@+id/ll_Orderid"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
-            <LinearLayout
-                android:id="@+id/ll_Orderid"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_weight="@integer/activity_order_label_weight"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/activity_order_text_size"
-                    android:text="@string/activity_order_orderid_label"
-                    android:id="@+id/order_activity_orderid_label" />
-
-                <TextView
-                    tools:text="343634"
-                    android:layout_weight="@integer/activity_order_value_weight"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/activity_order_text_size"
-                    android:id="@+id/order_activity_orderid_value" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ll_placed_date"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_weight="@integer/activity_order_label_weight"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/activity_order_text_size"
-                    android:text="@string/activity_order_placed_label"
-                    android:id="@+id/order_activity_placed_label" />
-
-                <TextView
-                    tools:text="2016-11-05"
-                    android:layout_weight="@integer/activity_order_value_weight"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/activity_order_text_size"
-                    android:id="@+id/order_activity_placed_value" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ll_customer_name"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_weight="@integer/activity_order_label_weight"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/activity_order_text_size"
-                    android:text="@string/activity_order_name_label"
-                    android:id="@+id/order_activity_name_label" />
-
-                <TextView
-                    tools:text="Anders Svensson"
-                    android:layout_weight="@integer/activity_order_value_weight"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/activity_order_text_size"
-                    android:id="@+id/order_activity_name_value" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ll_delivery"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_weight="@integer/activity_order_label_weight"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/activity_order_text_size"
-                    android:text="@string/activity_order_delivery_label"
-                    android:id="@+id/order_activity_delivery_label" />
-
-                <TextView
-                    tools:text="Storgatan 10"
-                    android:layout_weight="@integer/activity_order_value_weight"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/activity_order_text_size"
-                    android:id="@+id/order_activity_delivery_value" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ll_phonenumber"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_weight="@integer/activity_order_label_weight"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/activity_order_text_size"
-                    android:text="@string/activity_order_phone_label"
-                    android:id="@+id/order_activity_phone_label" />
-
-                <TextView
-                    tools:text="070-12312312"
-                    android:layout_weight="@integer/activity_order_value_weight"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/activity_order_text_size"
-                    android:id="@+id/order_activity_phone_value" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ll_order_sum"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_weight="@integer/activity_order_label_weight"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/activity_order_text_size"
-                    android:text="@string/activity_order_order_sum_label"
-                    android:id="@+id/activity_order_order_sum_label" />
-
-                <TextView
-                    tools:text="512 kr"
-                    android:layout_weight="@integer/activity_order_value_weight"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/activity_order_text_size"
-                    android:id="@+id/activity_order_order_sum_value" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:visibility="gone"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_weight="@integer/activity_order_label_weight"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/ll_delivered">
+                android:textStyle="bold"
+                android:textSize="@dimen/activity_order_text_size"
+                android:text="@string/activity_order_orderid_label"
+                android:id="@+id/order_activity_orderid_label" />
 
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/ll_delivered_date">
+            <TextView
+                tools:text="343634"
+                android:layout_weight="@integer/activity_order_value_weight"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/activity_order_text_size"
+                android:id="@+id/order_activity_orderid_value" />
+        </LinearLayout>
 
-                    <TextView
-                        android:layout_weight="@integer/activity_order_label_weight"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:textStyle="bold"
-                        android:textSize="@dimen/activity_order_text_size"
-                        android:text="@string/activity_order_delivered_date_label"
-                        android:id="@+id/order_activity_delivered_date_label" />
+        <LinearLayout
+            android:id="@+id/ll_placed_date"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-                    <TextView
-                        tools:text="2016-11-16 14:22"
-                        android:layout_weight="@integer/activity_order_value_weight"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/activity_order_text_size"
-                        android:id="@+id/activity_order_delivered_date_value" />
-                </LinearLayout>
+            <TextView
+                android:layout_weight="@integer/activity_order_label_weight"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="@dimen/activity_order_text_size"
+                android:text="@string/activity_order_placed_label"
+                android:id="@+id/order_activity_placed_label" />
 
-                <fragment
-                    android:id="@+id/map"
-                    android:name="com.google.android.gms.maps.MapFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
-                    android:layout_gravity="bottom" />
-            </LinearLayout>
+            <TextView
+                tools:text="2016-11-05"
+                android:layout_weight="@integer/activity_order_value_weight"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/activity_order_text_size"
+                android:id="@+id/order_activity_placed_value" />
+        </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/ll_customer_name"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_weight="@integer/activity_order_label_weight"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="@dimen/activity_order_text_size"
+                android:text="@string/activity_order_name_label"
+                android:id="@+id/order_activity_name_label" />
+
+            <TextView
+                tools:text="Anders Svensson"
+                android:layout_weight="@integer/activity_order_value_weight"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/activity_order_text_size"
+                android:id="@+id/order_activity_name_value" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_delivery"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_weight="@integer/activity_order_label_weight"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="@dimen/activity_order_text_size"
+                android:text="@string/activity_order_delivery_label"
+                android:id="@+id/order_activity_delivery_label" />
+
+            <TextView
+                tools:text="Storgatan 10"
+                android:layout_weight="@integer/activity_order_value_weight"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/activity_order_text_size"
+                android:id="@+id/order_activity_delivery_value" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_phonenumber"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_weight="@integer/activity_order_label_weight"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="@dimen/activity_order_text_size"
+                android:text="@string/activity_order_phone_label"
+                android:id="@+id/order_activity_phone_label" />
+
+            <TextView
+                tools:text="070-12312312"
+                android:layout_weight="@integer/activity_order_value_weight"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/activity_order_text_size"
+                android:id="@+id/order_activity_phone_value" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_order_sum"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_weight="@integer/activity_order_label_weight"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="@dimen/activity_order_text_size"
+                android:text="@string/activity_order_order_sum_label"
+                android:id="@+id/activity_order_order_sum_label" />
+
+            <TextView
+                tools:text="512 kr"
+                android:layout_weight="@integer/activity_order_value_weight"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/activity_order_text_size"
+                android:id="@+id/activity_order_order_sum_value" />
         </LinearLayout>
 
         <LinearLayout
             android:visibility="gone"
             android:orientation="vertical"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentBottom="true"
-            android:id="@+id/ll_not_delivered" >
+            android:id="@+id/ll_delivered">
 
-            <Button
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:onClick="startNavigation"
-                android:text="@string/activity_order_nav_btn_label"
-                android:id="@+id/order_activity_nav_btn" />
-            <Button
-                android:layout_width="wrap_content"
+                android:id="@+id/ll_delivered_date">
+
+                <TextView
+                    android:layout_weight="@integer/activity_order_label_weight"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/activity_order_text_size"
+                    android:text="@string/activity_order_delivered_date_label"
+                    android:id="@+id/order_activity_delivered_date_label" />
+
+                <TextView
+                    tools:text="2016-11-16 14:22"
+                    android:layout_weight="@integer/activity_order_value_weight"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/activity_order_text_size"
+                    android:id="@+id/activity_order_delivered_date_value" />
+            </LinearLayout>
+
+            <fragment
+                android:id="@+id/map"
+                android:name="com.google.android.gms.maps.MapFragment"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="deliverOrder"
-                android:text="@string/activity_order_deliver_btn_label"
-                android:id="@+id/order_activity_delivery_btn" />
+                android:layout_margin="20dp"
+                android:layout_gravity="bottom" />
         </LinearLayout>
 
-    </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:visibility="gone"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/ll_not_delivered" >
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:onClick="startNavigation"
+            android:text="@string/activity_order_nav_btn_label"
+            android:id="@+id/order_activity_nav_btn" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="deliverOrder"
+            android:text="@string/activity_order_deliver_btn_label"
+            android:id="@+id/order_activity_delivery_btn" />
+    </LinearLayout>
 
 </RelativeLayout>
 

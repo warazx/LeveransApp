@@ -5,14 +5,8 @@
     tools:context="com.iths.grupp1.leveransapp.view.OrderListActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackground"
+    android:background="@drawable/activity_background"
     android:id="@+id/activity_order_list" >
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/activity_background" />
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"

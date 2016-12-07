@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/activity_background_color" />
+        </shape>
+    </item>
+    <item>
+        <bitmap
+            android:src="@drawable/activity_background_image"
+            android:tint="@color/activity_background_image_tint"
+            android:tintMode="multiply" />
+    </item>
+</layer-list>

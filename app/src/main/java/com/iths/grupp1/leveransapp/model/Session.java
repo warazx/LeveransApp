@@ -3,6 +3,7 @@ package com.iths.grupp1.leveransapp.model;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.widget.Toast;
 
 /**
  * Handles User Login Session
@@ -70,6 +71,10 @@ public abstract class Session {
                 newSession(context);
                 return true;
             } else {
+                String resource = "session_time_out_message";
+                String message = context.getResources().getString(context.getResources()
+                                 .getIdentifier(resource,"string",context.getPackageName()));
+                Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
                 Log.d(LOG, "Too much time has passed.");
                 return false;
             }

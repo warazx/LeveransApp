@@ -35,6 +35,7 @@
     <string name="actionbar_settings_option_title">Inställningar</string>
     <string name="actionbar_settings_logout_title">Logga ut</string>
     <string name="actionbar_add_orders_option_title">Lägg till ordrar</string>
+    <string name="session_time_out_message">Du var inaktiv för länge</string>
     <string name="log_message">item does not exists</string>
     <string name="empty_string" />
 

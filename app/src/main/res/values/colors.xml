@@ -3,7 +3,10 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#40CCFF</color>
-    <color name="colorBackground">#FFF</color>
+
+    <!-- Background Image Colors -->
+    <color name="activity_background_color">#FFF</color>
+    <color name="activity_background_image_tint">#ddf7ff</color>
 
     <!-- Default Button Colors -->
     <color name="button_default_color_normal">#3F51B5</color>
@@ -19,7 +22,7 @@
 
     <!-- OrderList Activity Gradient Colors -->
     <color name="activity_order_list_gradient_top">#FFF</color>
-    <color name="activity_order_list_gradient_bottom">#D7D7D7</color>
+    <color name="activity_order_list_gradient_bottom">#000</color>
 
     <!-- OrderList Item Colors -->
     <color name="order_list_item_color">#3F51B5</color>
