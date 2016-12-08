@@ -72,6 +72,7 @@ public class OrderListActivity extends AppCompatActivity {
         }
     }
 
+    // Loads delivered or undelivered orders depending on the boolean.
     private void loadOrders(boolean beenDelivered) {
         OrderSQLiteOpenHelper db = new OrderSQLiteOpenHelper(this);
         if(beenDelivered) {
@@ -132,6 +133,7 @@ public class OrderListActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    // Checks the camera permission.
     private void goToQRScanner() {
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             if (!ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.CAMERA)) {

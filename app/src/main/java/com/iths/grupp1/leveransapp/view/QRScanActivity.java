@@ -45,6 +45,11 @@ public class QRScanActivity extends AppCompatActivity implements ZXingScannerVie
     }
 
 
+    /**
+     * Takes the result from the scan and check if it gets a match from the database.
+     * Upon match sends the user to that orders page.
+     * @param result value of the scan.
+     */
     @Override
     public void handleResult(Result result) {
         // Do something with the result here
