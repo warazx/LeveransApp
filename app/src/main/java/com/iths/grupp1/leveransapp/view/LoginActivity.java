@@ -33,6 +33,8 @@ public class LoginActivity extends AppCompatActivity {
         password = (EditText)findViewById(R.id.activity_login_password_value);
         users = new OrderSQLiteOpenHelper(this);
 
+        getSupportActionBar().setTitle(R.string.activity_login_login_label);
+
         if (Session.isSessionValid(this)) {
             goToOrderListActivity();
         }
