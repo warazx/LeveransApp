@@ -38,8 +38,6 @@
     <string name="session_time_out_message">Du var inaktiv för länge</string>
     <string name="log_message">item does not exists</string>
     <string name="empty_string" />
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="actionbar_find_order_QR_title">Hitta order - QR</string>
     <string name="activity_order_toast_message_gps_error">Ingen GPS tillgänglig. Var god kolla dina inställningar.</string>
@@ -48,4 +46,6 @@
     <string name="activity_settings_actionbar_label">Inställningar</string>
     <string name="activity_qr_scan_actionbar_label">Scanna QR</string>
     <string name="activity_order_actionbar_label">Order information</string>
+    <string name="activity_qr_scan_order_found_toast">Order %s hittad!</string>
+    <string name="activity_qr_scan_invalid_order_toast">Ogilltigt ordernummer.</string>
 </resources>
