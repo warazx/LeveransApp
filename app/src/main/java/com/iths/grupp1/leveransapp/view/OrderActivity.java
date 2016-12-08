@@ -219,8 +219,12 @@ public class OrderActivity extends AppCompatActivity implements
 
     private void saveCurrentLocation() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            Location currentLocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
-            GpsTracker.setLastLocation(currentLocation);
+            try {
+                Location currentLocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
+                GpsTracker.setLastLocation(currentLocation);
+            } catch (Exception e) {
+                Toast.makeText(this, R.string.activity_order_toast_message_gps_error, Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
