@@ -76,8 +76,10 @@ public class OrderListActivity extends AppCompatActivity {
         OrderSQLiteOpenHelper db = new OrderSQLiteOpenHelper(this);
         if(beenDelivered) {
             orders = db.getDeliveredOrders();
+            if(getSupportActionBar() != null) getSupportActionBar().setTitle(R.string.activity_order_list_actionbar_label1);
         } else {
             orders = db.getUndeliveredOrders();
+            if(getSupportActionBar() != null) getSupportActionBar().setTitle(R.string.activity_order_list_actionbar_label2);
         }
         swapOrders();
     }
@@ -125,9 +127,6 @@ public class OrderListActivity extends AppCompatActivity {
                 return true;
             case R.id.actionbar_add_orders_item:
                 addOrders();
-                return true;
-            case R.id.actionbar_find_order_QR_item:
-                goToQRScanner();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -219,5 +218,9 @@ public class OrderListActivity extends AppCompatActivity {
         Intent intent = new Intent(this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+    }
+
+    public void goToQRScan(View view) {
+        goToQRScanner();
     }
 }
