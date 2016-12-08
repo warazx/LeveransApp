@@ -12,20 +12,12 @@
     android:background="@drawable/activity_background"
     android:id="@+id/activity_main">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="70dp"
-        android:layout_centerHorizontal="true"
-        android:textSize="30sp"
-        android:text="@string/activity_login_login_label"
-        android:id="@+id/activity_login_login_label" />
 
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/activity_login_login_label"
+        android:layout_marginTop="40dp"
         android:layout_centerHorizontal="true"
         android:text="@string/empty_string"
         android:id="@+id/activity_login_username_message" />
@@ -33,7 +25,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/activity_login_login_label"
+        android:layout_below="@+id/activity_login_username_message"
         android:layout_margin="20dp"
         android:layout_centerHorizontal="true"
         android:gravity="center"
