@@ -82,12 +82,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content">
             <!-- Knapp till map-navigation -->
-            <Button
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:background="#FFF"
-                android:id="@+id/order_item_map_button" />
+                android:textStyle="italic"
+                android:textColor="@color/order_list_item_text_color"
+                android:textSize="@dimen/order_list_item_text_size"
+                android:id="@+id/order_item_orderid_value" />
         </LinearLayout>
 
     </LinearLayout>

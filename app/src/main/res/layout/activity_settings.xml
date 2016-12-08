@@ -67,7 +67,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/activity_settings_phone_number_setting_label"
-        android:layout_alignParentStart="true"
+        android:layout_marginBottom="5dp"
+        android:textSize="17sp"
+        android:text="@string/activity_settings_phone_number_current_label"
+        android:id="@+id/activity_settings_phone_number_current_label"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/activity_settings_phone_number_current_label"
         android:layout_marginBottom="20dp"
         android:textSize="17sp"
         android:text="@string/activity_settings_phone_number_setting_desc"
@@ -89,6 +98,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/activity_settings_phone_number_setting_value"
         android:layout_centerHorizontal="true"
+        android:onClick="saveButton"
         android:text="@string/activity_settings_phone_number_setting_btn_label"
         android:id="@+id/activity_settings_change_number_btn" />
 

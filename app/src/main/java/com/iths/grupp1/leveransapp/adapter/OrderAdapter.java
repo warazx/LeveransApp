@@ -66,6 +66,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
         private TextView customerText;
         private TextView deliveryAddressText;
+        private TextView orderNumberText;
         private Order order;
         private Customer customer;
 
@@ -78,6 +79,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             context = itemView.getContext();
             customerText = (TextView) itemView.findViewById(R.id.order_item_customer_value);
             deliveryAddressText = (TextView) itemView.findViewById(R.id.order_item_delivery_address_value);
+            orderNumberText = (TextView) itemView.findViewById(R.id.order_item_orderid_value);
 
             itemView.setOnClickListener(this);
         }
@@ -91,6 +93,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             customer = db.getCustomer(order.getCustomer());
             customerText.setText(customer.getName());
             deliveryAddressText.setText(customer.formatAddress());
+            orderNumberText.setText(String.valueOf(order.getOrderNumber()));
         }
 
         /*

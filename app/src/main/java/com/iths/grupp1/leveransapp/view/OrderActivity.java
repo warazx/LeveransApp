@@ -127,7 +127,7 @@ public class OrderActivity extends AppCompatActivity implements
         orderIdText.setText(order.getOrderNumber() + "");
         placedDateText.setText(order.getFormattedPlacementDate());
         customerNameText.setText(customer.getName());
-        deliveryAddressText.setText(customer.getAddress());
+        deliveryAddressText.setText(customer.formatAddress());
         phoneNumberText.setText(customer.getPhoneNumber());
         deliveredDateText.setText(order.getFormattedDeliveryDate());
         orderSumText.setText(order.getOrderSum() + " kr");

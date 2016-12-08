@@ -73,6 +73,7 @@ public class QRScanActivity extends AppCompatActivity implements ZXingScannerVie
                 intent.putExtra(EXTRA_ORDER, order);
                 intent.putExtra(EXTRA_CUSTOMER, customer);
                 startActivity(intent);
+                finish();
             }
         } catch (Exception e) {
         Toast.makeText(this, R.string.activity_qr_scan_invalid_order_toast, Toast.LENGTH_SHORT).show();
