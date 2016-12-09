@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.zxing.Result;
@@ -23,6 +24,8 @@ public class QRScanActivity extends AppCompatActivity implements ZXingScannerVie
     public static final String ORDER_ID_KEY = "ORDER_ID_KEY";
 
     private ZXingScannerView scannerView;
+
+    private Toast toast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,8 +79,11 @@ public class QRScanActivity extends AppCompatActivity implements ZXingScannerVie
                 finish();
             }
         } catch (Exception e) {
-        Toast.makeText(this, R.string.activity_qr_scan_invalid_order_toast, Toast.LENGTH_SHORT).show();
-    }
+            if (toast == null || toast.getView().getWindowVisibility() != View.VISIBLE) {
+                toast = Toast.makeText(this, R.string.activity_qr_scan_invalid_order_toast, Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        }
 
         // If you would like to resume scanning, call this method below:
         scannerView.resumeCameraPreview(this);

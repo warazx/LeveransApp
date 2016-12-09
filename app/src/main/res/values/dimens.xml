@@ -18,7 +18,7 @@
     <dimen name="activity_order_text_size">14sp</dimen>
 
     <!-- OrderList Activity Dimensions -->
-    <dimen name="activity_order_list_gradient_height">16dp</dimen>
+    <dimen name="activity_order_list_gradient_height">128dp</dimen>
     <dimen name="activity_order_list_horizontal_padding">16dp</dimen>
 
     <!-- OrderList Item Dimensions -->

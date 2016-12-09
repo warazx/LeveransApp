@@ -28,7 +28,7 @@
 
     <!-- OrderList Activity Gradient Colors -->
     <color name="activity_order_list_gradient_top">#FFF</color>
-    <color name="activity_order_list_gradient_bottom">#000</color>
+    <color name="activity_order_list_gradient_bottom">#BAD0D7</color>
 
     <!-- OrderList Item Colors -->
     <color name="order_list_item_color">#6f79b3</color>

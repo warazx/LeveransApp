@@ -15,6 +15,6 @@
     <item
         android:id="@+id/actionbar_add_orders_item"
         android:title="@string/actionbar_add_orders_option_title"
-        android:icon="@mipmap/ic_new_order2"
+        android:icon="@drawable/ic_action_new_order"
         app:showAsAction="always"/>
 </menu>
