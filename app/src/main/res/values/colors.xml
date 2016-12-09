@@ -9,9 +9,9 @@
     <color name="activity_background_image_tint">#ddf7ff</color>
 
     <!-- Default Button Colors -->
-    <color name="button_color_normal">#3F51B5</color>
-    <color name="button_color_pressed">#303F9F</color>
-    <color name="button_color_focus">#5E6FD4</color>
+    <color name="button_color_normal">@color/colorPrimary</color>
+    <color name="button_color_pressed">@color/colorPrimaryDark</color>
+    <color name="button_color_focus">@color/colorAccent</color>
     <color name="button_color_disabled">#646464</color>
 
     <!-- Default Button Image Colors -->
