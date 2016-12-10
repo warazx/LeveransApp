@@ -12,6 +12,9 @@ import com.iths.grupp1.leveransapp.database.OrderSQLiteOpenHelper;
 import com.iths.grupp1.leveransapp.model.Session;
 import com.iths.grupp1.leveransapp.model.User;
 
+/**
+ * Let's user log in after username and password being evaluated
+ */
 public class LoginActivity extends AppCompatActivity {
     private TextView textViewUsernameMessage;
     private TextView textViewPasswordMessage;
@@ -47,17 +50,13 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
     }
 
-
-    public void goToOrders(View view) {
+    /**
+     * Entered username compares against registrerd usernames
+     * @param view
+     */
+    public void evaluateLogInData(View view){
         enteredUsername = username.getText().toString();
         enteredPassword = password.getText().toString();
-
-        evaluateLogInData();
-    }
-
-    //Det inmatade lösenordet jämförs mot användarens faktiska lösenord
-    private void evaluateLogInData(){
-
         User user = users.getUser(enteredUsername);
 
         if(user == null){

@@ -60,7 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:onClick="goToOrders"
+        android:onClick="evaluateLogInData"
         android:background="@drawable/activity_login_button_login"
         android:id="@+id/activity_login_login_btn" />
 
