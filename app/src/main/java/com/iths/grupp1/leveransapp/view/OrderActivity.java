@@ -79,6 +79,156 @@ public class OrderActivity extends AppCompatActivity implements
         initVarValues();
     }
 
+    /**
+     * Inflates meny for this activity
+     * @param menu
+     * @return
+     */
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_order_menu, menu);
+        return true;
+    }
+
+    /**
+     * Show Settings when user click on item in actionbar
+     * @param item
+     * @return
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.actionbar_settings_item:
+                Intent intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.actionbar_logout_item:
+                activityLogOut();
+                return true;
+            default:
+                Log.d(TAG, getString(R.string.log_message));
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case SEND_SMS_PERMISSION: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                    sendSmsConfirmation();
+                } else {
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                    Toast.makeText(this, getString(R.string.activity_order_sms_error_toast), Toast.LENGTH_SHORT).show();
+                }
+                return;
+            }
+            case ACCESS_FINE_LOCATION: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    saveCurrentLocation();
+                } else {
+                    Toast.makeText(this, getString(R.string.activity_order_location_error), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
+    @Override
+    protected void onStart() {
+        if (! Session.isSessionValid(this)) {
+            activityLogOut();
+        } else {
+            googleApiClient.connect();
+        }
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        googleApiClient.disconnect();
+        super.onStop();
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        this.googleMap = googleMap;
+
+        LatLng deliveredPos = new LatLng(order.getDeliveryLatitude(), order.getDeliveryLongitude());
+        googleMap.addMarker(new MarkerOptions().position(deliveredPos).title(order.getFormattedDeliveryDate()));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(deliveredPos, 16));
+    }
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+        if (ActivityCompat.checkSelfPermission(
+                this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if (!ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
+                Log.d(PERM_CHECK, String.format(getString(R.string.activity_order_log_access_location), Manifest.permission.ACCESS_FINE_LOCATION.toString()));
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, ACCESS_FINE_LOCATION);
+            }
+        } else {
+            saveCurrentLocation();
+        }
+    }
+
+    /**
+     * Changes the order to delivered. Updates the database with the location and changes
+     * the display to match an delivered order.
+     */
+    public void deliverOrder(View view) {
+        order.setDelivered(true);
+        long time = System.currentTimeMillis();
+        order.setDeliveryDate(time);
+        try {
+            order.setDeliveryLocation();
+        } catch (Exception e) {
+            e.getStackTrace();
+            Toast.makeText(this, R.string.activity_order_toast_message_gps_error, Toast.LENGTH_SHORT).show();
+        }
+        deliveredDateText.setText(order.getFormattedDeliveryDate());
+        toggleLayout();
+
+        OrderSQLiteOpenHelper db = new OrderSQLiteOpenHelper(this);
+        db.updateOrder(order);
+
+        sendSMS();
+    }
+
+    /**
+     * Starts Google Maps Navigation from the user's current location to the current order customer address."
+     */
+    public void startNavigation(View view) {
+        String address = customer.getAddress();
+        Uri uri = Uri.parse(getString(R.string.activity_order_google_maps_location) + address + "&mode=d");
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        intent.setPackage(getString(R.string.activity_order_google_maps_package));
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
+
+    }
+
     // Gets the intent from the RecyclerView and gets the information about the objects.
     private void getIntentFromList() {
         Intent intent = getIntent();
@@ -124,46 +274,13 @@ public class OrderActivity extends AppCompatActivity implements
 
     // Sets the initial values for the variables;
     private void initVarValues() {
-        orderIdText.setText(order.getOrderNumber() + "");
+        orderIdText.setText(order.getOrderNumber() + getString(R.string.empty_string));
         placedDateText.setText(order.getFormattedPlacementDate());
         customerNameText.setText(customer.getName());
         deliveryAddressText.setText(customer.formatAddress());
         phoneNumberText.setText(customer.getPhoneNumber());
         deliveredDateText.setText(order.getFormattedDeliveryDate());
-        orderSumText.setText(order.getOrderSum() + " kr");
-    }
-
-    /**
-     * Inflates meny for this activity
-     * @param menu
-     * @return
-     */
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_order_menu, menu);
-        return true;
-    }
-
-    /**
-     * Show Settings when user click on item in actionbar
-     * @param item
-     * @return
-     */
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        switch (id) {
-            case R.id.actionbar_settings_item:
-                Intent intent = new Intent(this, SettingsActivity.class);
-                startActivity(intent);
-                return true;
-            case R.id.actionbar_logout_item:
-                activityLogOut();
-                return true;
-            default:
-                Log.d(TAG, getString(R.string.log_message));
-        }
-
-        return super.onOptionsItemSelected(item);
+        orderSumText.setText(order.getOrderSum() + getString(R.string.activity_order_currency));
     }
 
     /*
@@ -180,29 +297,6 @@ public class OrderActivity extends AppCompatActivity implements
         }
     }
 
-    /**
-     * Changes the order to delivered. Updates the database with the location and changes
-     * the display to match an delivered order.
-     */
-    public void deliverOrder(View view) {
-        order.setDelivered(true);
-        long time = System.currentTimeMillis();
-        order.setDeliveryDate(time);
-        try {
-            order.setDeliveryLocation();
-        } catch (Exception e) {
-            e.getStackTrace();
-            Toast.makeText(this, R.string.activity_order_toast_message_gps_error, Toast.LENGTH_SHORT).show();
-        }
-        deliveredDateText.setText(order.getFormattedDeliveryDate());
-        toggleLayout();
-
-        OrderSQLiteOpenHelper db = new OrderSQLiteOpenHelper(this);
-        db.updateOrder(order);
-
-        sendSMS();
-    }
-
     /*
      * Sends sms to user when an order is delivered.
      */
@@ -210,7 +304,7 @@ public class OrderActivity extends AppCompatActivity implements
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
             if (!ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.SEND_SMS)) {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS}, SEND_SMS_PERMISSION);
-                Log.d(PERM_CHECK, String.format("Asking for permission: %s", Manifest.permission.SEND_SMS.toString()));
+                Log.d(PERM_CHECK, String.format(getString(R.string.activity_order_log_access_location), Manifest.permission.SEND_SMS.toString()));
             }
         } else {
             sendSmsConfirmation();
@@ -228,113 +322,19 @@ public class OrderActivity extends AppCompatActivity implements
         }
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case SEND_SMS_PERMISSION: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // permission was granted, yay! Do the
-                    // contacts-related task you need to do.
-                    sendSmsConfirmation();
-                } else {
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
-                    Toast.makeText(this, "Need permission to use service", Toast.LENGTH_SHORT).show();
-                }
-                return;
-            }
-            case ACCESS_FINE_LOCATION: {
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    saveCurrentLocation();
-                } else {
-                    Toast.makeText(this, "Need permission to use service", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-
-            // other 'case' lines to check for other
-            // permissions this app might request
-        }
-    }
-
     private void sendSmsConfirmation() {
-        String phoneNumber = sharedPref.getString(SettingsActivity.PHONE_NUMBER_TO_ADD, "0");
+        String phoneNumber = sharedPref.getString(SettingsActivity.PHONE_NUMBER_TO_ADD, getString(R.string.activity_order_phone_default_value));
         String message = String.format(getString(R.string.activity_order_sms_message), order.getOrderNumber());
 
         try {
-            smsManager.sendTextMessage(phoneNumber, "", message, null, null);
+            smsManager.sendTextMessage(phoneNumber, getString(R.string.empty_string), message, null, null);
         } catch (IllegalArgumentException iae) {
             iae.printStackTrace();
-            Toast.makeText(this, "Invalid phone number, please change in settings.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.activity_settings_phone_message_error), Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(this, "SMS could not be sent", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.activity_order_sms_error_sending), Toast.LENGTH_SHORT).show();
         }
-    }
-
-    /**
-     * Starts Google Maps Navigation from the user's current location to the current order customer address."
-     */
-    public void startNavigation(View view) {
-        String address = customer.getAddress();
-        Uri uri = Uri.parse("google.navigation:q=" + address + "&mode=d");
-        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        intent.setPackage(getString(R.string.activity_order_google_maps_package));
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivity(intent);
-        }
-
-    }
-
-    @Override
-    public void onConnected(@Nullable Bundle bundle) {
-        if (ActivityCompat.checkSelfPermission(
-                this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            if (!ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
-                Log.d(PERM_CHECK, String.format("Asking for permission: %s", Manifest.permission.ACCESS_FINE_LOCATION.toString()));
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, ACCESS_FINE_LOCATION);
-            }
-        } else {
-            saveCurrentLocation();
-        }
-    }
-
-    @Override
-    public void onConnectionSuspended(int i) {
-
-    }
-
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
-    }
-
-    @Override
-    protected void onStart() {
-        if (! Session.isSessionValid(this)) {
-            activityLogOut();
-        } else {
-            googleApiClient.connect();
-        }
-        super.onStart();
-    }
-
-    @Override
-    protected void onStop() {
-        googleApiClient.disconnect();
-        super.onStop();
-    }
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        this.googleMap = googleMap;
-
-        LatLng deliveredPos = new LatLng(order.getDeliveryLatitude(), order.getDeliveryLongitude());
-        googleMap.addMarker(new MarkerOptions().position(deliveredPos).title(order.getFormattedDeliveryDate()));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(deliveredPos, 16));
     }
 
     private void activityLogOut() {

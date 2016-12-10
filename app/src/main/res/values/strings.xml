@@ -9,19 +9,26 @@
     <string name="activity_login_username_message_error_text">Inget giltigt användarnamn</string>
     <string name="activity_login_password_message_error_text">Inget giltigt lösenord</string>
     <string name="activity_login_password_message_text">Ange lösenord</string>
+    <string name="activity_order_currency"> kr</string>
     <string name="activity_order_orderid_label">Order:</string>
     <string name="activity_order_customer_label">Kund:</string>
     <string name="activity_order_delivery_label">Address:</string>
     <string name="activity_order_phone_label">Telefon:</string>
+    <string name="activity_order_phone_default_value">0</string>
     <string name="activity_order_placed_label">Lagd:</string>
     <string name="activity_order_deliver_btn_label">Leverera</string>
     <string name="activity_order_nav_btn_label">Vägbeskrivning</string>
     <string name="activity_order_delivered_date_label">Levererad:</string>
     <string name="activity_order_name_label">Kund:</string>
     <string name="activity_order_sms_message">Order %d har blivit levererad.</string>
+    <string name="activity_order_sms_error_sending">SMS could not be sent</string>
+    <string name="activity_order_sms_error_toast">Need permission to use service</string>
+    <string name="activity_order_location_error">Need permission to use service</string>
     <string name="activity_order_order_sum_label">Summa:</string>
     <string name="activity_order_google_maps_package">com.google.android.apps.maps</string>
+    <string name="activity_order_google_maps_location">google.navigation:q=</string>
     <string name="activity_order_list_update_btn_text">Undelivered</string>
+    <string name="activity_order_log_access_location">Asking for permission: %s</string>
     <string name="order_list_item_customer_label">Kund:</string>
     <string name="order_list_item_delivery_address_label">Adress:</string>
     <string name="activity_settings_number_of_orders">10</string>
@@ -33,6 +40,7 @@
     <string name="activity_settings_add_number_label">Nytt telefonnummer</string>
     <string name="activity_settings_alert_btn_label">OK</string>
     <string name="activity_settings_save_settings_notification">Inställningar sparade</string>
+    <string name="activity_settings_phone_message_error">Invalid phone number, please change in settings.</string>
     <string name="activity_maps_title">Karta</string>
     <string name="actionbar_settings_option_title">Inställningar</string>
     <string name="actionbar_settings_logout_title">Logga ut</string>
