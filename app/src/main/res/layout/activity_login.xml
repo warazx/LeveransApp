@@ -15,7 +15,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="@dimen/margin_top"
         android:layout_centerHorizontal="true"
         android:text="@string/empty_string"
         android:id="@+id/activity_login_username_message" />
@@ -24,12 +24,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/activity_login_username_message"
-        android:layout_margin="20dp"
-        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/margin"
+        android:layout_centerHorizontal="@string/bool_val_true"
         android:gravity="center"
         android:inputType="textPersonName"
-        android:maxLength="15"
-        android:textSize="20sp"
+        android:maxLength="@integer/log_in_length"
+        android:textSize="@dimen/text_size"
         android:hint="@string/activity_login_username_hint"
         android:id="@+id/activity_login_username_value" />
 
@@ -37,27 +37,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/activity_login_username_value"
-        android:layout_centerHorizontal="true"
+        android:layout_centerHorizontal="@string/bool_val_true"
         android:id="@+id/activity_login_password_message" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/activity_login_username_value"
-        android:layout_margin="20dp"
-        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/margin"
+        android:layout_centerHorizontal="@string/bool_val_true"
         android:gravity="center"
         android:inputType="textPassword"
-        android:maxLength="15"
-        android:textSize="20sp"
+        android:maxLength="@integer/log_in_length"
+        android:textSize="@dimen/text_size"
         android:hint="@string/activity_login_password_hint"
         android:id="@+id/activity_login_password_value" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="@string/bool_val_true"
+        android:layout_alignParentBottom="@string/bool_val_true"
         android:onClick="evaluateLogInData"
         android:background="@drawable/activity_login_button_login"
         android:id="@+id/activity_login_login_btn" />

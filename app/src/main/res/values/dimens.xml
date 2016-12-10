@@ -29,4 +29,9 @@
     <dimen name="order_list_item_margin_bottom">6dp</dimen>
     <dimen name="order_list_item_text_size">12sp</dimen>
 
+    <!-- Login Dimensions -->
+    <dimen name="margin_top">40dp</dimen>
+    <dimen name="margin">20dp</dimen>
+    <dimen name="text_size">20sp</dimen>
+
 </resources>

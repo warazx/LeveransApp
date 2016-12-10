@@ -50,4 +50,9 @@
     <string name="activity_order_actionbar_label">Order information</string>
     <string name="activity_qr_scan_order_found_toast">Order %s hittad!</string>
     <string name="activity_qr_scan_invalid_order_toast">Ogilltigt ordernummer.</string>
+
+    <!-- boolean values -->
+    <string name="bool_val_true">true</string>
+    <string name="bool_val_false">false</string>
+
 </resources>

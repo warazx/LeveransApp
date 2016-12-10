@@ -8,4 +8,7 @@
     <integer name="activity_order_label_weight">3</integer>
     <integer name="activity_order_value_weight">7</integer>
 
+    <!-- Login Activity Length Values-->
+    <integer name="log_in_length">15</integer>
+
 </resources>
