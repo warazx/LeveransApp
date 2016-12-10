@@ -33,8 +33,6 @@ public class SettingsActivity extends AppCompatActivity {
     private SeekBar seekbar;
     private TextView currentNumber;
     private EditText changePhoneNumber;
-    private String phoneNumber = "";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -161,7 +161,6 @@
         </LinearLayout>
 
 
-
         <LinearLayout
             android:visibility="gone"
             android:orientation="vertical"
@@ -219,7 +218,6 @@
             android:onClick="startNavigation"
             android:background="@drawable/activity_order_button_directions"
             android:id="@+id/order_activity_nav_btn" />
-            <!--android:text="@string/activity_order_nav_btn_label"-->
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -228,7 +226,6 @@
             android:onClick="deliverOrder"
             android:background="@drawable/activity_order_button_deliver"
             android:id="@+id/order_activity_delivery_btn" />
-            <!--android:text="@string/activity_order_deliver_btn_label"-->
     </RelativeLayout>
 
 </RelativeLayout>
