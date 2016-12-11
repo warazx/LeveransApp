@@ -18,6 +18,7 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
 import static com.iths.grupp1.leveransapp.adapter.OrderAdapter.EXTRA_CUSTOMER;
 import static com.iths.grupp1.leveransapp.adapter.OrderAdapter.EXTRA_ORDER;
 
+
 public class QRScanActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
 
     private static final String TAG = "SCANNER_VIEW";
@@ -55,7 +56,6 @@ public class QRScanActivity extends AppCompatActivity implements ZXingScannerVie
      */
     @Override
     public void handleResult(Result result) {
-        // Do something with the result here
         String value = result.getText();
         int intValue;
         try {
