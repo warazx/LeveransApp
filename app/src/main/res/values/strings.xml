@@ -28,7 +28,7 @@
     <string name="activity_order_google_maps_package">com.google.android.apps.maps</string>
     <string name="activity_order_google_maps_location">google.navigation:q=</string>
     <string name="activity_order_list_update_btn_text">Undelivered</string>
-    <string name="activity_order_log_access_location">Asking for permission: %s</string>
+    <string name="activity_order_log_access">Asking for permission: %s</string>
     <string name="order_list_item_customer_label">Kund:</string>
     <string name="order_list_item_delivery_address_label">Adress:</string>
     <string name="activity_settings_number_of_orders">10</string>

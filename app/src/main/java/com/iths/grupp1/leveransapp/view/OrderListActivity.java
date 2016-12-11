@@ -27,6 +27,9 @@ import com.iths.grupp1.leveransapp.util.GenerateDatabaseObject;
 
 import java.util.ArrayList;
 
+/**
+ * Lists orders in view and lets user click on each order
+ */
 public class OrderListActivity extends AppCompatActivity {
 
     private static final String PERM_CHECK = "PERM_CHECK";
@@ -72,24 +75,7 @@ public class OrderListActivity extends AppCompatActivity {
         }
     }
 
-    // Loads delivered or undelivered orders depending on the boolean.
-    private void loadOrders(boolean beenDelivered) {
-        OrderSQLiteOpenHelper db = new OrderSQLiteOpenHelper(this);
-        if(beenDelivered) {
-            orders = db.getDeliveredOrders();
-            if(getSupportActionBar() != null) getSupportActionBar().setTitle(R.string.activity_order_list_actionbar_label1);
-        } else {
-            orders = db.getUndeliveredOrders();
-            if(getSupportActionBar() != null) getSupportActionBar().setTitle(R.string.activity_order_list_actionbar_label2);
-        }
-        swapOrders();
-    }
 
-    /**
-     * Shows the ordershistory or pending orders by users choice of the switch in actionbar
-     * @param menu
-     * @return
-     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.activity_order_list_menu, menu);
@@ -110,11 +96,7 @@ public class OrderListActivity extends AppCompatActivity {
         return true;
     }
 
-    /**
-     *  runs activity depending on users choice in actionbar
-     * @param item
-     * @return
-     */
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         int id = item.getItemId();
@@ -131,23 +113,6 @@ public class OrderListActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    // Checks the camera permission.
-    private void goToQRScanner() {
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            if (!ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.CAMERA)) {
-                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CAMERA}, ACCESS_CAMERA);
-                Log.d(PERM_CHECK, String.format("Asking for permission: %s", android.Manifest.permission.CAMERA.toString()));
-            }
-        } else {
-            startQRScanActivity();
-        }
-    }
-
-    private void startQRScanActivity() {
-        Intent intent = new Intent(this, QRScanActivity.class);
-        startActivity(intent);
     }
 
     @Override
@@ -192,14 +157,12 @@ public class OrderListActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void swapOrders() {
-        if(orders != null) {
-            OrderAdapter newAdapter = new OrderAdapter(orders);
-            recyclerView.swapAdapter(newAdapter, true);
-            recyclerView.setVisibility(View.VISIBLE);
-        } else {
-            recyclerView.setVisibility(View.GONE);
-        }
+    /**
+     * Activate Qr-scanning from onClick
+     * @param view
+     */
+    public void goToQRScan(View view) {
+        goToQRScanner();
     }
 
     @Override
@@ -215,14 +178,50 @@ public class OrderListActivity extends AppCompatActivity {
         super.onResume();
     }
 
+    // Loads delivered or undelivered orders depending on the boolean.
+    private void loadOrders(boolean beenDelivered) {
+        OrderSQLiteOpenHelper db = new OrderSQLiteOpenHelper(this);
+        if(beenDelivered) {
+            orders = db.getDeliveredOrders();
+            if(getSupportActionBar() != null) getSupportActionBar().setTitle(R.string.activity_order_list_actionbar_label1);
+        } else {
+            orders = db.getUndeliveredOrders();
+            if(getSupportActionBar() != null) getSupportActionBar().setTitle(R.string.activity_order_list_actionbar_label2);
+        }
+        swapOrders();
+    }
+
+    // Checks the camera permission.
+    private void goToQRScanner() {
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            if (!ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.CAMERA)) {
+                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CAMERA}, ACCESS_CAMERA);
+                Log.d(PERM_CHECK, String.format(getString(R.string.activity_order_log_access), android.Manifest.permission.CAMERA.toString()));
+            }
+        } else {
+            startQRScanActivity();
+        }
+    }
+
+    private void startQRScanActivity() {
+        Intent intent = new Intent(this, QRScanActivity.class);
+        startActivity(intent);
+    }
+
+    private void swapOrders() {
+        if(orders != null) {
+            OrderAdapter newAdapter = new OrderAdapter(orders);
+            recyclerView.swapAdapter(newAdapter, true);
+            recyclerView.setVisibility(View.VISIBLE);
+        } else {
+            recyclerView.setVisibility(View.GONE);
+        }
+    }
+
     private void activityLogOut() {
         Session.closeSession(this);
         Intent intent = new Intent(this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
-    }
-
-    public void goToQRScan(View view) {
-        goToQRScanner();
     }
 }

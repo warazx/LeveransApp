@@ -184,7 +184,7 @@ public class OrderActivity extends AppCompatActivity implements
         if (ActivityCompat.checkSelfPermission(
                 this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             if (!ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
-                Log.d(PERM_CHECK, String.format(getString(R.string.activity_order_log_access_location), Manifest.permission.ACCESS_FINE_LOCATION.toString()));
+                Log.d(PERM_CHECK, String.format(getString(R.string.activity_order_log_access), Manifest.permission.ACCESS_FINE_LOCATION.toString()));
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, ACCESS_FINE_LOCATION);
             }
         } else {
@@ -304,7 +304,7 @@ public class OrderActivity extends AppCompatActivity implements
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
             if (!ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.SEND_SMS)) {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS}, SEND_SMS_PERMISSION);
-                Log.d(PERM_CHECK, String.format(getString(R.string.activity_order_log_access_location), Manifest.permission.SEND_SMS.toString()));
+                Log.d(PERM_CHECK, String.format(getString(R.string.activity_order_log_access), Manifest.permission.SEND_SMS.toString()));
             }
         } else {
             sendSmsConfirmation();
