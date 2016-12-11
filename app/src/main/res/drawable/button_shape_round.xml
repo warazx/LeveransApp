@@ -5,9 +5,4 @@
     android:shape="oval">
     <solid
         android:color="@color/button_color" />
-    <!--
-    <size
-        android:width="@dimen/button_round_size"
-        android:height="@dimen/button_round_size" />
-        -->
 </shape>

@@ -14,17 +14,13 @@
         android:paddingLeft="@dimen/activity_order_list_horizontal_padding"
         android:paddingRight="@dimen/activity_order_list_horizontal_padding"
         android:id="@+id/recycler_view" />
-    <!--
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/activity_order_list_gradient_height"
-        android:background="@drawable/activity_order_list_gradient_top"/>
-    -->
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/activity_order_list_gradient_height"
         android:layout_alignParentBottom="true"
         android:background="@drawable/activity_order_list_gradient_bottom"/>
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
