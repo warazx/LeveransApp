@@ -29,9 +29,20 @@
     <dimen name="order_list_item_margin_bottom">6dp</dimen>
     <dimen name="order_list_item_text_size">12sp</dimen>
 
-    <!-- Login Dimensions -->
+    <!-- Settings Dimensions -->
+    <dimen name="phone_margin_text_size">17sp</dimen>
+    <dimen name="phone_label_margin_bottom">5dp</dimen>
+
+    <!-- Text Dimensions -->
     <dimen name="margin_top">40dp</dimen>
+    <dimen name="margin_bottom">20dp</dimen>
     <dimen name="margin">20dp</dimen>
     <dimen name="text_size">20sp</dimen>
+
+
+    <!-- Layout Dimensions -->
+    <dimen name="layout_width">25dp</dimen>
+    <dimen name="layout_height">1dp</dimen>
+    <dimen name="layout_margin">10dp</dimen>
 
 </resources>

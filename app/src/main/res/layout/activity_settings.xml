@@ -18,7 +18,7 @@
         android:layout_above="@+id/activity_settings_orders_setting_text_value"
         android:layout_centerHorizontal="true"
         android:textStyle="bold"
-        android:textSize="20sp"
+        android:textSize="@dimen/text_size"
         android:text="@string/activity_settings_orders_setting_label"
         android:id="@+id/activity_settings_orders_setting_label" />
 
@@ -28,25 +28,25 @@
         android:layout_toStartOf="@+id/activity_settings_orders_setting_text_value"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="40dp"
-        android:max="10"
+        android:layout_marginTop="@dimen/margin_top"
+        android:max="@integer/seek_bar_max"
         android:id="@+id/activity_settings_seekbar" />
 
     <TextView
-        android:layout_width="25dp"
+        android:layout_width="@dimen/layout_width"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/activity_settings_seekbar"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="10dp"
-        android:textSize="20sp"
+        android:layout_marginStart="@dimen/layout_margin"
+        android:textSize="@dimen/text_size"
         android:text="@string/activity_settings_number_of_orders"
         android:id="@+id/activity_settings_orders_setting_text_value" />
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="@dimen/layout_height"
         android:layout_below="@id/activity_settings_orders_setting_text_value"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="@dimen/margin_top"
         android:background="@android:color/darker_gray"
         android:id="@+id/activity_settings_horizontal_line_1" />
 
@@ -55,11 +55,11 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/activity_settings_horizontal_line_1"
         android:layout_alignStart="@+id/activity_settings_orders_setting_label"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginTop="@dimen/margin_top"
+        android:layout_marginBottom="@dimen/margin_bottom"
         android:layout_centerVertical="true"
         android:textStyle="bold"
-        android:textSize="20sp"
+        android:textSize="@dimen/text_size"
         android:text="@string/activity_settings_phone_number_setting_label"
         android:id="@+id/activity_settings_phone_number_setting_label" />
 
@@ -67,18 +67,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/activity_settings_phone_number_setting_label"
-        android:layout_marginBottom="5dp"
-        android:textSize="17sp"
+        android:layout_marginBottom="@dimen/phone_label_margin_bottom"
+        android:textSize="@dimen/phone_margin_text_size"
         android:text="@string/activity_settings_phone_number_current_label"
-        android:id="@+id/activity_settings_phone_number_current_label"
-        />
+        android:id="@+id/activity_settings_phone_number_current_label" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/activity_settings_phone_number_current_label"
-        android:layout_marginBottom="20dp"
-        android:textSize="17sp"
+        android:layout_marginBottom="@dimen/margin_bottom"
+        android:textSize="@dimen/phone_margin_text_size"
         android:text="@string/activity_settings_phone_number_setting_desc"
         android:id="@+id/activity_settings_phone_number_setting_desc" />
 
@@ -87,10 +86,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/activity_settings_phone_number_setting_desc"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="@dimen/margin_bottom"
         android:inputType="phone"
-        android:maxLength="15"
-        android:ems="10"
+        android:maxLength="@integer/text_max_length"
+        android:ems="@integer/ems"
         android:id="@+id/activity_settings_phone_number_setting_value" />
 
     <Button
@@ -104,9 +103,9 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="@dimen/layout_height"
         android:layout_below="@id/activity_settings_change_number_btn"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="@dimen/margin_top"
         android:background="@android:color/darker_gray"
         android:id="@+id/activity_settings_horizontal_line_2" />
 

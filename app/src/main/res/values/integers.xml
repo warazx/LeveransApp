@@ -11,4 +11,11 @@
     <!-- Login Activity Length Values-->
     <integer name="log_in_length">15</integer>
 
+    <!-- Settings Activity Values-->
+    <integer name="seek_bar_max">10</integer>
+    <integer name="text_max_length">15</integer>
+    <integer name="ems">10</integer>
+
+
+
 </resources>
