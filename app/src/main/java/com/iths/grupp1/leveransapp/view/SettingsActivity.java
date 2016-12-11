@@ -76,6 +76,10 @@ public class SettingsActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void saveButton(View view) {
+        saveInfo();
+    }
+
     /* Handles the seekbar and changes values in ordersPerPage */
     private void seekBar() {
         SeekBar seekBar = (SeekBar) findViewById(R.id.activity_settings_seekbar);
@@ -115,10 +119,10 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void loadInfo() {
-        String storedNumber = sharedPref.getString(PHONE_NUMBER_TO_ADD,"0123456789");
+        String storedNumber = sharedPref.getString(PHONE_NUMBER_TO_ADD,getString(R.string.activity_settings_phone_number));
         String resourceString = getString(R.string.activity_settings_phone_number_current_label);
 
-        seekbar.setProgress(Integer.parseInt(sharedPref.getString(ORDERS_TO_ADD,"10")) -10);
+        seekbar.setProgress(Integer.parseInt(sharedPref.getString(ORDERS_TO_ADD,getString(R.string.activity_settings_number_of_orders))) -10);
         ordersToAdd.setText(String.valueOf(seekbar.getProgress() + 10));
         currentNumber.setText(resourceString + " " + storedNumber);
         changePhoneNumber.setText(storedNumber);
@@ -145,7 +149,5 @@ public class SettingsActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void saveButton(View view) {
-        saveInfo();
-    }
+
 }

@@ -41,6 +41,7 @@
     <string name="activity_settings_alert_btn_label">OK</string>
     <string name="activity_settings_save_settings_notification">Inställningar sparade</string>
     <string name="activity_settings_phone_message_error">Invalid phone number, please change in settings.</string>
+    <string name="activity_settings_phone_number">0123456789</string>
     <string name="activity_maps_title">Karta</string>
     <string name="actionbar_settings_option_title">Inställningar</string>
     <string name="actionbar_settings_logout_title">Logga ut</string>
