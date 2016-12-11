@@ -45,5 +45,6 @@
     <dimen name="layout_width">25dp</dimen>
     <dimen name="layout_height">1dp</dimen>
     <dimen name="layout_margin">10dp</dimen>
+    <dimen name="layout_margin_top">14dp</dimen>
 
 </resources>
