@@ -20,6 +20,7 @@
     <!-- OrderList Activity Dimensions -->
     <dimen name="activity_order_list_gradient_height">128dp</dimen>
     <dimen name="activity_order_list_horizontal_padding">16dp</dimen>
+    <dimen name="activity_order_list_layout_width">0dp</dimen>
 
     <!-- OrderList Item Dimensions -->
     <dimen name="order_list_item_padding">6dp</dimen>

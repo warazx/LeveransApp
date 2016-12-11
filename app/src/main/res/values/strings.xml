@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">LeveransApp</string>
+
+                <!-- Login Activity -->
+
     <string name="activity_login_login_label">Inloggning</string>
     <string name="activity_login_username_hint">Användarnamn</string>
     <string name="activity_login_password_hint">Lösenord</string>
@@ -9,6 +12,9 @@
     <string name="activity_login_username_message_error_text">Inget giltigt användarnamn</string>
     <string name="activity_login_password_message_error_text">Inget giltigt lösenord</string>
     <string name="activity_login_password_message_text">Ange lösenord</string>
+
+                <!-- Order Activity -->
+
     <string name="activity_order_currency"> kr</string>
     <string name="activity_order_orderid_label">Order:</string>
     <string name="activity_order_customer_label">Kund:</string>
@@ -29,8 +35,18 @@
     <string name="activity_order_google_maps_location">google.navigation:q=</string>
     <string name="activity_order_list_update_btn_text">Undelivered</string>
     <string name="activity_order_log_access">Asking for permission: %s</string>
+
+                <!-- Orderlist Activity -->
+
     <string name="order_list_item_customer_label">Kund:</string>
     <string name="order_list_item_delivery_address_label">Adress:</string>
+    <string name="activity_order_list_actionbar_label1">Historik</string>
+    <string name="activity_order_list_actionbar_label2">Ordrar</string>
+    <string name="activity_order_list_number">23463</string>
+    <string name="activity_order_list_adress">Storgatan 10</string>
+
+                <!-- Settings Activity -->
+
     <string name="activity_settings_number_of_orders">10</string>
     <string name="activity_settings_orders_setting_label">ORDRAR ATT HÄMTA</string>
     <string name="activity_settings_phone_number_setting_label">TELEFONNUMMER</string>
@@ -45,6 +61,9 @@
     <string name="activity_maps_title">Karta</string>
     <string name="actionbar_settings_option_title">Inställningar</string>
     <string name="actionbar_settings_logout_title">Logga ut</string>
+    <string name="activity_settings_actionbar_label">Inställningar</string>
+
+
     <string name="actionbar_add_orders_option_title">Lägg till ordrar</string>
     <string name="session_time_out_message">Du var inaktiv för länge</string>
     <string name="log_message">item does not exists</string>
@@ -52,9 +71,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="actionbar_find_order_QR_title">Hitta order - QR</string>
     <string name="activity_order_toast_message_gps_error">Ingen GPS tillgänglig. Var god kolla dina inställningar.</string>
-    <string name="activity_order_list_actionbar_label1">Historik</string>
-    <string name="activity_order_list_actionbar_label2">Ordrar</string>
-    <string name="activity_settings_actionbar_label">Inställningar</string>
+
     <string name="activity_qr_scan_actionbar_label">Scanna QR</string>
     <string name="activity_order_actionbar_label">Order information</string>
     <string name="activity_qr_scan_order_found_toast">Order %s hittad!</string>

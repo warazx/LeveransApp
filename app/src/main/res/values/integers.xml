@@ -4,6 +4,12 @@
     <integer name="order_list_item_label_weight">3</integer>
     <integer name="order_list_item_value_weight">7</integer>
 
+
+    <!-- OrderList Layout Values-->
+    <integer name="layout_weight">9</integer>
+    <integer name="internal_layout_weight">2</integer>
+
+
     <!-- Order Activity Weight Values-->
     <integer name="activity_order_label_weight">3</integer>
     <integer name="activity_order_value_weight">7</integer>
@@ -15,7 +21,6 @@
     <integer name="seek_bar_max">10</integer>
     <integer name="text_max_length">15</integer>
     <integer name="ems">10</integer>
-
 
 
 </resources>
