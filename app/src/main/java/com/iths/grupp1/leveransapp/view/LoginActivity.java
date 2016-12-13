@@ -55,6 +55,7 @@ public class LoginActivity extends AppCompatActivity {
      * @param view
      */
     public void evaluateLogInData(View view){
+        deleteMessage();
         enteredUsername = username.getText().toString();
         enteredPassword = password.getText().toString();
         User user = users.getUser(enteredUsername);
