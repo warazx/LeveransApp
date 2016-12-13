@@ -33,7 +33,6 @@
     <string name="activity_order_order_sum_label">Summa:</string>
     <string name="activity_order_google_maps_package">com.google.android.apps.maps</string>
     <string name="activity_order_google_maps_location">google.navigation:q=</string>
-    <string name="activity_order_list_update_btn_text">Undelivered</string>
     <string name="activity_order_log_access">Asking for permission: %s</string>
 
                 <!-- Orderlist Activity -->
@@ -56,7 +55,7 @@
     <string name="activity_settings_add_number_label">Nytt telefonnummer</string>
     <string name="activity_settings_alert_btn_label">OK</string>
     <string name="activity_settings_save_settings_notification">Inställningar sparade</string>
-    <string name="activity_settings_phone_message_error">Invalid phone number, please change in settings.</string>
+    <string name="activity_settings_phone_message_error">Felaktigt telefonnummer. Var god kolla dina inställningar.</string>
     <string name="activity_settings_phone_number">0123456789</string>
     <string name="activity_maps_title">Karta</string>
     <string name="actionbar_settings_option_title">Inställningar</string>
@@ -66,9 +65,8 @@
 
     <string name="actionbar_add_orders_option_title">Lägg till ordrar</string>
     <string name="session_time_out_message">Du var inaktiv för länge</string>
-    <string name="log_message">item does not exists</string>
+    <string name="log_message">Finns ej</string>
     <string name="empty_string" />
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="actionbar_find_order_QR_title">Hitta order - QR</string>
     <string name="activity_order_toast_message_gps_error">Ingen GPS tillgänglig. Var god kolla dina inställningar.</string>
 
