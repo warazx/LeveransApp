@@ -306,7 +306,6 @@ public class OrderSQLiteOpenHelper extends SQLiteOpenHelper {
 
         String command = "SELECT" + " * " + "FROM" + " " + TABLE_USERS
                        + " WHERE " + USER_USERNAME + " = " + "'" + username + "'";
-                       //+ " AND " + USER_PASSWORD + " = " + "'" + password + "'";
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(command,null);
